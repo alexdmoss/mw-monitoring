@@ -4,16 +4,19 @@ set -euo pipefail
 function main() {
 
   _console_msg "Creating namespace ..."
-  
   kubectl apply -f ./k8s/namespace.yaml
 
   _console_msg "Installing prometheus operator ..."
-  
   kubectl apply -f ./k8s/prometheus-operator/
 
+  _console_msg "Creating kube-state-metrics ..."
+  kubectl apply -f ./k8s/kube-state-metrics/
+
   _console_msg "Creating prometheus ..."
-  
   kubectl apply -f ./k8s/prometheus/
+
+  _console_msg "Creating platform Service Monitors ..."
+  kubectl apply -f ./k8s/servicemonitors/
 
 }
 
@@ -36,7 +39,7 @@ function _console_msg() {
   fi
 
   echo
-  
+
 }
 
 main "$@"

@@ -21,7 +21,7 @@ spec:
         - --kubelet-service=kube-system/kubelet
         - --config-reloader-image=quay.io/coreos/configmap-reload:v0.0.1
         - --config-reloader-cpu=20m
-        - --prometheus-config-reloader-cpu=20m
+        - --prometheus-config-reloader=quay.io/coreos/prometheus-config-reloader:v0.32.0
         - --logtostderr=true
         image: quay.io/coreos/prometheus-operator:v0.32.0
         name: prometheus-operator

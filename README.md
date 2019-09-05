@@ -9,12 +9,13 @@ I've deliberately used [CoreOS' Prometheus Operator](https://github.com/coreos/p
 ## To Do
 
 - [x] Install Operator for CoreOS Prometheus
-- [ ] Create a Prometheus
-- [ ] A simple service monitor to test its working - perhaps Elastic
+- [x] Create a Prometheus
+- [x] A simple service monitor to test its working *(used cert-manager)*
 - [ ] Grafana
 - [ ] AlertManager
-- [ ] kube-state-metrics
-- [ ] kube-event-metrics
+- [x] kube-state-metrics
+- [ ] *needs building* kube-event-metrics
+- [ ] *not working* kubelet metrics
 - [ ] Log-based metrics creation & detection
 - [ ] What's needed for existing workloads to expose
 - [ ] CI

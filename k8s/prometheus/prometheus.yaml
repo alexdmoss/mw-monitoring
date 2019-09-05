@@ -12,17 +12,20 @@ spec:
   scrapeInterval: 10s
   evaluationInterval: 30s
   serviceAccountName: mw-prometheus
-  serviceMonitorNamespaceSelector:
-    matchLabels:
-      prometheus-namespace: monitoring
+  # serviceMonitorNamespaceSelector:
+  #   matchLabels:
+  #     prometheus-namespace: monitoring
+  serviceMonitorNamespaceSelector: {}
   serviceMonitorSelector: {}
-  podMonitorNamespaceSelector:
-    matchLabels:
-      prometheus-namespace: monitoring
+  # podMonitorNamespaceSelector:
+  #   matchLabels:
+  #     prometheus-namespace: monitoring
+  podMonitorNamespaceSelector: {}
   podMonitorSelector: {}
-  ruleNamespaceSelector:
-    matchLabels:
-      prometheus-namespace: monitoring
+  # ruleNamespaceSelector:
+  #   matchLabels:
+  #     prometheus-namespace: monitoring
+  ruleNamespaceSelector: {}
   ruleSelector: {}
   affinity:
     podAntiAffinity:
@@ -56,18 +59,18 @@ spec:
     fsGroup: 2000
     runAsUser: 1000
     runAsNonRoot: true
-  alerting:
-    alertmanagers:
-    - namespace: monitoring
-      name: mw-alertmanager
-      port: web
+  # alerting:
+  #   alertmanagers:
+  #   - namespace: monitoring
+  #     name: mw-alertmanager
+  #     port: web
   baseImage: quay.io/prometheus/prometheus
   version: v2.12.0
-  tolerations:
-  - key: app
-    operator: Equal
-    value: prometheus
-    effect: NoSchedule
+  # tolerations:
+  # - key: app
+  #   operator: Equal
+  #   value: prometheus
+  #   effect: NoSchedule
 ---
 kind: StorageClass
 apiVersion: storage.k8s.io/v1beta1
