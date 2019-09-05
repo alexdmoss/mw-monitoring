@@ -13,11 +13,13 @@ I've deliberately used [CoreOS' Prometheus Operator](https://github.com/coreos/p
 - [x] A simple service monitor to test its working *(used cert-manager)*
 - [x] Grafana
   - [x] Use password that's not the default!
-  - [ ] Some default dashboards to test things out
-- [ ] AlertManager
+  - [x] Some default dashboards to test things out
+- [x] AlertManager
+  - [ ] Set up a destination for alerts to go - email?
 - [x] kube-state-metrics
 - [ ] *needs building* kube-event-metrics
 - [ ] *not working* kubelet metrics
+- [ ] Fix remaining dashboards
 - [ ] Log-based metrics creation & detection
 - [ ] What's needed for existing workloads to expose
 - [ ] CI

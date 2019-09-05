@@ -59,11 +59,11 @@ spec:
     fsGroup: 2000
     runAsUser: 1000
     runAsNonRoot: true
-  # alerting:
-  #   alertmanagers:
-  #   - namespace: monitoring
-  #     name: mw-alertmanager
-  #     port: web
+  alerting:
+    alertmanagers:
+    - namespace: monitoring
+      name: alertmanager-main
+      port: web
   baseImage: quay.io/prometheus/prometheus
   version: v2.12.0
   # tolerations:

@@ -1,0 +1,43 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  labels:
+    alertmanager: main
+  name: main
+  namespace: monitoring
+spec:
+  baseImage: quay.io/prometheus/alertmanager
+  version: v0.18.0
+  replicas: 2
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              alertmanager: k8s
+          topologyKey: failure-domain.beta.kubernetes.io/zone
+  resources:
+    requests:
+      memory: 15Mi
+      cpu: 10m
+    limits:
+      memory: 30Mi
+      cpu: 100m
+  securityContext:
+    fsGroup: 2000
+    runAsNonRoot: true
+    runAsUser: 1000
+  serviceAccountName: alertmanager-main
+---
+kind: PodDisruptionBudget
+apiVersion: policy/v1beta1
+metadata:
+  name: alert-manager-pdb
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: alertmanager

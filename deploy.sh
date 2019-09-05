@@ -17,6 +17,9 @@ function main() {
   _console_msg "Creating prometheus ..."
   kubectl apply -f ./k8s/prometheus/
 
+  _console_msg "Creating alertmanager ..."
+  kubectl apply -f ./k8s/alertmanager/
+
   _console_msg "Creating platform Service Monitors ..."
   kubectl apply -f ./k8s/servicemonitors/
 
@@ -26,11 +29,14 @@ function main() {
   popd > /dev/null
 
   _console_msg "Creating Grafana ..."
-  export DATASOURCE=$(cat ./grafana/datasource.txt | base64 -w0)  
+  export DATASOURCE=$(cat ./grafana/datasource.txt | base64)  
   cat ./k8s/grafana/*.yaml | envsubst | kubectl apply -f -
 
   _console_msg "Creating Grafana Dashboards ..."
-  kubectl apply -f ./k8s/grafana/dashboards/
+  kubectl apply -f ./k8s/dashboards/
+
+  _console_msg "Creating Alert Rules ..."
+  kubectl apply -f ./k8s/alerts/
 
 }
 
