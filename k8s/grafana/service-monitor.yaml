@@ -1,0 +1,18 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: grafana
+  namespace: monitoring
+  labels:
+    metrics: prometheus
+    app: grafana
+spec:
+  jobLabel: app
+  endpoints:
+  - port: web
+    path: /metrics
+    interval: 15s
+  selector:
+    matchLabels:
+      app: grafana

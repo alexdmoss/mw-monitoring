@@ -1,0 +1,2 @@
+gcp_project_name = "moss-work"
+admin_password_encrypted = "CiQA+QJn7kQ9Qj7OZSvIBSwqMuEvmr375dGoJinc5pHZcHBMdOQSLwDFgpCsB+BSG0+TfLIuNb7gRUeJctfTA0n8kL3t2PLaFBaBsJ474rRHooKvqQpd"

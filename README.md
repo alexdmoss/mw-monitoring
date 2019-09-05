@@ -11,7 +11,9 @@ I've deliberately used [CoreOS' Prometheus Operator](https://github.com/coreos/p
 - [x] Install Operator for CoreOS Prometheus
 - [x] Create a Prometheus
 - [x] A simple service monitor to test its working *(used cert-manager)*
-- [ ] Grafana
+- [x] Grafana
+  - [x] Use password that's not the default!
+  - [ ] Some default dashboards to test things out
 - [ ] AlertManager
 - [x] kube-state-metrics
 - [ ] *needs building* kube-event-metrics
@@ -25,6 +27,10 @@ I've deliberately used [CoreOS' Prometheus Operator](https://github.com/coreos/p
 
 - [ ] promxy
 - [ ] Ingress for Prometheus
+- [ ] DB for Grafana & replicas > 1
+- [ ] Google OAuth setup for Grafana
+- [ ] Better dashboard loading for Grafana
+- [ ] Grafana plugins experimentation
 
 ---
 
