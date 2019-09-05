@@ -9,6 +9,7 @@ I've deliberately used [CoreOS' Prometheus Operator](https://github.com/coreos/p
 ## To Do
 
 - [x] Install Operator for CoreOS Prometheus
+- [ ] Create a Prometheus
 - [ ] A simple service monitor to test its working - perhaps Elastic
 - [ ] Grafana
 - [ ] AlertManager
@@ -19,8 +20,13 @@ I've deliberately used [CoreOS' Prometheus Operator](https://github.com/coreos/p
 - [ ] CI
 - [ ] Smoke Tests
 
+## Maybe To Do
+
+- [ ] promxy
+- [ ] Ingress for Prometheus
+
 ---
 
 ## More Detail
 
-- Operator itself taken from https://github.com/coreos/prometheus-operator/blob/master/bundle.yaml and tweaked (namespace, resources, labels)
+- Operator itself taken from https://github.com/coreos/prometheus-operator/blob/master/bundle.yaml and tweaked (namespace, resources, labels). Had to add `--config-reloader-cpu=20m` to fit it on my tiny cluster! There is no equivalent for the prometheus-config-reloader in the current Operator sadly, but just setting it for config-reloader was sufficient to get me up and running
