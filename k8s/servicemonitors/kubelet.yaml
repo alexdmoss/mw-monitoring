@@ -6,8 +6,9 @@ metadata:
   namespace: monitoring
   labels:
     app: kubelet
+    k8s-app: kubelet
 spec:
-  jobLabel: app
+  jobLabel: k8s-app
   endpoints:
   - port: http-metrics
     path: /metrics
@@ -75,7 +76,7 @@ spec:
       action: drop
   selector:
     matchLabels:
-      app: kubelet
+      k8s-app: kubelet
   namespaceSelector:
     matchNames:
     - kube-system

@@ -52,6 +52,9 @@ spec:
         - name: grafana-dashboards
           mountPath: /etc/grafana/provisioning/dashboards
           readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-basic-resource
+          name: grafana-dashboard-basic-resources
+          readOnly: false
         - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-k8s-resources-cluster
           name: grafana-dashboard-k8s-resources-cluster
           readOnly: false
@@ -140,6 +143,9 @@ spec:
       - name: grafana-dashboards
         configMap:
           name: grafana-dashboards
+      - name: grafana-dashboard-basic-resources
+        configMap:
+          name: grafana-dashboard-basic-resources
       - name: grafana-dashboard-k8s-resources-cluster
         configMap:
           name: grafana-dashboard-k8s-resources-cluster
