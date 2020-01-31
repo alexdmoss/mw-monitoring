@@ -1,0 +1,107 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: grafana
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: grafana
+  serviceName: grafana
+  template:
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: prometheus
+                topologyKey: failure-domain.beta.kubernetes.io/zone
+              weight: 100
+      securityContext:
+        fsGroup: 65534
+        runAsUser: 65534
+        runAsNonRoot: true
+      serviceAccount: grafana
+      serviceAccountName: grafana
+      terminationGracePeriodSeconds: 600
+      containers:
+        - name: grafana
+          image: grafana/grafana:6.6.0
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: GF_SECURITY_ADMIN_USER
+            valueFrom:
+              secretKeyRef:
+                name: grafana-admin-user
+                key: user
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: grafana-admin-user
+                key: password
+          ports:
+          - name: web
+            containerPort: 3000
+          resources:
+            requests:
+              memory: 100Mi
+              cpu: 100m
+            limits:
+              memory: 150Mi
+              cpu: 200m
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: web
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: web
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+            limits:
+              cpu: 100m
+              memory: 250Mi
+          volumeMounts:
+          - name: config
+            mountPath: "/etc/grafana/"
+          - name: dashboards
+            mountPath: "/var/lib/grafana/dashboards/"
+          - name: datasources
+            mountPath: "/etc/grafana/provisioning/datasources/"
+          - name: dashboard-providers
+            mountPath: "/etc/grafana/provisioning/dashboards/"
+          - name: grafana-data
+            mountPath: "/var/lib/grafana"
+      restartPolicy: Always
+      volumes:
+      - name: config
+        configMap:
+          name: grafana-ini
+      - name: datasources
+        configMap:
+          name: grafana-datasources
+      - name: dashboard-providers
+        configMap:
+          name: grafana-dashboard-providers
+      - name: dashboards
+        configMap:
+          name: grafana-dashboards
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - metadata:
+      name: grafana-data
+    spec:
+      storageClassName: standard
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: "1Gi"

@@ -1,0 +1,23 @@
+---
+kind: pipeline
+name: mw-monitoring
+
+steps:
+  - name: deploy
+    image: mosstech/drone-gke-deployer:latest
+    environment:
+      DOMAIN:
+        from_secret: GRAFANA_DOMAIN
+      GRAFANA_PASS:
+        from_secret: GRAFANA_PASS
+      GCP_PROJECT_ID:
+        from_secret: MW_PROJECT
+      K8S_DEPLOYER_CREDS:
+        from_secret: MW_K8S_DEPLOYER
+      K8S_CLUSTER_NAME:
+        from_secret: MW_K8S_CLUSTER_NAME
+    commands:
+      - ./deploy.sh
+    when:
+      event: push
+      branch: master

@@ -1,0 +1,22 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  rules:
+    - host: ${DOMAIN}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: grafana
+              servicePort: web
+  tls:
+    - secretName: grafana-tls
+      hosts:
+        - ${DOMAIN}

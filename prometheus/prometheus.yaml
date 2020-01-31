@@ -1,0 +1,60 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: mw
+  namespace: ${NAMESPACE}
+  labels:
+    app: prometheus
+spec:
+  replicas: 2
+  retention: 180d
+  scrapeInterval: 10s
+  evaluationInterval: 30s
+  serviceAccountName: prometheus
+  # target Selectors with matchLabels.prometheus-namespace: ''
+  serviceMonitorNamespaceSelector: {}
+  serviceMonitorSelector: {}
+  podMonitorNamespaceSelector: {}
+  podMonitorSelector: {}
+  ruleNamespaceSelector: {}
+  ruleSelector: {}
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: prometheus
+            topologyKey: failure-domain.beta.kubernetes.io/zone
+  storage:
+    volumeClaimTemplate:
+      metadata:
+        name: prometheus-storage
+        labels:
+          app: prometheus
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 20Gi
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 50m
+      memory: 250Mi
+  securityContext:
+    fsGroup: 2000
+    runAsUser: 1000
+    runAsNonRoot: true
+  alerting:
+    alertmanagers:
+      - namespace: prometheus
+        name: alertmanager
+        port: web
+  baseImage: quay.io/prometheus/prometheus
+  version: v2.12.0
