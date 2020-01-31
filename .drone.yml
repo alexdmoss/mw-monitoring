@@ -21,3 +21,8 @@ steps:
     when:
       event: push
       branch: master
+---
+kind: signature
+hmac: 0fe565c175c6473a2abe794bcfef812ed4d8c40fc18661a578a2412797d3e307
+
+...
