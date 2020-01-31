@@ -38,6 +38,14 @@ It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when 
 - [x] Persist that dashboard somewhere
 - [x] Some CI for all this
 - [x] kubernetes-mixin dashboards
+  - nodes (needs node-exporter)
+  - resources-by-cluster-2
+  - resources-by-namespace-2
+  - cluster-resource-usage-2
+  - node-resource-usage-2
+  - resources-by-pod-2
+  - capacity-planning
+  - cluster-health
 - [ ] Grafana with multiple replicas (issue with login) - DB vs stickiness in LB
 - [ ] Grafana login through Google Account
 - [ ] Test what happens when a prometheus pod is down
@@ -53,7 +61,7 @@ It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when 
 - [x] `kubelet` metrics
 - [x] `kube-state-metrics`
 - [x] `nginx-ingress-controller`
-- [ ] `cert-manager`
+- [x] `cert-manager`
 - [ ] `grafana`
 - [ ] `prometheus`
 - [ ] `prometheus-operator`

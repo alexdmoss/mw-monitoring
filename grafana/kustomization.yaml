@@ -22,10 +22,42 @@ configMapGenerator:
   - config/grafana.ini
   name: grafana-ini
 - files:
-  - dashboards/capacity-planning.json
-  - dashboards/cluster-health.json
-  - dashboards/mosstech.io.json
-  name: grafana-dashboards
+  - dashboards/mw/ingress-controller.json
+  - dashboards/mw/mosstech.io.json
+  name: grafana-dashboards-mw
+- files:
+  - dashboards/resources/resources-by-pod-2.json
+  - dashboards/resources/resources-by-pod.json
+  - dashboards/resources/resources-by-workload-and-namespace.json
+  - dashboards/resources/resources-by-workload.json
+  name: grafana-dashboards-resources
+- files:
+  - dashboards/workloads/capacity-planning.json
+  - dashboards/workloads/cluster-health.json
+  name: grafana-dashboards-workloads
+- files:
+  - dashboards/new/deployments.json
+  - dashboards/new/kube-dns.json
+  - dashboards/new/kubelet.json
+  - dashboards/new/nodes-2.json
+  - dashboards/new/nodes.json
+  - dashboards/new/pods-2.json
+  - dashboards/new/pods.json
+  - dashboards/new/stateful-sets-2.json
+  - dashboards/new/stateful-sets.json
+  name: grafana-dashboards-new
+- files:
+  - dashboards/newer/resources-by-cluster-2.json
+  - dashboards/newer/resources-by-cluster.json
+  - dashboards/newer/resources-by-namespace-2.json
+  - dashboards/newer/resources-by-namespace.json
+  name: grafana-dashboards-newer
+- files:
+  - dashboards/resource-usage/cluster-resource-usage-2.json
+  - dashboards/resource-usage/cluster-resource-usage.json
+  - dashboards/resource-usage/node-resource-usage-2.json
+  - dashboards/resource-usage/node-resource-usage.json
+  name: grafana-dashboards-usage
 
 resources:
 - certificate.yaml

@@ -2,13 +2,13 @@
     "annotations": {
         "list": []
     },
-    "editable": false,
+    "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
     "hideControls": false,
     "id": null,
     "links": [],
-    "refresh": "",
+    "refresh": "10s",
     "rows": [
         {
             "collapse": false,
@@ -62,29 +62,30 @@
                             "to": "null"
                         }
                     ],
-                    "span": 4,
+                    "span": 3,
                     "sparkline": {
                         "fillColor": "rgba(31, 118, 189, 0.18)",
+                        "full": false,
                         "lineColor": "rgb(31, 120, 193)",
-                        "show": true
+                        "show": false
                     },
                     "tableColumn": "",
                     "targets": [
                         {
-                            "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$deployment_namespace\",pod_name=~\"$deployment_name.*\"}[3m]))",
+                            "expr": "sum(up{job=~\"apiserver|kube-scheduler|kube-controller-manager\"} == 0)",
                             "format": "time_series",
                             "intervalFactor": 2,
                             "legendFormat": ""
                         }
                     ],
                     "thresholds": "",
-                    "title": "CPU",
+                    "title": "Control Plane Components Down",
                     "type": "singlestat",
                     "valueFontSize": "80%",
                     "valueMaps": [
                         {
                             "op": "=",
-                            "text": "0",
+                            "text": "Everything UP and healthy",
                             "value": "null"
                         }
                     ],
@@ -137,23 +138,24 @@
                             "to": "null"
                         }
                     ],
-                    "span": 4,
+                    "span": 3,
                     "sparkline": {
                         "fillColor": "rgba(31, 118, 189, 0.18)",
+                        "full": false,
                         "lineColor": "rgb(31, 120, 193)",
-                        "show": true
+                        "show": false
                     },
                     "tableColumn": "",
                     "targets": [
                         {
-                            "expr": "sum(container_memory_usage_bytes{namespace=\"$deployment_namespace\",pod_name=~\"$deployment_name.*\"}) / 1024^3",
+                            "expr": "sum(ALERTS{alertstate=\"firing\",alertname!=\"DeadMansSwitch\"})",
                             "format": "time_series",
                             "intervalFactor": 2,
                             "legendFormat": ""
                         }
                     ],
                     "thresholds": "",
-                    "title": "Memory",
+                    "title": "Alerts Firing",
                     "type": "singlestat",
                     "valueFontSize": "80%",
                     "valueMaps": [
@@ -212,23 +214,24 @@
                             "to": "null"
                         }
                     ],
-                    "span": 4,
+                    "span": 3,
                     "sparkline": {
                         "fillColor": "rgba(31, 118, 189, 0.18)",
+                        "full": false,
                         "lineColor": "rgb(31, 120, 193)",
-                        "show": true
+                        "show": false
                     },
                     "tableColumn": "",
                     "targets": [
                         {
-                            "expr": "sum(rate(container_network_transmit_bytes_total{namespace=\"$deployment_namespace\",pod_name=~\"$deployment_name.*\"}[3m])) + sum(rate(container_network_receive_bytes_total{namespace=\"$deployment_namespace\",pod_name=~\"$deployment_name.*\"}[3m]))",
+                            "expr": "sum(ALERTS{alertstate=\"pending\",alertname!=\"DeadMansSwitch\"})",
                             "format": "time_series",
                             "intervalFactor": 2,
                             "legendFormat": ""
                         }
                     ],
                     "thresholds": "",
-                    "title": "Network",
+                    "title": "Alerts Pending",
                     "type": "singlestat",
                     "valueFontSize": "80%",
                     "valueMaps": [
@@ -239,21 +242,7 @@
                         }
                     ],
                     "valueName": "current"
-                }
-            ],
-            "repeat": null,
-            "repeatIteration": null,
-            "repeatRowId": null,
-            "showTitle": false,
-            "title": "Dashboard Row",
-            "titleSize": "h6",
-            "type": "row"
-        },
-        {
-            "collapse": false,
-            "collapsed": false,
-            "height": "100px",
-            "panels": [
+                },
                 {
                     "cacheTimeout": null,
                     "colorBackground": false,
@@ -311,14 +300,14 @@
                     "tableColumn": "",
                     "targets": [
                         {
-                            "expr": "max(kube_deployment_spec_replicas{namespace=\"$deployment_namespace\",deployment=\"$deployment_name\"}) without (instance, pod)",
+                            "expr": "count(increase(kube_pod_container_status_restarts_total[1h]) > 5)",
                             "format": "time_series",
                             "intervalFactor": 2,
                             "legendFormat": ""
                         }
                     ],
                     "thresholds": "",
-                    "title": "Desired Replicas",
+                    "title": "Crashlooping Pods",
                     "type": "singlestat",
                     "valueFontSize": "80%",
                     "valueMaps": [
@@ -329,7 +318,21 @@
                         }
                     ],
                     "valueName": "current"
-                },
+                }
+            ],
+            "repeat": null,
+            "repeatIteration": null,
+            "repeatRowId": null,
+            "showTitle": false,
+            "title": "Dashboard Row",
+            "titleSize": "h6",
+            "type": "row"
+        },
+        {
+            "collapse": false,
+            "collapsed": false,
+            "height": "250px",
+            "panels": [
                 {
                     "cacheTimeout": null,
                     "colorBackground": false,
@@ -387,14 +390,14 @@
                     "tableColumn": "",
                     "targets": [
                         {
-                            "expr": "min(kube_deployment_status_replicas_available{namespace=\"$deployment_namespace\",deployment=\"$deployment_name\"}) without (instance, pod)",
+                            "expr": "sum(kube_node_status_condition{condition=\"Ready\",status!=\"true\"})",
                             "format": "time_series",
                             "intervalFactor": 2,
                             "legendFormat": ""
                         }
                     ],
                     "thresholds": "",
-                    "title": "Available Replicas",
+                    "title": "Node Not Ready",
                     "type": "singlestat",
                     "valueFontSize": "80%",
                     "valueMaps": [
@@ -463,14 +466,14 @@
                     "tableColumn": "",
                     "targets": [
                         {
-                            "expr": "max(kube_deployment_status_observed_generation{namespace=\"$deployment_namespace\",deployment=\"$deployment_name\"}) without (instance, pod)",
+                            "expr": "sum(kube_node_status_condition{condition=\"DiskPressure\",status=\"true\"})",
                             "format": "time_series",
                             "intervalFactor": 2,
                             "legendFormat": ""
                         }
                     ],
                     "thresholds": "",
-                    "title": "Observed Generation",
+                    "title": "Node Disk Pressure",
                     "type": "singlestat",
                     "valueFontSize": "80%",
                     "valueMaps": [
@@ -539,14 +542,90 @@
                     "tableColumn": "",
                     "targets": [
                         {
-                            "expr": "max(kube_deployment_metadata_generation{deployment=\"$deployment_name\",namespace=\"$deployment_namespace\"}) without (instance, pod)",
+                            "expr": "sum(kube_node_status_condition{condition=\"MemoryPressure\",status=\"true\"})",
                             "format": "time_series",
                             "intervalFactor": 2,
                             "legendFormat": ""
                         }
                     ],
                     "thresholds": "",
-                    "title": "Metadata Generation",
+                    "title": "Node Memory Pressure",
+                    "type": "singlestat",
+                    "valueFontSize": "80%",
+                    "valueMaps": [
+                        {
+                            "op": "=",
+                            "text": "0",
+                            "value": "null"
+                        }
+                    ],
+                    "valueName": "current"
+                },
+                {
+                    "cacheTimeout": null,
+                    "colorBackground": false,
+                    "colorValue": false,
+                    "colors": [
+                        "#299c46",
+                        "rgba(237, 129, 40, 0.89)",
+                        "#d44a3a"
+                    ],
+                    "datasource": "prometheus",
+                    "format": "none",
+                    "gauge": {
+                        "maxValue": 100,
+                        "minValue": 0,
+                        "show": false,
+                        "thresholdLabels": false,
+                        "thresholdMarkers": true
+                    },
+                    "gridPos": {},
+                    "id": 9,
+                    "interval": null,
+                    "links": [],
+                    "mappingType": 1,
+                    "mappingTypes": [
+                        {
+                            "name": "value to text",
+                            "value": 1
+                        },
+                        {
+                            "name": "range to text",
+                            "value": 2
+                        }
+                    ],
+                    "maxDataPoints": 100,
+                    "nullPointMode": "connected",
+                    "nullText": null,
+                    "postfix": "",
+                    "postfixFontSize": "50%",
+                    "prefix": "",
+                    "prefixFontSize": "50%",
+                    "rangeMaps": [
+                        {
+                            "from": "null",
+                            "text": "N/A",
+                            "to": "null"
+                        }
+                    ],
+                    "span": 3,
+                    "sparkline": {
+                        "fillColor": "rgba(31, 118, 189, 0.18)",
+                        "full": false,
+                        "lineColor": "rgb(31, 120, 193)",
+                        "show": false
+                    },
+                    "tableColumn": "",
+                    "targets": [
+                        {
+                            "expr": "sum(kube_node_spec_unschedulable)",
+                            "format": "time_series",
+                            "intervalFactor": 2,
+                            "legendFormat": ""
+                        }
+                    ],
+                    "thresholds": "",
+                    "title": "Node Unschedulable",
                     "type": "singlestat",
                     "valueFontSize": "80%",
                     "valueMaps": [
@@ -566,174 +645,13 @@
             "title": "Dashboard Row",
             "titleSize": "h6",
             "type": "row"
-        },
-        {
-            "collapse": false,
-            "collapsed": false,
-            "height": "250px",
-            "panels": [
-                {
-                    "aliasColors": {},
-                    "bars": false,
-                    "dashLength": 10,
-                    "dashes": false,
-                    "datasource": "prometheus",
-                    "fill": 1,
-                    "gridPos": {},
-                    "id": 9,
-                    "legend": {
-                        "alignAsTable": false,
-                        "avg": false,
-                        "current": false,
-                        "max": false,
-                        "min": false,
-                        "rightSide": false,
-                        "show": true,
-                        "total": false,
-                        "values": false
-                    },
-                    "lines": true,
-                    "linewidth": 1,
-                    "nullPointMode": "null",
-                    "percentage": false,
-                    "pointradius": 5,
-                    "points": false,
-                    "renderer": "flot",
-                    "repeat": null,
-                    "seriesOverrides": [],
-                    "spaceLength": 10,
-                    "span": 12,
-                    "stack": false,
-                    "steppedLine": false,
-                    "targets": [
-                        {
-                            "expr": "max(kube_deployment_status_replicas{deployment=\"$deployment_name\",namespace=\"$deployment_namespace\"}) without (instance, pod)",
-                            "format": "time_series",
-                            "intervalFactor": 2,
-                            "legendFormat": "current replicas",
-                            "refId": "A"
-                        },
-                        {
-                            "expr": "min(kube_deployment_status_replicas_available{deployment=\"$deployment_name\",namespace=\"$deployment_namespace\"}) without (instance, pod)",
-                            "format": "time_series",
-                            "intervalFactor": 2,
-                            "legendFormat": "available",
-                            "refId": "B"
-                        },
-                        {
-                            "expr": "max(kube_deployment_status_replicas_unavailable{deployment=\"$deployment_name\",namespace=\"$deployment_namespace\"}) without (instance, pod)",
-                            "format": "time_series",
-                            "intervalFactor": 2,
-                            "legendFormat": "unavailable",
-                            "refId": "C"
-                        },
-                        {
-                            "expr": "min(kube_deployment_status_replicas_updated{deployment=\"$deployment_name\",namespace=\"$deployment_namespace\"}) without (instance, pod)",
-                            "format": "time_series",
-                            "intervalFactor": 2,
-                            "legendFormat": "updated",
-                            "refId": "D"
-                        },
-                        {
-                            "expr": "max(kube_deployment_spec_replicas{deployment=\"$deployment_name\",namespace=\"$deployment_namespace\"}) without (instance, pod)",
-                            "format": "time_series",
-                            "intervalFactor": 2,
-                            "legendFormat": "desired",
-                            "refId": "E"
-                        }
-                    ],
-                    "thresholds": [],
-                    "timeFrom": null,
-                    "timeShift": null,
-                    "title": "Replicas",
-                    "tooltip": {
-                        "shared": true,
-                        "sort": 0,
-                        "value_type": "individual"
-                    },
-                    "type": "graph",
-                    "xaxis": {
-                        "buckets": null,
-                        "mode": "time",
-                        "name": null,
-                        "show": true,
-                        "values": []
-                    },
-                    "yaxes": [
-                        {
-                            "format": "short",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": null,
-                            "show": true
-                        },
-                        {
-                            "format": "short",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": null,
-                            "show": true
-                        }
-                    ]
-                }
-            ],
-            "repeat": null,
-            "repeatIteration": null,
-            "repeatRowId": null,
-            "showTitle": false,
-            "title": "Dashboard Row",
-            "titleSize": "h6",
-            "type": "row"
         }
     ],
     "schemaVersion": 14,
     "style": "dark",
     "tags": [],
     "templating": {
-        "list": [
-            {
-                "allValue": null,
-                "current": {},
-                "datasource": "prometheus",
-                "hide": 0,
-                "includeAll": false,
-                "label": "Namespace",
-                "multi": false,
-                "name": "deployment_namespace",
-                "options": [],
-                "query": "label_values(kube_deployment_metadata_generation, namespace)",
-                "refresh": 2,
-                "regex": "",
-                "sort": 0,
-                "tagValuesQuery": "",
-                "tags": [],
-                "tagsQuery": "",
-                "type": "query",
-                "useTags": false
-            },
-            {
-                "allValue": null,
-                "current": {},
-                "datasource": "prometheus",
-                "hide": 0,
-                "includeAll": false,
-                "label": "Name",
-                "multi": false,
-                "name": "deployment_name",
-                "options": [],
-                "query": "label_values(kube_deployment_metadata_generation{namespace=\"$deployment_namespace\"}, deployment)",
-                "refresh": 2,
-                "regex": "",
-                "sort": 0,
-                "tagValuesQuery": "",
-                "tags": [],
-                "tagsQuery": "",
-                "type": "query",
-                "useTags": false
-            }
-        ]
+        "list": []
     },
     "time": {
         "from": "now-1h",
@@ -765,6 +683,6 @@
         ]
     },
     "timezone": "browser",
-    "title": "Deployments",
+    "title": "Kubernetes Cluster Health",
     "version": 0
 }

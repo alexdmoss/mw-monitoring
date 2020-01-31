@@ -71,14 +71,22 @@ spec:
           volumeMounts:
           - name: config
             mountPath: "/etc/grafana/"
-          - name: dashboards
-            mountPath: "/var/lib/grafana/dashboards/"
           - name: datasources
             mountPath: "/etc/grafana/provisioning/datasources/"
           - name: dashboard-providers
             mountPath: "/etc/grafana/provisioning/dashboards/"
           - name: grafana-data
             mountPath: "/var/lib/grafana"
+          - name: dashboards-mw
+            mountPath: "/var/lib/grafana/dashboards/mw"
+          - name: dashboards-new
+            mountPath: "/var/lib/grafana/dashboards/new"
+          - name: dashboards-newer
+            mountPath: "/var/lib/grafana/dashboards/newer"
+          - name: dashboards-workloads
+            mountPath: "/var/lib/grafana/dashboards/workloads"
+          - name: dashboards-usage
+            mountPath: "/var/lib/grafana/dashboards/usage"
       restartPolicy: Always
       volumes:
       - name: config
@@ -90,9 +98,21 @@ spec:
       - name: dashboard-providers
         configMap:
           name: grafana-dashboard-providers
-      - name: dashboards
+      - name: dashboards-mw
         configMap:
-          name: grafana-dashboards
+          name: grafana-dashboards-mw
+      - name: dashboards-new
+        configMap:
+          name: grafana-dashboards-new
+      - name: dashboards-workloads
+        configMap:
+          name: grafana-dashboards-workloads
+      - name: dashboards-newer
+        configMap:
+          name: grafana-dashboards-newer
+      - name: dashboards-usage
+        configMap:
+          name: grafana-dashboards-usage
   updateStrategy:
     type: RollingUpdate
   volumeClaimTemplates:

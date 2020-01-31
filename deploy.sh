@@ -24,7 +24,11 @@ function main() {
   _console_msg "Installing Grafana ..."
   pushd "grafana/"
   cp base-kustomization.yaml kustomization.yaml # easier when developing locally - not necessary in CI
-  kustomize edit add configmap grafana-dashboards --from-file=./dashboards/*.json
+  kustomize edit add configmap grafana-dashboards-mw --from-file=./dashboards/mw/*.json
+  kustomize edit add configmap grafana-dashboards-workloads --from-file=./dashboards/workloads/*.json
+  kustomize edit add configmap grafana-dashboards-new --from-file=./dashboards/new/*.json
+  kustomize edit add configmap grafana-dashboards-newer --from-file=./dashboards/newer/*.json
+  kustomize edit add configmap grafana-dashboards-usage --from-file=./dashboards/resource-usage/*.json
   kubectl apply -f ./namespace.yaml
   echo "user=admin" > ./secret.tmp
   echo "password=${GRAFANA_PASS}" >> ./secret.tmp
