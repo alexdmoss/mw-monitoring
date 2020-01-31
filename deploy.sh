@@ -37,21 +37,8 @@ function main() {
   kubectl apply -f ./metrics/kube-state-metrics/
   kubectl apply -f ./metrics/kubelet/
 
-  # _console_msg "Creating kube-state-metrics ..."
-  # kubectl apply -f ./k8s/kube-state-metrics/
-
   # _console_msg "Creating alertmanager ..."
   # kubectl apply -f ./k8s/alertmanager/
-
-  # _console_msg "Creating platform Service Monitors ..."
-  # kubectl apply -f ./k8s/servicemonitors/
-
-  # _console_msg "Creating Grafana ..."
-  # export DATASOURCE=$(cat ./grafana/datasource.txt | base64)  
-  # cat ./k8s/grafana/*.yaml | envsubst | kubectl apply -f -
-
-  # _console_msg "Creating Grafana Dashboards ..."
-  # kubectl apply -f ./k8s/dashboards/
 
   # _console_msg "Creating Alert Rules ..."
   # kubectl apply -f ./k8s/alerts/

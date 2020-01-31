@@ -36,6 +36,7 @@ It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when 
 - [x] Grafana saves dashboards permanently - how update them
 - [x] Create a 4GS dashboard for mosstech
 - [x] Persist that dashboard somewhere
+- [x] Some CI for all this
 - [ ] kubernetes-mixin dashboards
 - [ ] Grafana with multiple replicas (issue with login) - DB vs stickiness in LB
 - [ ] Grafana login through Google Account
@@ -43,7 +44,6 @@ It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when 
 - [ ] Test what happens when a grafana pod is down
 - [ ] Set up AlertManager
 - [ ] Availability Alert for mosstech
-- [ ] Some CI for all this
 - [ ] Some tests for all this
 - [ ] Remove the old terraformed stuff
 
@@ -52,7 +52,7 @@ It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when 
 - [x] `mosstech`
 - [x] `kubelet` metrics
 - [x] `kube-state-metrics`
-- [ ] `nginx-ingress-controller`
+- [x] `nginx-ingress-controller`
 - [ ] `cert-manager`
 - [ ] `grafana`
 - [ ] `prometheus`
