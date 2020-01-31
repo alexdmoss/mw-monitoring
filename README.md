@@ -37,7 +37,7 @@ It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when 
 - [x] Create a 4GS dashboard for mosstech
 - [x] Persist that dashboard somewhere
 - [x] Some CI for all this
-- [ ] kubernetes-mixin dashboards
+- [x] kubernetes-mixin dashboards
 - [ ] Grafana with multiple replicas (issue with login) - DB vs stickiness in LB
 - [ ] Grafana login through Google Account
 - [ ] Test what happens when a prometheus pod is down
