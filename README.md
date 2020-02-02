@@ -40,7 +40,7 @@ Multiple replicas are handled through stickiness configured on the `Ingress` - w
 - [x] Persist that dashboard somewhere
 - [x] Some CI for all this
 - [x] kubernetes-mixin dashboards
-- [ ] Clean up `ConfigMap`s
+- [x] Clean up `ConfigMap`s
 - [x] Grafana with multiple replicas (issue with login) - DB vs stickiness in LB
 - [ ] Grafana login through Google Account
 - [ ] Test what happens when a prometheus pod is down

@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-event-metrics
+  namespace: metrics
+  labels:
+    app: kube-event-metrics
+spec:
+  ports:
+    - name: http-metrics
+      port: 8080
+      targetPort: metrics
+      protocol: TCP
+  selector:
+    app: kube-event-metrics

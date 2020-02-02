@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-event-metrics
+  namespace: metrics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-event-metrics
+  template:
+    metadata:
+      labels:
+        app: kube-event-metrics
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      serviceAccountName: kube-event-metrics
+      containers:
+        - name: kube-event-metrics
+          image: eu.gcr.io/jl-container-images/platform/kube-event-metrics:249d9cb2de46dfe20ec65e66eea5225b44a537e0
+          imagePullPolicy: Always
+          env:
+            - name: SCRAPE_INTERVAL
+              value: "30"
+          ports:
+            - name: metrics
+              containerPort: 8080
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+            limits:
+              memory: 400Mi
+              cpu: 100m
