@@ -39,13 +39,9 @@ It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when 
 - [x] Some CI for all this
 - [x] kubernetes-mixin dashboards
   - nodes (needs node-exporter)
-  - resources-by-cluster-2 (poss needs node exporter)
-  - resources-by-namespace-2
-  - cluster-resource-usage-2
-  - node-resource-usage-2
-  - resources-by-pod-2
   - capacity-planning
   - cluster-health
+- [ ] Clean up `ConfigMap`s
 - [ ] Grafana with multiple replicas (issue with login) - DB vs stickiness in LB
 - [ ] Grafana login through Google Account
 - [ ] Test what happens when a prometheus pod is down
