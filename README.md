@@ -84,66 +84,10 @@ It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when 
 - [ ] promxy
 - [ ] Can you control the Grafana URLs used for dashboards?
 - [ ] Grafana plugins experimentation
+- [ ] https://grafana.com/docs/grafana/v6.5/features/datasources/stackdriver/
+- [ ] https://grafana.com/docs/grafana/latest/tutorials/ha_setup/
+- [ ] https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/
 
 mosstech:
 defect with mosstech and 404'ing when e.g. /wibble
 not seeing the 404's come through
-filtering of background noise?
-
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-basic-resource
-          name: grafana-dashboard-basic-resources
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-k8s-resources-cluster
-          name: grafana-dashboard-k8s-resources-cluster
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-apiserver
-          name: grafana-dashboard-apiserver
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-controller-manager
-          name: grafana-dashboard-controller-manager
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-k8s-resources-namespace
-          name: grafana-dashboard-k8s-resources-namespace
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-k8s-resources-pod
-          name: grafana-dashboard-k8s-resources-pod
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-k8s-resources-workload
-          name: grafana-dashboard-k8s-resources-workload
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-k8s-resources-workloads-namespace
-          name: grafana-dashboard-k8s-resources-workloads-namespace
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-kubelet
-          name: grafana-dashboard-kubelet
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-node-cluster-rsrc-use
-          name: grafana-dashboard-node-cluster-rsrc-use
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-node-rsrc-use
-          name: grafana-dashboard-node-rsrc-use
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-persistentvolumesusage
-          name: grafana-dashboard-persistentvolumesusage
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-nodes
-          name: grafana-dashboard-nodes
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-pods
-          name: grafana-dashboard-pods
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-prometheus-remote-write
-          name: grafana-dashboard-prometheus-remote-write
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-prometheus
-          name: grafana-dashboard-prometheus
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-proxy
-          name: grafana-dashboard-proxy
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-scheduler
-          name: grafana-dashboard-scheduler
-          readOnly: false
-        - mountPath: /grafana-dashboard-statefulset
-          name: grafana-dashboard-statefulset
-          readOnly: false

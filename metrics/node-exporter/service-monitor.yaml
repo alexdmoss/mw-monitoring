@@ -1,0 +1,24 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: node-exporter
+  namespace: metrics
+  labels:
+    app: node-exporter
+spec:
+  jobLabel: app
+  selector:
+    matchLabels:
+      app: node-exporter
+  endpoints:
+    - port: http-metrics
+      interval: 15s
+      relabelings:
+        - sourceLabels:
+            - __meta_kubernetes_pod_node_name
+          targetLabel: node_name
+      metricRelabelings:
+        - regex: node_filesystem_device_error
+          sourceLabels: [__name__]
+          action: drop

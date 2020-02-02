@@ -19,3 +19,7 @@ Capturing some sample queries as I learn more about how Prometheus works.
 To get drop-down for namespace:
 
 Variable - prometheus --> kube_namespace_labels --> /namespace="([a-zA-Z0-9\-_]*)"/
+
+## To Do
+
+- [ ] Understand what this is supposed to do `sum(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace="$ns"}) by (pod_name)` vs `sum(rate(container_cpu_usage_seconds_total{namespace="$ns"}[5m])) by (pod_name)`

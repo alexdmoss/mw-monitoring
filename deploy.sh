@@ -40,6 +40,8 @@ function main() {
   kubectl apply -f ./metrics/namespace.yaml
   kubectl apply -f ./metrics/kube-state-metrics/
   kubectl apply -f ./metrics/kubelet/
+  kubectl apply -f ./metrics/node-exporter/
+
 
   # _console_msg "Creating alertmanager ..."
   # kubectl apply -f ./k8s/alertmanager/
