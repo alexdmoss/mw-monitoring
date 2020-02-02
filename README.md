@@ -8,14 +8,14 @@ I've deliberately used [CoreOS' Prometheus Operator](https://github.com/coreos/p
 
 ## Prometheus
 
-The Operator is from https://github.com/coreos/prometheus-operator/blob/master/bundle.yaml and tweaked (namespace, resources, labels). Had to add `--config-reloader-cpu=20m` to fit it on my tiny cluster! There is no equivalent for the prometheus-config-reloader in the current Operator sadly, but just setting it for config-reloader was sufficient to get me up and running.
+This uses the [CoreOS Prometheus Operator](https://github.com/coreos/prometheus-operator/blob/master/bundle.yaml) and tweaked (namespace, resources, labels). Had to add `--config-reloader-cpu=20m` to fit it on my tiny cluster! There is no equivalent for the prometheus-config-reloader in the current Operator sadly, but just setting it for config-reloader was sufficient to get me up and running.
 
 ### Install
 
 1. Install the operator (`./prometheus-operator/`)
 2. Define a `Prometheus` itself (`./prometheus/`). I skimped on a dedicated `StorageClass` to save myself a few quid.
 
-When this is up and running, you should be able to `kubectl port-forward svc/prometheus-operated 9090:9090` and then hit http://localhost:9090/ and see one of the Promethei.
+When this is up and running, you should be able to `kubectl port-forward svc/prometheus-operated 9090:9090` and then hit `http://localhost:9090/` and see one of the Promethei.
 
 ## Grafana
 
@@ -39,7 +39,7 @@ It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when 
 - [x] Some CI for all this
 - [x] kubernetes-mixin dashboards
   - nodes (needs node-exporter)
-  - resources-by-cluster-2
+  - resources-by-cluster-2 (poss needs node exporter)
   - resources-by-namespace-2
   - cluster-resource-usage-2
   - node-resource-usage-2
