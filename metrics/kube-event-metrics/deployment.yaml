@@ -20,7 +20,7 @@ spec:
       serviceAccountName: kube-event-metrics
       containers:
         - name: kube-event-metrics
-          image: eu.gcr.io/jl-container-images/platform/kube-event-metrics:249d9cb2de46dfe20ec65e66eea5225b44a537e0
+          image: tommyvn/kube-event-metrics:v1.7.4
           imagePullPolicy: Always
           env:
             - name: SCRAPE_INTERVAL
