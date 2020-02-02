@@ -15,7 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "iteration": 1580650171312,
+    "iteration": 1580651063867,
     "links": [],
     "panels": [
         {
@@ -355,8 +355,8 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": null,
-            "fill": 10,
-            "fillGradient": 0,
+            "fill": 4,
+            "fillGradient": 8,
             "gridPos": {
                 "h": 7,
                 "w": 9,
@@ -375,7 +375,7 @@
                 "values": false
             },
             "lines": true,
-            "linewidth": 0,
+            "linewidth": 1,
             "links": [],
             "nullPointMode": "null as zero",
             "options": {
@@ -391,7 +391,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(container_memory_usage_bytes{cluster=\"\", namespace=\"\", container_name!=\"\"}) by (pod_name)",
+                    "expr": "sum(container_memory_usage_bytes{namespace=\"$namespace\", container_name!=\"\"}) by (pod_name)",
                     "format": "time_series",
                     "intervalFactor": 2,
                     "legendFormat": "{{pod_name}}",
@@ -494,7 +494,7 @@
                     "type": "hidden"
                 },
                 {
-                    "alias": "Memory Usage",
+                    "alias": "Usage",
                     "align": "auto",
                     "colorMode": null,
                     "colors": [],
@@ -509,7 +509,7 @@
                     "unit": "bytes"
                 },
                 {
-                    "alias": "Memory Requests",
+                    "alias": "Requests",
                     "align": "auto",
                     "colorMode": null,
                     "colors": [],
@@ -524,7 +524,7 @@
                     "unit": "bytes"
                 },
                 {
-                    "alias": "Memory Requests %",
+                    "alias": "Requests %",
                     "align": "auto",
                     "colorMode": null,
                     "colors": [],
@@ -539,7 +539,7 @@
                     "unit": "percentunit"
                 },
                 {
-                    "alias": "Memory Limits",
+                    "alias": "Limits",
                     "align": "auto",
                     "colorMode": null,
                     "colors": [],
@@ -554,7 +554,7 @@
                     "unit": "bytes"
                 },
                 {
-                    "alias": "Memory Limits %",
+                    "alias": "Limits %",
                     "align": "auto",
                     "colorMode": null,
                     "colors": [],
@@ -569,7 +569,7 @@
                     "unit": "percentunit"
                 },
                 {
-                    "alias": "Memory Usage (RSS)",
+                    "alias": "Usage (RSS)",
                     "align": "auto",
                     "colorMode": null,
                     "colors": [],
@@ -770,5 +770,5 @@
     "timezone": "",
     "title": "Kubernetes Resource Usage By Namespace",
     "uid": "85a562078cdf77779eaa1add43ccec1e",
-    "version": 14506
+    "version": 14552
 }
