@@ -3,10 +3,10 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   labels:
-    prometheus: k8s
+    app: prometheus
     role: alert-rules
   name: prometheus-k8s-rules
-  namespace: monitoring
+  namespace: metrics
 spec:
   groups:
     - name: k8s.rules
