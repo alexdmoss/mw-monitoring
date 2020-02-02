@@ -77,11 +77,11 @@ spec:
             mountPath: "/etc/grafana/provisioning/dashboards/"
           - name: grafana-data
             mountPath: "/var/lib/grafana"
-          - name: dashboards-mw
+          - name: dashboards-websites
             mountPath: "/var/lib/grafana/dashboards/websites"
-          - name: dashboards-new
+          - name: dashboards-k8s-resources
             mountPath: "/var/lib/grafana/dashboards/k8s-resources"
-          - name: dashboards-newer
+          - name: dashboards-k8s-cluster
             mountPath: "/var/lib/grafana/dashboards/k8s-cluster"
       restartPolicy: Always
       volumes:
