@@ -15,32 +15,48 @@ function main() {
     gcloud container clusters get-credentials ${K8S_CLUSTER_NAME} --project=${GCP_PROJECT_ID} --region=${region}
   fi
 
-  _console_msg "Installing Prometheus ..."
-  export NAMESPACE=prometheus
+
+  _console_msg "Setting up namespaces ..."
   kubectl apply -f ./prometheus/namespace.yaml
-  cat ./prometheus/operator/*.yaml | envsubst | kubectl apply -f -
-  cat ./prometheus/*.yaml | envsubst | kubectl apply -f -
+  kubectl apply -f ./grafana/namespace.yaml
+  kubectl apply -f ./metrics/namespace.yaml
+
+
+  _console_msg "Creating Dashboards ..."
+  pushd "dashboards/" > /dev/null 2>&1
+  cp base-kustomization.yaml kustomization.yaml # easier when developing locally - not necessary in CI
+  kustomize edit add configmap grafana-dashboards-mw --from-file=./mw/*.json
+  kustomize edit add configmap grafana-dashboards-workloads --from-file=./workloads/*.json
+  kustomize edit add configmap grafana-dashboards-new --from-file=./new/*.json
+  kustomize edit add configmap grafana-dashboards-newer --from-file=./newer/*.json
+  kustomize edit add configmap grafana-dashboards-usage --from-file=./resource-usage/*.json
+  kustomize build . | kubectl apply -f -
+  popd > /dev/null 2>&1
+
+
+  _console_msg "Installing Prometheus ..."
+  pushd "prometheus/" > /dev/null 2>&1
+  export NAMESPACE=prometheus
+  cat ./operator/*.yaml | envsubst | kubectl apply -f -
+  cat ./*.yaml | envsubst | kubectl apply -f -
+  popd > /dev/null 2>&1
+
 
   _console_msg "Installing Grafana ..."
-  pushd "grafana/"
-  cp base-kustomization.yaml kustomization.yaml # easier when developing locally - not necessary in CI
-  kustomize edit add configmap grafana-dashboards-mw --from-file=./dashboards/mw/*.json
-  kustomize edit add configmap grafana-dashboards-workloads --from-file=./dashboards/workloads/*.json
-  kustomize edit add configmap grafana-dashboards-new --from-file=./dashboards/new/*.json
-  kustomize edit add configmap grafana-dashboards-newer --from-file=./dashboards/newer/*.json
-  kustomize edit add configmap grafana-dashboards-usage --from-file=./dashboards/resource-usage/*.json
-  kubectl apply -f ./namespace.yaml
+  pushd "grafana/" > /dev/null 2>&1
   echo "user=admin" > ./secret.tmp
   echo "password=${GRAFANA_PASS}" >> ./secret.tmp
   kustomize build . | envsubst | kubectl apply -f -
   rm -f ./secret.tmp
-  popd > /dev/null
+  popd > /dev/null 2>&1
+
 
   _console_msg "Installing Metric Collectors ..."
-  kubectl apply -f ./metrics/namespace.yaml
-  kubectl apply -f ./metrics/kube-state-metrics/
-  kubectl apply -f ./metrics/kubelet/
-  kubectl apply -f ./metrics/node-exporter/
+  pushd "metrics/" > /dev/null 2>&1
+  kubectl apply -f ./kube-state-metrics/
+  kubectl apply -f ./kubelet/
+  kubectl apply -f ./node-exporter/
+  popd > /dev/null 2>&1
 
 
   # _console_msg "Creating alertmanager ..."

@@ -167,7 +167,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "node:node_cpu_saturation_load1:{cluster=\"\"} / scalar(sum(min(kube_pod_info) by (node)))",
+                    "expr": "node:node_cpu_saturation_load1: / scalar(sum(min(kube_pod_info) by (node)))",
                     "format": "time_series",
                     "intervalFactor": 2,
                     "legendFormat": "{{node}}",
@@ -473,7 +473,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "node:node_disk_utilisation:avg_irate{cluster=\"\"} / scalar(:kube_pod_info_node_count:)",
+                    "expr": "node:node_disk_utilisation:avg_irate / scalar(:kube_pod_info_node_count:)",
                     "format": "time_series",
                     "intervalFactor": 2,
                     "legendFormat": "{{node}}",
@@ -565,7 +565,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "node:node_disk_saturation:avg_irate{cluster=\"\"} / scalar(:kube_pod_info_node_count:)",
+                    "expr": "node:node_disk_saturation:avg_irate / scalar(:kube_pod_info_node_count:)",
                     "format": "time_series",
                     "intervalFactor": 2,
                     "legendFormat": "{{node}}",

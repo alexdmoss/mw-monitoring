@@ -7,52 +7,26 @@ commonLabels:
   app: grafana
 
 secretGenerator:
-- envs:
-  - secret.tmp
-  name: grafana-admin-user
+  - envs:
+      - secret.tmp
+    name: grafana-admin-user
 
 configMapGenerator:
-- files:
-  - config/datasources.yaml
-  name: grafana-datasources
-- files:
-  - config/dashboardproviders.yaml
-  name: grafana-dashboard-providers
-- files:
-  - config/grafana.ini
-  name: grafana-ini
-- files:
-  - dashboards/mw/ingress-controller.json
-  - dashboards/mw/mosstech.io.json
-  name: grafana-dashboards-mw
-- files:
-  - dashboards/workloads/capacity-planning.json
-  - dashboards/workloads/cluster-health.json
-  name: grafana-dashboards-workloads
-- files:
-  - dashboards/new/deployments.json
-  - dashboards/new/kubelet.json
-  - dashboards/new/nodes.json
-  - dashboards/new/pods.json
-  - dashboards/new/stateful-sets.json
-  name: grafana-dashboards-new
-- files:
-  - dashboards/newer/resources-by-cluster-2.json
-  - dashboards/newer/resources-by-cluster.json
-  - dashboards/newer/resources-by-namespace-2.json
-  - dashboards/newer/resources-by-namespace.json
-  name: grafana-dashboards-newer
-- files:
-  - dashboards/resource-usage/cluster-resource-usage-2.json
-  - dashboards/resource-usage/node-resource-usage-2.json
-  - dashboards/resource-usage/resources-by-pod-2.json
-  name: grafana-dashboards-usage
+  - files:
+      - config/datasources.yaml
+    name: grafana-datasources
+  - files:
+      - config/dashboardproviders.yaml
+    name: grafana-dashboard-providers
+  - files:
+      - config/grafana.ini
+    name: grafana-ini
 
 resources:
-- certificate.yaml
-- ingress.yaml
-- pdb.yaml
-- service.yaml
-- service-account.yaml
-- service-monitor.yaml
-- stateful-set.yaml
+  - certificate.yaml
+  - ingress.yaml
+  - pdb.yaml
+  - service.yaml
+  - service-account.yaml
+  - service-monitor.yaml
+  - stateful-set.yaml
