@@ -15,7 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "iteration": 1580505831030,
+    "iteration": 1580666100457,
     "links": [],
     "panels": [
         {
@@ -415,7 +415,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "prometheus",
-            "description": "Rate of Kubelet Operations in 5min",
+            "description": "Rate of Kubelet Operations Errors in 5 min intervals",
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -454,7 +454,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(rate(kubelet_runtime_operations{instance=~\"$instance\"}[5m])) by (instance)",
+                    "expr": "sum(rate(kubelet_runtime_operations_errors{instance=~\"$instance\"}[5m])) by (instance)",
                     "format": "time_series",
                     "intervalFactor": 2,
                     "legendFormat": "{{ instance }}",
@@ -465,7 +465,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Operations",
+            "title": "Operations Errors",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
@@ -506,7 +506,9 @@
     "refresh": "",
     "schemaVersion": 22,
     "style": "dark",
-    "tags": [],
+    "tags": [
+        "k8s-cluster"
+    ],
     "templating": {
         "list": [
             {
@@ -569,5 +571,5 @@
     "timezone": "browser",
     "title": "Kubelet",
     "uid": "NfGwhzUZz",
-    "version": 2
+    "version": 1
 }

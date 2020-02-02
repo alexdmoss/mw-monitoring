@@ -22,18 +22,6 @@ function main() {
   kubectl apply -f ./metrics/namespace.yaml
 
 
-  _console_msg "Creating Dashboards ..."
-  pushd "dashboards/" > /dev/null 2>&1
-  cp base-kustomization.yaml kustomization.yaml # easier when developing locally - not necessary in CI
-  kustomize edit add configmap grafana-dashboards-mw --from-file=./mw/*.json
-  kustomize edit add configmap grafana-dashboards-workloads --from-file=./workloads/*.json
-  kustomize edit add configmap grafana-dashboards-new --from-file=./new/*.json
-  kustomize edit add configmap grafana-dashboards-newer --from-file=./newer/*.json
-  kustomize edit add configmap grafana-dashboards-usage --from-file=./resource-usage/*.json
-  kustomize build . | kubectl apply -f -
-  popd > /dev/null 2>&1
-
-
   _console_msg "Installing Prometheus ..."
   pushd "prometheus/" > /dev/null 2>&1
   export NAMESPACE=prometheus
@@ -46,7 +34,11 @@ function main() {
   pushd "grafana/" > /dev/null 2>&1
   echo "user=admin" > ./secret.tmp
   echo "password=${GRAFANA_PASS}" >> ./secret.tmp
-  kustomize build . | envsubst | kubectl apply -f -
+  cp base-kustomization.yaml kustomization.yaml # easier when developing locally - not necessary in CI
+  kustomize edit add configmap grafana-dashboards-websites --from-file=./dashboards/websites/*.json
+  kustomize edit add configmap grafana-dashboards-k8s-resources --from-file=./dashboards/k8s-resources/*.json
+  kustomize edit add configmap grafana-dashboards-k8s-cluster --from-file=./dashboards/k8s-cluster/*.json
+  kustomize build . | kubectl apply -f -
   rm -f ./secret.tmp
   popd > /dev/null 2>&1
 

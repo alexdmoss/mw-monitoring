@@ -78,15 +78,11 @@ spec:
           - name: grafana-data
             mountPath: "/var/lib/grafana"
           - name: dashboards-mw
-            mountPath: "/var/lib/grafana/dashboards/mw"
+            mountPath: "/var/lib/grafana/dashboards/websites"
           - name: dashboards-new
-            mountPath: "/var/lib/grafana/dashboards/new"
+            mountPath: "/var/lib/grafana/dashboards/k8s-resources"
           - name: dashboards-newer
-            mountPath: "/var/lib/grafana/dashboards/newer"
-          - name: dashboards-workloads
-            mountPath: "/var/lib/grafana/dashboards/workloads"
-          - name: dashboards-usage
-            mountPath: "/var/lib/grafana/dashboards/usage"
+            mountPath: "/var/lib/grafana/dashboards/k8s-cluster"
       restartPolicy: Always
       volumes:
       - name: config
@@ -98,21 +94,15 @@ spec:
       - name: dashboard-providers
         configMap:
           name: grafana-dashboard-providers
-      - name: dashboards-mw
+      - name: dashboards-websites
         configMap:
-          name: grafana-dashboards-mw
-      - name: dashboards-new
+          name: grafana-dashboards-websites
+      - name: dashboards-k8s-resources
         configMap:
-          name: grafana-dashboards-new
-      - name: dashboards-workloads
+          name: grafana-dashboards-k8s-resources
+      - name: dashboards-k8s-cluster
         configMap:
-          name: grafana-dashboards-workloads
-      - name: dashboards-newer
-        configMap:
-          name: grafana-dashboards-newer
-      - name: dashboards-usage
-        configMap:
-          name: grafana-dashboards-usage
+          name: grafana-dashboards-k8s-cluster
   updateStrategy:
     type: RollingUpdate
   volumeClaimTemplates:

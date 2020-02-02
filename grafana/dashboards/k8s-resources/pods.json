@@ -317,7 +317,9 @@
     "refresh": "",
     "schemaVersion": 22,
     "style": "dark",
-    "tags": [],
+    "tags": [
+        "k8s-resources"
+    ],
     "templating": {
         "list": [
             {

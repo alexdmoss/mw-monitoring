@@ -1445,7 +1445,9 @@
     ],
     "schemaVersion": 22,
     "style": "dark",
-    "tags": [],
+    "tags": [
+        "websites"
+    ],
     "templating": {
         "list": []
     },

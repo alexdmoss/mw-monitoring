@@ -13,7 +13,7 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-change-on-failure: "true"
 spec:
   rules:
-    - host: ${DOMAIN}
+    - host: $(DOMAIN)
       http:
         paths:
           - path: /
@@ -23,4 +23,4 @@ spec:
   tls:
     - secretName: grafana-tls
       hosts:
-        - ${DOMAIN}
+        - $(DOMAIN)

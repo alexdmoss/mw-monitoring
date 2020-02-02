@@ -708,7 +708,9 @@
     "refresh": "10s",
     "schemaVersion": 22,
     "style": "dark",
-    "tags": [],
+    "tags": [
+        "k8s-resources"
+    ],
     "templating": {
         "list": [
             {
@@ -768,7 +770,7 @@
         ]
     },
     "timezone": "",
-    "title": "Kubernetes Resource Usage By Namespace",
+    "title": "Resource Usage By Namespace",
     "uid": "85a562078cdf77779eaa1add43ccec1e",
     "version": 14552
 }

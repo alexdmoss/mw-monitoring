@@ -15,7 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "iteration": 1580506379056,
+    "iteration": 1580670871971,
     "links": [],
     "panels": [
         {
@@ -736,7 +736,7 @@
     "schemaVersion": 22,
     "style": "dark",
     "tags": [
-        "kubernetes-mixin"
+        "k8s-resources"
     ],
     "templating": {
         "list": [
@@ -768,7 +768,6 @@
             {
                 "allValue": null,
                 "current": {
-                    "tags": [],
                     "text": "grafana",
                     "value": "grafana"
                 },
@@ -825,5 +824,5 @@
     "timezone": "",
     "title": "StatefulSets",
     "uid": "a31c1f46e6f727cb37c0d731a7245005",
-    "version": 190
+    "version": 1
 }

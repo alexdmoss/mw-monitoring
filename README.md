@@ -23,6 +23,8 @@ As I only envisage a small number of dashboards, I stuck with just loading via a
 
 It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when it goes to multiple replicas there is no automatic sync there, so complete dashboards need to be added to the `ConfigMap` by saving their JSON in `./grafana/dashboards/` and re-running the pipeline.
 
+Multiple replicas are handled through stickiness configured on the `Ingress` - will see how this goes as I'd prefer not to have to [run a database behind Grafana](https://grafana.com/docs/grafana/latest/tutorials/ha_setup/) unless I have to.
+
 ---
 
 ### To Do
@@ -38,11 +40,8 @@ It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when 
 - [x] Persist that dashboard somewhere
 - [x] Some CI for all this
 - [x] kubernetes-mixin dashboards
-  - nodes (needs node-exporter)
-  - capacity-planning
-  - cluster-health
 - [ ] Clean up `ConfigMap`s
-- [ ] Grafana with multiple replicas (issue with login) - DB vs stickiness in LB
+- [x] Grafana with multiple replicas (issue with login) - DB vs stickiness in LB
 - [ ] Grafana login through Google Account
 - [ ] Test what happens when a prometheus pod is down
 - [ ] Test what happens when a grafana pod is down
@@ -63,7 +62,7 @@ It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when 
 - [ ] `prometheus-operator`
 - [ ] `kube-event-metrics`
 - [ ] `gcloud exporter`
-- [ ] `node exporter`
+- [x] `node exporter`
 - [ ] `gcp exporter`
 - [ ] log-based metrics
 - [ ] `contact-handler`
@@ -81,8 +80,6 @@ It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when 
 - [ ] Can you control the Grafana URLs used for dashboards?
 - [ ] Grafana plugins experimentation
 - [ ] https://grafana.com/docs/grafana/v6.5/features/datasources/stackdriver/
-- [ ] https://grafana.com/docs/grafana/latest/tutorials/ha_setup/
-- [ ] https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/
 
 mosstech:
 defect with mosstech and 404'ing when e.g. /wibble

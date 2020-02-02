@@ -15,7 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "iteration": 1580653018597,
+    "iteration": 1580653372739,
     "links": [],
     "panels": [
         {
@@ -39,7 +39,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": null,
-            "fill": 10,
+            "fill": 1,
             "fillGradient": 0,
             "gridPos": {
                 "h": 7,
@@ -59,7 +59,7 @@
                 "values": false
             },
             "lines": true,
-            "linewidth": 0,
+            "linewidth": 1,
             "links": [],
             "nullPointMode": "null as zero",
             "options": {
@@ -71,15 +71,15 @@
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
-            "stack": true,
+            "stack": false,
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "node:cluster_cpu_utilisation:ratio",
+                    "expr": "node:node_cpu_utilisation:avg1m{node=~\"$node\"}",
                     "format": "time_series",
                     "intervalFactor": 2,
-                    "legendFormat": "{{node}}",
-                    "legendLink": "/d/4ac4f123aae0ff6dbaf4f4f66120033b/k8s-node-rsrc-use",
+                    "legendFormat": "Utilisation: {{node}}",
+                    "legendLink": null,
                     "refId": "A",
                     "step": 10
                 }
@@ -107,7 +107,7 @@
                     "format": "percentunit",
                     "label": null,
                     "logBase": 1,
-                    "max": 1,
+                    "max": null,
                     "min": 0,
                     "show": true
                 },
@@ -131,7 +131,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": null,
-            "fill": 10,
+            "fill": 1,
             "fillGradient": 0,
             "gridPos": {
                 "h": 7,
@@ -151,7 +151,7 @@
                 "values": false
             },
             "lines": true,
-            "linewidth": 0,
+            "linewidth": 1,
             "links": [],
             "nullPointMode": "null as zero",
             "options": {
@@ -163,15 +163,15 @@
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
-            "stack": true,
+            "stack": false,
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "node:node_cpu_saturation_load1: / scalar(sum(min(kube_pod_info) by (node)))",
+                    "expr": "node:node_cpu_saturation_load1:{node=~\"$node\"}",
                     "format": "time_series",
                     "intervalFactor": 2,
-                    "legendFormat": "{{node}}",
-                    "legendLink": "/d/4ac4f123aae0ff6dbaf4f4f66120033b/k8s-node-rsrc-use",
+                    "legendFormat": "Saturation: {{node}}",
+                    "legendLink": null,
                     "refId": "A",
                     "step": 10
                 }
@@ -199,7 +199,7 @@
                     "format": "percentunit",
                     "label": null,
                     "logBase": 1,
-                    "max": 1,
+                    "max": null,
                     "min": 0,
                     "show": true
                 },
@@ -238,7 +238,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": null,
-            "fill": 10,
+            "fill": 1,
             "fillGradient": 0,
             "gridPos": {
                 "h": 7,
@@ -258,7 +258,7 @@
                 "values": false
             },
             "lines": true,
-            "linewidth": 0,
+            "linewidth": 1,
             "links": [],
             "nullPointMode": "null as zero",
             "options": {
@@ -270,15 +270,15 @@
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
-            "stack": true,
+            "stack": false,
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "node:cluster_memory_utilisation:ratio",
+                    "expr": "node:node_memory_utilisation:{node=~\"$node\"}",
                     "format": "time_series",
                     "intervalFactor": 2,
-                    "legendFormat": "{{node}}",
-                    "legendLink": "/d/4ac4f123aae0ff6dbaf4f4f66120033b/k8s-node-rsrc-use",
+                    "legendFormat": "Memory: {{node}}",
+                    "legendLink": null,
                     "refId": "A",
                     "step": 10
                 }
@@ -306,7 +306,7 @@
                     "format": "percentunit",
                     "label": null,
                     "logBase": 1,
-                    "max": 1,
+                    "max": null,
                     "min": 0,
                     "show": true
                 },
@@ -330,7 +330,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": null,
-            "fill": 10,
+            "fill": 1,
             "fillGradient": 0,
             "gridPos": {
                 "h": 7,
@@ -350,7 +350,7 @@
                 "values": false
             },
             "lines": true,
-            "linewidth": 0,
+            "linewidth": 1,
             "links": [],
             "nullPointMode": "null as zero",
             "options": {
@@ -362,15 +362,15 @@
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
-            "stack": true,
+            "stack": false,
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "node:node_memory_swap_io_bytes:sum_rate",
+                    "expr": "node:node_memory_swap_io_bytes:sum_rate{node=~\"$node\"}",
                     "format": "time_series",
                     "intervalFactor": 2,
-                    "legendFormat": "{{node}}",
-                    "legendLink": "/d/4ac4f123aae0ff6dbaf4f4f66120033b/k8s-node-rsrc-use",
+                    "legendFormat": "Swap IO: {{node}}",
+                    "legendLink": null,
                     "refId": "A",
                     "step": 10
                 }
@@ -437,7 +437,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": null,
-            "fill": 10,
+            "fill": 1,
             "fillGradient": 0,
             "gridPos": {
                 "h": 7,
@@ -457,7 +457,7 @@
                 "values": false
             },
             "lines": true,
-            "linewidth": 0,
+            "linewidth": 1,
             "links": [],
             "nullPointMode": "null as zero",
             "options": {
@@ -469,15 +469,15 @@
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
-            "stack": true,
+            "stack": false,
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "node:node_disk_utilisation:avg_irate / scalar(:kube_pod_info_node_count:)",
+                    "expr": "node:node_disk_utilisation:avg_irate{node=~\"$node\"}",
                     "format": "time_series",
                     "intervalFactor": 2,
-                    "legendFormat": "{{node}}",
-                    "legendLink": "/d/4ac4f123aae0ff6dbaf4f4f66120033b/k8s-node-rsrc-use",
+                    "legendFormat": "Utilisation: {{node}}",
+                    "legendLink": null,
                     "refId": "A",
                     "step": 10
                 }
@@ -505,7 +505,7 @@
                     "format": "percentunit",
                     "label": null,
                     "logBase": 1,
-                    "max": 1,
+                    "max": null,
                     "min": 0,
                     "show": true
                 },
@@ -529,7 +529,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": null,
-            "fill": 10,
+            "fill": 1,
             "fillGradient": 0,
             "gridPos": {
                 "h": 7,
@@ -549,7 +549,7 @@
                 "values": false
             },
             "lines": true,
-            "linewidth": 0,
+            "linewidth": 1,
             "links": [],
             "nullPointMode": "null as zero",
             "options": {
@@ -561,15 +561,15 @@
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
-            "stack": true,
+            "stack": false,
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "node:node_disk_saturation:avg_irate / scalar(:kube_pod_info_node_count:)",
+                    "expr": "node:node_disk_saturation:avg_irate{node=~\"$node\"}",
                     "format": "time_series",
                     "intervalFactor": 2,
-                    "legendFormat": "{{node}}",
-                    "legendLink": "/d/4ac4f123aae0ff6dbaf4f4f66120033b/k8s-node-rsrc-use",
+                    "legendFormat": "Saturation: {{node}}",
+                    "legendLink": null,
                     "refId": "A",
                     "step": 10
                 }
@@ -597,7 +597,7 @@
                     "format": "percentunit",
                     "label": null,
                     "logBase": 1,
-                    "max": 1,
+                    "max": null,
                     "min": 0,
                     "show": true
                 },
@@ -621,7 +621,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": null,
-            "fill": 10,
+            "fill": 1,
             "fillGradient": 0,
             "gridPos": {
                 "h": 7,
@@ -641,7 +641,7 @@
                 "values": false
             },
             "lines": true,
-            "linewidth": 0,
+            "linewidth": 1,
             "links": [],
             "nullPointMode": "null as zero",
             "options": {
@@ -653,15 +653,15 @@
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
-            "stack": true,
+            "stack": false,
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(max(node_filesystem_size_bytes{fstype=~\"ext[234]|btrfs|xfs|zfs\"} - node_filesystem_avail_bytes{fstype=~\"ext[234]|btrfs|xfs|zfs\"}) by (device,pod,namespace)) by (pod,namespace)\n/ scalar(sum(max(node_filesystem_size_bytes{fstype=~\"ext[234]|btrfs|xfs|zfs\"}) by (device,pod,namespace)))\n* on (namespace, pod) group_left (node) node_namespace_pod:kube_pod_info:\n",
+                    "expr": "node:node_filesystem_usage:* on (namespace, pod) group_left (node) node_namespace_pod:kube_pod_info:{node=~\"$node\"}\n",
                     "format": "time_series",
                     "intervalFactor": 2,
-                    "legendFormat": "{{node}}",
-                    "legendLink": "/d/4ac4f123aae0ff6dbaf4f4f66120033b/k8s-node-rsrc-use",
+                    "legendFormat": "{{device}}: {{node}}}",
+                    "legendLink": null,
                     "refId": "A",
                     "step": 10
                 }
@@ -670,7 +670,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Disk Capacity",
+            "title": "Disk Utilisation",
             "tooltip": {
                 "shared": false,
                 "sort": 0,
@@ -689,7 +689,7 @@
                     "format": "percentunit",
                     "label": null,
                     "logBase": 1,
-                    "max": 1,
+                    "max": null,
                     "min": 0,
                     "show": true
                 },
@@ -719,7 +719,7 @@
             "id": 13,
             "panels": [],
             "repeat": null,
-            "title": "Network",
+            "title": "Net",
             "type": "row"
         },
         {
@@ -728,7 +728,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": null,
-            "fill": 10,
+            "fill": 1,
             "fillGradient": 0,
             "gridPos": {
                 "h": 7,
@@ -748,7 +748,7 @@
                 "values": false
             },
             "lines": true,
-            "linewidth": 0,
+            "linewidth": 1,
             "links": [],
             "nullPointMode": "null as zero",
             "options": {
@@ -760,15 +760,15 @@
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
-            "stack": true,
+            "stack": false,
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "node:node_net_utilisation:sum_irate",
+                    "expr": "node:node_net_utilisation:sum_irate{node=~\"$node\"}",
                     "format": "time_series",
                     "intervalFactor": 2,
-                    "legendFormat": "{{node}}",
-                    "legendLink": "/d/4ac4f123aae0ff6dbaf4f4f66120033b/k8s-node-rsrc-use",
+                    "legendFormat": "Utilisation: {{node}}",
+                    "legendLink": null,
                     "refId": "A",
                     "step": 10
                 }
@@ -820,7 +820,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": null,
-            "fill": 10,
+            "fill": 1,
             "fillGradient": 0,
             "gridPos": {
                 "h": 7,
@@ -840,7 +840,7 @@
                 "values": false
             },
             "lines": true,
-            "linewidth": 0,
+            "linewidth": 1,
             "links": [],
             "nullPointMode": "null as zero",
             "options": {
@@ -852,15 +852,15 @@
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
-            "stack": true,
+            "stack": false,
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "node:node_net_saturation:sum_irate",
+                    "expr": "node:node_net_saturation:sum_irate{node=~\"$node\"}",
                     "format": "time_series",
                     "intervalFactor": 2,
-                    "legendFormat": "{{node}}",
-                    "legendLink": "/d/4ac4f123aae0ff6dbaf4f4f66120033b/k8s-node-rsrc-use",
+                    "legendFormat": "Saturation: {{node}}",
+                    "legendLink": null,
                     "refId": "A",
                     "step": 10
                 }
@@ -912,10 +912,40 @@
     "style": "dark",
     "tags": [],
     "templating": {
-        "list": []
+        "list": [
+            {
+                "allValue": ".*",
+                "current": {
+                    "text": "All",
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "datasource": "",
+                "definition": "",
+                "hide": 0,
+                "includeAll": true,
+                "label": "node",
+                "multi": true,
+                "name": "node",
+                "options": [],
+                "query": "label_values(kube_node_info, node)",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 2,
+                "tagValuesQuery": "",
+                "tags": [
+                    "k8s-cluster"
+                ],
+                "tagsQuery": "",
+                "type": "query",
+                "useTags": false
+            }
+        ]
     },
     "time": {
-        "from": "now-15m",
+        "from": "now-1h",
         "to": "now"
     },
     "timepicker": {
@@ -944,7 +974,7 @@
         ]
     },
     "timezone": "",
-    "title": "Cluster Usage/Saturation/Errors",
-    "uid": "a6e7d1362e1ddbb79db21d5bb40d7137",
-    "version": 433
+    "title": "Node Usage/Saturation/Errors",
+    "uid": "4ac4f123aae0ff6dbaf4f4f66120033b",
+    "version": 1
 }
