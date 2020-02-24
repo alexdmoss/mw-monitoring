@@ -60,7 +60,7 @@ Multiple replicas are handled through stickiness configured on the `Ingress` - w
 - [ ] `grafana`
 - [ ] `prometheus`
 - [ ] `prometheus-operator`
-- [ ] `kube-event-metrics`
+- [x] *rejected - didn't work and old* `kube-event-metrics`
 - [ ] `gcloud exporter`
 - [x] `node exporter`
 - [ ] `gcp exporter`
