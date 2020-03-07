@@ -46,7 +46,6 @@ function main() {
   _console_msg "Installing Metric Collectors ..."
   pushd "metrics/" > /dev/null 2>&1
   kubectl apply -f ./kube-state-metrics/
-  kubectl apply -f ./kube-event-metrics/
   kubectl apply -f ./kubelet/
   kubectl apply -f ./node-exporter/
   popd > /dev/null 2>&1
