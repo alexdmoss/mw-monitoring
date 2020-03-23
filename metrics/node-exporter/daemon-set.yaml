@@ -5,6 +5,9 @@ metadata:
   name: node-exporter
   namespace: metrics
 spec:
+  selector:
+    matchLabels:
+      app: node-exporter
   updateStrategy:
     type: RollingUpdate
   template:
