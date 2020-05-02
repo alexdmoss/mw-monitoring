@@ -6,9 +6,6 @@ namespace: grafana
 commonLabels:
   app: grafana
 
-# configurations:
-# - kustomizeconfig/varreference.yaml
-
 secretGenerator:
 - envs:
   - secret.tmp
@@ -49,7 +46,6 @@ configMapGenerator:
   name: grafana-dashboards-usage
 
 resources:
-# - certificate.yaml
 - ingress.yaml
 - pdb.yaml
 - service.yaml
