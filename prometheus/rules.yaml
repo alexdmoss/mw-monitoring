@@ -1079,17 +1079,18 @@ spec:
           for: 12h
           labels:
             severity: warning
-        - alert: PrometheusTSDBCompactionsFailing
-          annotations:
-            description:
-              "{{$labels.job}} at {{$labels.instance}} had {{$value | humanize}}
-              compaction failures over the last four hours."
-            summary: Prometheus has issues compacting sample blocks
-          expr: |
-            increase(prometheus_tsdb_compactions_failed_total{job="prometheus-k8s",namespace="monitoring"}[2h]) > 0
-          for: 12h
-          labels:
-            severity: warning
+        # [erroring loading config - unclear why]
+        # - alert: PrometheusTSDBCompactionsFailing
+        #   annotations:
+        #     description:
+        #       "{{$labels.job}} at {{$labels.instance}} had {{$value | humanize}}
+        #       compaction failures over the last four hours."
+        #     summary: Prometheus has issues compacting sample blocks
+        #   expr: |
+        #     increase(prometheus_tsdb_compactions_failed_total{job="prometheus-k8s",namespace="monitoring"}[2h]) > 0
+        #   for: 12h
+        #   labels:
+        #     severity: warning
         - alert: PrometheusTSDBWALCorruptions
           annotations:
             description:
