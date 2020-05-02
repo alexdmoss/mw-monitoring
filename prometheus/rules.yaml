@@ -1068,18 +1068,18 @@ spec:
           for: 10m
           labels:
             severity: warning
-        - alert: PrometheusTSDBReloadsFailing
-          annotations:
-            description:
-              "{{$labels.job}} at {{$labels.instance}} had {{$value | humanize}}
-              reload failures over the last four hours."
-            summary: Prometheus has issues reloading data blocks from disk
-          expr: |
-            increase(prometheus_tsdb_reloads_failures_total{job="prometheus-k8s",namespace="monitoring"}[2h]) > 0
-          for: 12h
-          labels:
-            severity: warning
         # [erroring loading config - unclear why]
+        # - alert: PrometheusTSDBReloadsFailing
+        #   annotations:
+        #     description:
+        #       "{{$labels.job}} at {{$labels.instance}} had {{$value | humanize}}
+        #       reload failures over the last four hours."
+        #     summary: Prometheus has issues reloading data blocks from disk
+        #   expr: |
+        #     increase(prometheus_tsdb_reloads_failures_total{job="prometheus-k8s",namespace="monitoring"}[2h]) > 0
+        #   for: 12h
+        #   labels:
+        #     severity: warning
         # - alert: PrometheusTSDBCompactionsFailing
         #   annotations:
         #     description:
