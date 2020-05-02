@@ -6,8 +6,8 @@ namespace: grafana
 commonLabels:
   app: grafana
 
-configurations:
-  - kustomizeconfig/varreference.yaml
+# configurations:
+#   - kustomizeconfig/varreference.yaml
 
 secretGenerator:
   - envs:
@@ -26,7 +26,7 @@ configMapGenerator:
     name: grafana-ini
 
 resources:
-  - certificate.yaml
+  # - certificate.yaml
   - ingress.yaml
   - pdb.yaml
   - service.yaml
