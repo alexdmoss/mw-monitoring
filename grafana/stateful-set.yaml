@@ -19,7 +19,7 @@ spec:
                 labelSelector:
                   matchLabels:
                     app: prometheus
-                topologyKey: failure-domain.beta.kubernetes.io/zone
+                topologyKey: kubernetes.io/hostname
               weight: 100
       securityContext:
         fsGroup: 65534

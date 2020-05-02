@@ -5,7 +5,6 @@ namespace: grafana
 
 commonLabels:
   app: grafana
-  domain: grafana.alexos.dev
 
 configurations:
   - kustomizeconfig/varreference.yaml
@@ -25,15 +24,6 @@ configMapGenerator:
   - files:
       - config/grafana.ini
     name: grafana-ini
-
-vars:
-  - name: DOMAIN
-    objref:
-      kind: Service
-      name: grafana
-      apiVersion: v1
-    fieldref:
-      fieldpath: metadata.labels['domain']
 
 resources:
   - certificate.yaml

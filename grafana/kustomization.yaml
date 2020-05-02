@@ -5,7 +5,6 @@ namespace: grafana
 
 commonLabels:
   app: grafana
-  domain: grafana.alexos.dev
 
 configurations:
 - kustomizeconfig/varreference.yaml
@@ -48,15 +47,6 @@ configMapGenerator:
   - dashboards/resource-usage/cluster-usage-saturation-errors.json
   - dashboards/resource-usage/node-usage-saturation-errors.json
   name: grafana-dashboards-usage
-
-vars:
-- fieldref:
-    fieldPath: metadata.labels['domain']
-  name: DOMAIN
-  objref:
-    apiVersion: v1
-    kind: Service
-    name: grafana
 
 resources:
 - certificate.yaml

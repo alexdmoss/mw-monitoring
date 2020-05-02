@@ -9,11 +9,11 @@ spec:
       - dns01:
           provider: prod-dns
         domains:
-          - $(DOMAIN)
+          - grafana.alexos.dev
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-prod
   secretName: grafana-tls
-  commonName: $(DOMAIN)
+  commonName: grafana.alexos.dev
   dnsNames:
-    - $(DOMAIN)
+    - grafana.alexos.dev
