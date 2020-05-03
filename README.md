@@ -29,19 +29,6 @@ Multiple replicas are handled through stickiness configured on the `Ingress` - w
 
 ### To Do
 
-- [x] Instrument mosstech nginx
-- [x] Install Operator for CoreOS Prometheus
-- [x] Define a `ServiceMonitor`
-- [x] Create a Prometheus pair
-- [x] Get a Grafana `StatefulSet` up and running
-- [x] Expose Grafana externally with auth
-- [x] Grafana saves dashboards permanently - how update them
-- [x] Create a 4GS dashboard for mosstech
-- [x] Persist that dashboard somewhere
-- [x] Some CI for all this
-- [x] kubernetes-mixin dashboards
-- [x] Clean up `ConfigMap`s
-- [x] Grafana with multiple replicas (issue with login) - DB vs stickiness in LB
 - [ ] Grafana login through Google Account
 - [ ] Test what happens when a prometheus pod is down
 - [ ] Test what happens when a grafana pod is down
@@ -52,17 +39,10 @@ Multiple replicas are handled through stickiness configured on the `Ingress` - w
 
 ### Instrumentation To Do
 
-- [x] `mosstech`
-- [x] `kubelet` metrics
-- [x] `kube-state-metrics`
-- [x] `nginx-ingress-controller`
-- [x] `cert-manager`
 - [ ] `grafana`
 - [ ] `prometheus`
 - [ ] `prometheus-operator`
-- [x] *rejected - didn't work and old* `kube-event-metrics`
 - [ ] `gcloud exporter`
-- [x] `node exporter`
 - [ ] `gcp exporter`
 - [ ] log-based metrics
 - [ ] `contact-handler`

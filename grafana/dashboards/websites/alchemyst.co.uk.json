@@ -14,9 +14,108 @@
     },
     "editable": true,
     "gnetId": null,
-    "graphTooltip": 1,
+    "graphTooltip": 0,
+    "id": 30,
     "links": [],
     "panels": [
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": null,
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "hiddenSeries": false,
+        "id": 4,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "nullPointMode": "null as zero",
+        "options": {
+          "dataLinks": []
+        },
+        "percentage": false,
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.5,max(increase(flask_http_request_duration_seconds_bucket{service=\"alchemyst\"}[5m])) by (le))",
+            "legendFormat": "p50",
+            "refId": "A"
+          },
+          {
+            "expr": "histogram_quantile(0.95,max(increase(flask_http_request_duration_seconds_bucket{service=\"alchemyst\"}[5m])) by (le))",
+            "legendFormat": "p995",
+            "refId": "B"
+          },
+          {
+            "expr": "histogram_quantile(1,max(increase(flask_http_request_duration_seconds_bucket{service=\"alchemyst\"}[5m])) by (le))",
+            "legendFormat": "p100",
+            "refId": "C"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Latency",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": 2,
+            "format": "short",
+            "label": "Seconds",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
       {
         "aliasColors": {},
         "bars": false,
@@ -26,9 +125,9 @@
         "fill": 4,
         "fillGradient": 0,
         "gridPos": {
-          "h": 7,
+          "h": 9,
           "w": 12,
-          "x": 0,
+          "x": 12,
           "y": 0
         },
         "hiddenSeries": false,
@@ -56,19 +155,19 @@
         "seriesOverrides": [
           {
             "alias": "/2../",
-            "color": "#56A64B"
+            "color": "#73BF69"
           },
           {
             "alias": "/3../",
-            "color": "#3274D9"
+            "color": "#5794F2"
           },
           {
             "alias": "/4../",
-            "color": "#F2CC0C"
+            "color": "#FADE2A"
           },
           {
             "alias": "/5../",
-            "color": "#E02F44"
+            "color": "#F2495C"
           },
           {
             "alias": "Overall",
@@ -82,14 +181,13 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\"}[5m]))",
-            "instant": false,
+            "expr": "sum(rate(flask_http_request_duration_seconds_count{service=\"alchemyst\"}[5m]))",
             "interval": "1m",
             "legendFormat": "Overall",
             "refId": "A"
           },
           {
-            "expr": "sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\",status!=\"\"}[5m])) by (status)",
+            "expr": "sum(rate(flask_http_request_duration_seconds_count{service=\"alchemyst\", status!=\"\"}[5m])) by (status)",
             "interval": "1m",
             "legendFormat": "{{status}}",
             "refId": "B"
@@ -145,111 +243,13 @@
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
-          "h": 7,
-          "w": 12,
-          "x": 12,
-          "y": 0
+          "h": 8,
+          "w": 8,
+          "x": 0,
+          "y": 9
         },
         "hiddenSeries": false,
         "id": 6,
-        "legend": {
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 2,
-        "nullPointMode": "null as zero",
-        "options": {
-          "dataLinks": []
-        },
-        "percentage": false,
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "histogram_quantile(0.5,max(increase(nginx_http_request_duration_seconds_bucket{service=\"mosstech-metrics\"}[5m])) by (le))",
-            "legendFormat": "p50",
-            "refId": "A"
-          },
-          {
-            "expr": "histogram_quantile(0.95,max(increase(nginx_http_request_duration_seconds_bucket{service=\"mosstech-metrics\"}[5m])) by (le))",
-            "legendFormat": "p95",
-            "refId": "B"
-          },
-          {
-            "expr": "histogram_quantile(1,max(increase(nginx_http_request_duration_seconds_bucket{service=\"mosstech-metrics\"}[5m])) by (le))",
-            "legendFormat": "p100",
-            "refId": "C"
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Latency",
-        "tooltip": {
-          "shared": true,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 2,
-            "format": "short",
-            "label": "Seconds",
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": null,
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 7,
-          "w": 8,
-          "x": 0,
-          "y": 7
-        },
-        "hiddenSeries": false,
-        "id": 4,
         "legend": {
           "avg": true,
           "current": false,
@@ -276,8 +276,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "sum(rate(nginx_http_requests_total{job=~\"(.*/)?mosstech\",code!~\"5.*\"}[1m])) / sum(rate(nginx_http_requests_total{job=~\"(.*/)?mosstech\"}[1m]))",
-            "interval": "",
+            "expr": "sum(rate(flask_http_request_total{job=~\"(.*/)?alchemyst\",code!~\"5.*\"}[1m])) / sum(rate(flask_http_request_total{job=~\"(.*/)?alchemyst\"}[1m]))",
             "legendFormat": "Request Success Rate",
             "refId": "A"
           }
@@ -313,7 +312,7 @@
           {
             "decimals": 2,
             "format": "percentunit",
-            "label": "",
+            "label": null,
             "logBase": 1,
             "max": "1",
             "min": "0.9",
@@ -342,10 +341,10 @@
         "fill": 8,
         "fillGradient": 0,
         "gridPos": {
-          "h": 7,
+          "h": 8,
           "w": 8,
           "x": 8,
-          "y": 7
+          "y": 9
         },
         "hiddenSeries": false,
         "id": 8,
@@ -375,34 +374,39 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\",status=\"499\"}[5m])) / sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\"}[5m]))",
+            "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"499\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
             "legendFormat": "499",
             "refId": "A"
           },
           {
-            "expr": "sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\",status=\"500\"}[5m])) / sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\"}[5m]))",
+            "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"500\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
             "legendFormat": "500",
             "refId": "B"
           },
           {
-            "expr": "sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\",status=\"501\"}[5m])) / sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\"}[5m]))",
+            "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"501\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
             "legendFormat": "501",
             "refId": "C"
           },
           {
-            "expr": "sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\",status=\"502\"}[5m])) / sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\"}[5m]))",
+            "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"502\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
             "legendFormat": "502",
             "refId": "D"
           },
           {
-            "expr": "sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\",status=\"503\"}[5m])) / sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\"}[5m]))",
+            "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"503\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
             "legendFormat": "503",
             "refId": "E"
           },
           {
-            "expr": "sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\",status=\"504\"}[5m])) / sum(rate(nginx_http_requests_total{service=\"mosstech-metrics\"}[5m]))",
+            "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"504\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
             "legendFormat": "504",
             "refId": "F"
+          },
+          {
+            "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"404\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
+            "legendFormat": "404",
+            "refId": "G"
           }
         ],
         "thresholds": [],
@@ -430,7 +434,7 @@
             "label": null,
             "logBase": 1,
             "max": null,
-            "min": "0",
+            "min": null,
             "show": true
           },
           {
@@ -456,13 +460,13 @@
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
-          "h": 7,
+          "h": 8,
           "w": 8,
           "x": 16,
-          "y": 7
+          "y": 9
         },
         "hiddenSeries": false,
-        "id": 18,
+        "id": 10,
         "legend": {
           "avg": false,
           "current": false,
@@ -488,7 +492,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "count(kube_pod_info{pod=~\"mosstech-.*\"})",
+            "expr": "count(kube_pod_info{pod=~\"alchemyst-.*\"})",
             "legendFormat": "# of Pods",
             "refId": "A"
           }
@@ -498,95 +502,6 @@
         "timeRegions": [],
         "timeShift": null,
         "title": "Replicas",
-        "tooltip": {
-          "shared": true,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 0,
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": null,
-        "fill": 8,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 6,
-          "w": 6,
-          "x": 0,
-          "y": 14
-        },
-        "hiddenSeries": false,
-        "id": 10,
-        "legend": {
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "null",
-        "options": {
-          "dataLinks": []
-        },
-        "percentage": false,
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": true,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "sum(nginx_http_connections) by (state)",
-            "interval": "",
-            "legendFormat": "{{state}}",
-            "refId": "A"
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Saturation - Connections",
         "tooltip": {
           "shared": true,
           "sort": 0,
@@ -632,22 +547,20 @@
         "fill": 1,
         "fillGradient": 4,
         "gridPos": {
-          "h": 6,
-          "w": 6,
-          "x": 6,
-          "y": 14
+          "h": 8,
+          "w": 8,
+          "x": 0,
+          "y": 17
         },
         "hiddenSeries": false,
         "id": 12,
         "legend": {
-          "alignAsTable": false,
           "avg": true,
           "current": true,
           "hideEmpty": true,
           "hideZero": true,
           "max": true,
           "min": true,
-          "rightSide": false,
           "show": true,
           "total": false,
           "values": true
@@ -668,8 +581,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "avg(rate(container_cpu_usage_seconds_total{pod_name=~\"mosstech-\\\\w+-\\\\w+$\"}[1m])) by (container_name) / avg by(container_name) (label_replace (kube_pod_container_resource_requests_cpu_cores{pod=~\"mosstech-\\\\w+-\\\\w+$\"}, \"container_name\", \"$1\", \"container\", \"(.*)\"))",
-            "hide": false,
+            "expr": "avg(rate(container_cpu_usage_seconds_total{pod_name=~\"alchemyst-\\\\w+-\\\\w+$\"}[1m])) by (container_name) / avg by(container_name) (label_replace (kube_pod_container_resource_requests_cpu_cores{pod=~\"alchemyst-\\\\w+-\\\\w+$\"}, \"container_name\", \"$1\", \"container\", \"(.*)\"))",
             "legendFormat": "{{container_name}}",
             "refId": "A"
           }
@@ -711,12 +623,11 @@
         },
         "yaxes": [
           {
-            "decimals": 0,
             "format": "percentunit",
             "label": null,
             "logBase": 1,
             "max": null,
-            "min": "0",
+            "min": null,
             "show": true
           },
           {
@@ -739,13 +650,13 @@
         "dashLength": 10,
         "dashes": false,
         "datasource": null,
-        "fill": 0,
-        "fillGradient": 0,
+        "fill": 1,
+        "fillGradient": 2,
         "gridPos": {
-          "h": 6,
-          "w": 6,
-          "x": 12,
-          "y": 14
+          "h": 8,
+          "w": 8,
+          "x": 8,
+          "y": 17
         },
         "hiddenSeries": false,
         "id": 14,
@@ -761,7 +672,7 @@
           "values": true
         },
         "lines": true,
-        "linewidth": 2,
+        "linewidth": 1,
         "nullPointMode": "null",
         "options": {
           "dataLinks": []
@@ -776,7 +687,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "avg by (container_name) (container_memory_usage_bytes {pod_name=~\"mosstech-\\\\w+-\\\\w+$\"}) / avg by (container_name) (label_replace(kube_pod_container_resource_requests_memory_bytes{pod=~\"mosstech-\\\\w+-\\\\w+$\"}, \"container_name\", \"$1\", \"container\", \"(.*)\")) * 100",
+            "expr": "avg by (container_name) (container_memory_usage_bytes {pod_name=~\"alchemyst-\\\\w+-\\\\w+$\"}) / avg by (container_name) (label_replace(kube_pod_container_resource_requests_memory_bytes{pod=~\"alchemyst-\\\\w+-\\\\w+$\"}, \"container_name\", \"$1\", \"container\", \"(.*)\")) * 100",
             "intervalFactor": 2,
             "legendFormat": "{{container_name}}",
             "refId": "A"
@@ -823,8 +734,8 @@
             "format": "percent",
             "label": null,
             "logBase": 1,
-            "max": "100",
-            "min": "0",
+            "max": null,
+            "min": null,
             "show": true
           },
           {
@@ -850,10 +761,10 @@
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
-          "h": 6,
-          "w": 6,
-          "x": 18,
-          "y": 14
+          "h": 8,
+          "w": 8,
+          "x": 16,
+          "y": 17
         },
         "hiddenSeries": false,
         "id": 16,
@@ -882,14 +793,12 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "avg(container_fs_usage_bytes{pod_name=~\"mosstech.*\"})",
-            "interval": "",
+            "expr": "avg(container_fs_usage_bytes{pod_name=~\"alchemyst.*\"})",
             "legendFormat": "Average Usage",
             "refId": "A"
           },
           {
-            "expr": "max(container_fs_limit_bytes{pod_name=~\"mosstech.*\"})",
-            "interval": "",
+            "expr": "max(container_fs_limit_bytes{pod_name=~\"alchemyst.*\"})",
             "legendFormat": "Limit",
             "refId": "B"
           }
@@ -936,17 +845,14 @@
         }
       }
     ],
-    "refresh": "30s",
     "schemaVersion": 22,
     "style": "dark",
-    "tags": [
-      "websites"
-    ],
+    "tags": [],
     "templating": {
       "list": []
     },
     "time": {
-      "from": "now-1h",
+      "from": "now-6h",
       "to": "now"
     },
     "timepicker": {
@@ -964,7 +870,7 @@
       ]
     },
     "timezone": "",
-    "title": "mosstech.io",
-    "uid": "oud6rg8Wk",
-    "version": 1
+    "title": "alchemyst.co.uk",
+    "uid": "SJJZ10eZz",
+    "version": 2
   }
