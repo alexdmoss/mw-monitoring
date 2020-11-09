@@ -25,7 +25,6 @@ function main() {
   _console_msg "Installing Prometheus ..."
   pushd "prometheus/" > /dev/null 2>&1
   export NAMESPACE=prometheus
-  cat ./operator/*.yaml | envsubst | kubectl apply -f -
   cat ./*.yaml | envsubst | kubectl apply -f -
   popd > /dev/null 2>&1
 
