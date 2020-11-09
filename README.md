@@ -12,8 +12,9 @@ This uses the [CoreOS Prometheus Operator](https://github.com/coreos/prometheus-
 
 ### Install
 
-1. Install the operator (`./prometheus-operator/`)
-2. Define a `Prometheus` itself (`./prometheus/`). I skimped on a dedicated `StorageClass` to save myself a few quid.
+The operator CRDs are installed from a different repo - they are sourced from [bundle.yaml](https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/master/bundle.yaml).
+
+`Prometheus` itself is defined in (`./prometheus/`). I skimped on a dedicated `StorageClass` to save myself a few quid.
 
 When this is up and running, you should be able to `kubectl port-forward svc/prometheus-operated 9090:9090` and then hit `http://localhost:9090/` and see one of the Promethei.
 
@@ -62,5 +63,6 @@ Multiple replicas are handled through stickiness configured on the `Ingress` - w
 - [ ] https://grafana.com/docs/grafana/v6.5/features/datasources/stackdriver/
 
 mosstech:
-defect with mosstech and 404'ing when e.g. /wibble
-not seeing the 404's come through
+
+- defect with mosstech and 404'ing when e.g. /wibble
+- not seeing the 404's come through

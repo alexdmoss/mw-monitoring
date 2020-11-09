@@ -51,12 +51,6 @@ function main() {
   popd > /dev/null 2>&1
 
 
-  # _console_msg "Creating alertmanager ..."
-  # kubectl apply -f ./k8s/alertmanager/
-
-  # _console_msg "Creating Alert Rules ..."
-  # kubectl apply -f ./k8s/alerts/
-
 }
 
 function _assert_variables_set() {
