@@ -15,12 +15,14 @@ spec:
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    app: prometheus
-                topologyKey: kubernetes.io/hostname
-              weight: 100
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - grafana
+              topologyKey: "kubernetes.io/hostname"
+            weight: 100
       securityContext:
         fsGroup: 65534
         runAsUser: 65534
