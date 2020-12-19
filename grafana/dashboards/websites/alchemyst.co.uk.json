@@ -15,6 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
+  "id": 10,
   "links": [],
   "panels": [
     {
@@ -580,7 +581,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(rate(container_cpu_usage_seconds_total{pod_name=~\"alchemyst-\\\\w+-\\\\w+$\"}[1m])) by (container_name) / avg by(container_name) (label_replace (kube_pod_container_resource_requests_cpu_cores{pod=~\"alchemyst-\\\\w+-\\\\w+$\"}, \"container_name\", \"$1\", \"container\", \"(.*)\"))",
+          "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"alchemyst-\\\\w+-\\\\w+$\"}[1m])) by (container) / avg by(container) (label_replace (kube_pod_container_resource_requests_cpu_cores{pod=~\"alchemyst-\\\\w+-\\\\w+$\"}, \"container\", \"$1\", \"container\", \"(.*)\"))",
           "legendFormat": "{{container_name}}",
           "refId": "A"
         }
@@ -686,9 +687,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg by (container_name) (container_memory_usage_bytes {pod_name=~\"alchemyst-\\\\w+-\\\\w+$\"}) / avg by (container_name) (label_replace(kube_pod_container_resource_requests_memory_bytes{pod=~\"alchemyst-\\\\w+-\\\\w+$\"}, \"container_name\", \"$1\", \"container\", \"(.*)\")) * 100",
+          "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"alchemyst-\\\\w+-\\\\w+$\"}) / avg by (container) (label_replace(kube_pod_container_resource_requests_memory_bytes{pod=~\"alchemyst-\\\\w+-\\\\w+$\"}, \"container\", \"$1\", \"container\", \"(.*)\")) * 100",
           "intervalFactor": 2,
-          "legendFormat": "{{container_name}}",
+          "legendFormat": "{{container}}",
           "refId": "A"
         }
       ],
@@ -792,12 +793,12 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(container_fs_usage_bytes{pod_name=~\"alchemyst.*\"})",
+          "expr": "avg(container_fs_usage_bytes{pod=~\"alchemyst.*\"})",
           "legendFormat": "Average Usage",
           "refId": "A"
         },
         {
-          "expr": "max(container_fs_limit_bytes{pod_name=~\"alchemyst.*\"})",
+          "expr": "max(container_fs_limit_bytes{pod=~\"alchemyst.*\"})",
           "legendFormat": "Limit",
           "refId": "B"
         }
