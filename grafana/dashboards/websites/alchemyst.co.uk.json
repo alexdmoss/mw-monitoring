@@ -15,7 +15,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 10,
   "links": [],
   "panels": [
     {
@@ -1297,7 +1296,9 @@
   ],
   "schemaVersion": 22,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "websites"
+  ],
   "templating": {
     "list": []
   },
@@ -1322,5 +1323,5 @@
   "timezone": "",
   "title": "alchemyst.co.uk",
   "uid": "SJJZ10eZz",
-  "version": 1
+  "version": 2
 }

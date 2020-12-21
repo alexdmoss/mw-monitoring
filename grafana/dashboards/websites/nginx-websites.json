@@ -15,6 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
+  "iteration": 1608589269831,
   "links": [],
   "panels": [
     {
@@ -939,11 +940,12 @@
       {
         "allValue": null,
         "current": {
-          "text": "wug",
-          "value": "wug"
+          "selected": true,
+          "text": "alexandlou",
+          "value": "alexandlou"
         },
         "datasource": "prometheus",
-        "definition": "label_values(nginx_http_connections, namespace)",
+        "definition": "label_values(nginx_http_connections, namespace)\n",
         "hide": 0,
         "includeAll": false,
         "label": "Service",
@@ -951,14 +953,19 @@
         "name": "service",
         "options": [
           {
+            "selected": true,
+            "text": "mosstech",
+            "value": "mosstech"
+          },
+          {
             "selected": false,
             "text": "wug",
             "value": "wug"
           },
           {
-            "selected": true,
-            "text": "mosstech",
-            "value": "mosstech"
+            "selected": false,
+            "text": "alexandlou",
+            "value": "alexandlou"
           },
           {
             "selected": false,
@@ -971,7 +978,7 @@
             "value": "moss-work"
           }
         ],
-        "query": "label_values(nginx_http_connections, namespace)",
+        "query": "label_values(nginx_http_connections, namespace)\n",
         "refresh": 0,
         "regex": "",
         "skipUrlSync": false,
