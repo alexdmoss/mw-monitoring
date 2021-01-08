@@ -77,6 +77,8 @@ spec:
             mountPath: "/var/lib/grafana/dashboards/websites"
           - name: dashboards-istio-control
             mountPath: "/var/lib/grafana/dashboards/istio-control"
+          - name: dashboards-istio-services
+            mountPath: "/var/lib/grafana/dashboards/istio-services"
           - name: dashboards-istio-workloads
             mountPath: "/var/lib/grafana/dashboards/istio-workloads"
           - name: dashboards-k8s-resources
@@ -100,6 +102,9 @@ spec:
       - name: dashboards-istio-control
         configMap:
           name: grafana-dashboards-istio-control
+      - name: dashboards-istio-services
+        configMap:
+          name: grafana-dashboards-istio-services
       - name: dashboards-istio-workloads
         configMap:
           name: grafana-dashboards-istio-workloads

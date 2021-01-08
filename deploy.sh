@@ -38,6 +38,7 @@ function main() {
   kustomize edit add configmap grafana-dashboards-k8s-resources --from-file=./dashboards/k8s-resources/*.json
   kustomize edit add configmap grafana-dashboards-k8s-cluster --from-file=./dashboards/k8s-cluster/*.json
   kustomize edit add configmap grafana-dashboards-istio-control --from-file=./dashboards/istio-control/*.json
+  kustomize edit add configmap grafana-dashboards-istio-services --from-file=./dashboards/istio-services/*.json
   kustomize edit add configmap grafana-dashboards-istio-workloads --from-file=./dashboards/istio-workloads/*.json
   kustomize build . | kubectl apply -f -
   rm -f ./secret.tmp
