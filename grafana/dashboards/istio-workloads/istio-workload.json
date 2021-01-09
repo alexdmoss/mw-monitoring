@@ -2486,7 +2486,7 @@
           "text": "moss-work",
           "value": "moss-work"
         },
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "definition": "",
         "hide": 0,
         "includeAll": false,
@@ -2512,7 +2512,7 @@
           "text": "moss-work",
           "value": "moss-work"
         },
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "definition": "",
         "hide": 0,
         "includeAll": false,
@@ -2538,7 +2538,7 @@
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "definition": "",
         "hide": 0,
         "includeAll": true,
@@ -2564,7 +2564,7 @@
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "definition": "",
         "hide": 0,
         "includeAll": true,
@@ -2590,7 +2590,7 @@
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "definition": "",
         "hide": 0,
         "includeAll": true,
