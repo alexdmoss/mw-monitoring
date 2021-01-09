@@ -12,3 +12,17 @@ spec:
   selector:
     matchLabels:
       app: grafana
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: grafana-istio
+spec:
+  jobLabel: app
+  selector:
+    matchLabels:
+      app: grafana
+  endpoints:
+  - interval: 30s
+    path: /stats/prometheus
+    port: istio-proxy
