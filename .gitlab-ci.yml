@@ -1,0 +1,17 @@
+stages:
+- deploy
+
+
+variables:
+  DOMAIN: grafana.alexos.dev
+  GRAFANA_PASS: ${GRAFANA_PASSWORD}
+
+deploy:
+  stage: deploy
+  image: mosstech/ci-tools:latest
+  before_script:
+  - echo "${GOOGLE_CREDENTIALS}" | gcloud auth activate-service-account --key-file -
+  - region=$(gcloud container clusters list --project=${GCP_PROJECT_ID} --filter "NAME=${CLUSTER_NAME}" --format "value(zone)")
+  - gcloud container clusters get-credentials ${CLUSTER_NAME} --project=${GCP_PROJECT_ID} --region=${region}
+  script:
+    - ./deploy.sh
