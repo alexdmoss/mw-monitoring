@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -euoE pipefail
 
 function main() {
 
@@ -44,7 +44,7 @@ function main() {
   SENDGRID_KEY=$(gcloud secrets versions access latest --secret="ALERTMANAGER_SENDGRID_KEY" --project="${GCP_PROJECT_ID}")
   export SENDGRID_KEY
   # TODO: generator and link through kustomizeconfig
-  kubectl create secret sendgrid-key -n=prometheus --from-literal=apiKey="${SENDGRID_KEY}" || true
+  kubectl create secret generic sendgrid-key -n=prometheus --from-literal=apiKey="${SENDGRID_KEY}" || true
   kustomize build . | kubectl apply -f -
   popd > /dev/null 2>&1
 
