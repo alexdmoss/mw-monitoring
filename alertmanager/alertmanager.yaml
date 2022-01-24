@@ -1,0 +1,37 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  name: mw
+  labels:
+    alertmanager: mw
+spec:
+  replicas: 2
+  serviceAccountName: prometheus
+  externalUrl: https://alertmanager.alexos.dev
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              alertmanager: mw
+          topologyKey: failure-domain.beta.kubernetes.io/zone
+  resources:
+    requests:
+      memory: 50Mi
+      cpu: 10m
+    limits:
+      memory: 100Mi
+      cpu: 100m
+  securityContext:
+    fsGroup: 2000
+    runAsUser: 1000
+    runAsNonRoot: true
+  image: quay.io/prometheus/alertmanager:v0.23.0
+  logFormat: json
+  logLevel: debug
+  alertmanagerConfigSelector:
+    matchLabels:
+      alertmanagerConfig: email

@@ -1,0 +1,27 @@
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: email
+  labels:
+    alertmanagerConfig: email
+spec:
+  route:
+    groupBy: ['job']
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 12h
+    receiver: 'email'
+  receivers:
+  - name: 'email'
+    emailConfigs:
+    - sendResolved: true
+      to: site@alexos.dev
+      from: alertmanager@alexos.dev
+      smarthost: smtp.sendgrid.net:465
+      hello: alertmanager.alexos.dev
+      authUsername: apikey
+      authPassword:
+        name: sendgrid-key
+        key: apiKey
+      text: "An alert has fired!"

@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# configurations:
+#   - kustomizeconfig/alertmanager.yaml
+
+namespace: prometheus
+
+resources:
+- alertmanager.yaml
+- alertmanager-config.yaml
+- ingress.yaml
+- pdb.yaml
+# - secret-config.yaml
+- service.yaml
+
+# secretGenerator:
+#   - name: alertmanager-config
+#     files:
+#       - secrets/alertmanager-config.yaml

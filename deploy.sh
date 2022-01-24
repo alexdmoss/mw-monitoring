@@ -3,20 +3,18 @@ set -euo pipefail
 
 function main() {
 
-  _assert_variables_set DOMAIN GRAFANA_PASS
+  _assert_variables_set DOMAIN GRAFANA_PASS GCP_PROJECT_ID
 
   _console_msg "Setting up namespaces ..."
   kubectl apply -f ./prometheus/namespace.yaml
   kubectl apply -f ./grafana/namespace.yaml
   kubectl apply -f ./metrics/namespace.yaml
 
-
   _console_msg "Installing Prometheus ..."
   pushd "prometheus/" > /dev/null 2>&1
   export NAMESPACE=prometheus
   cat ./*.yaml | envsubst | kubectl apply -f -
   popd > /dev/null 2>&1
-
 
   _console_msg "Installing Grafana ..."
   pushd "grafana/" > /dev/null 2>&1
@@ -33,7 +31,6 @@ function main() {
   rm -f ./secret.tmp
   popd > /dev/null 2>&1
 
-
   _console_msg "Installing Metric Collectors ..."
   pushd "metrics/" > /dev/null 2>&1
   kubectl apply -f ./kube-state-metrics/
@@ -42,6 +39,14 @@ function main() {
   kubectl apply -f ./node-exporter/
   popd > /dev/null 2>&1
 
+  _console_msg "Installing AlertManager ..."
+  pushd "alertmanager/" > /dev/null 2>&1
+  SENDGRID_KEY=$(gcloud secrets versions access latest --secret="ALERTMANAGER_SENDGRID_KEY" --project="${GCP_PROJECT_ID}")
+  export SENDGRID_KEY
+  # TODO: generator and link through kustomizeconfig
+  kubectl create secret sendgrid-key -n=prometheus --from-literal=apiKey="${SENDGRID_KEY}" || true
+  kustomize build . | kubectl apply -f -
+  popd > /dev/null 2>&1
 
 }
 
