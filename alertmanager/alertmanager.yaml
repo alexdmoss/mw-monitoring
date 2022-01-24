@@ -35,3 +35,4 @@ spec:
   alertmanagerConfigSelector:
     matchLabels:
       alertmanagerConfig: email
+  configSecret: alertmanager-default-config

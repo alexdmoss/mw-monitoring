@@ -12,7 +12,7 @@ resources:
 - alertmanager-config.yaml
 - ingress.yaml
 - pdb.yaml
-# - secret-config.yaml
+- default-config.yaml
 - service.yaml
 
 # secretGenerator:
