@@ -32,7 +32,3 @@ spec:
   image: quay.io/prometheus/alertmanager:v0.23.0
   logFormat: json
   logLevel: debug
-  alertmanagerConfigSelector:
-    matchLabels:
-      alertmanagerConfig: email
-  configSecret: alertmanager-default-config

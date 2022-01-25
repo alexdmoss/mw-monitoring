@@ -43,9 +43,8 @@ function main() {
   pushd "alertmanager/" > /dev/null 2>&1
   SENDGRID_KEY=$(gcloud secrets versions access latest --secret="ALERTMANAGER_SENDGRID_KEY" --project="${GCP_PROJECT_ID}")
   export SENDGRID_KEY
-  # TODO: generator and link through kustomizeconfig
-  kubectl create secret generic sendgrid-key -n=prometheus --from-literal=apiKey="${SENDGRID_KEY}" || true
-  kustomize build . | kubectl apply -f -
+  kustomize build . | envsubst "\$SENDGRID_KEY" | kubectl apply -f -
+  kubectl rollout restart sts/alertmanager-mw
   popd > /dev/null 2>&1
 
 }
