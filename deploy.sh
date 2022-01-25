@@ -14,6 +14,7 @@ function main() {
   pushd "prometheus/" > /dev/null 2>&1
   export NAMESPACE=prometheus
   cat ./*.yaml | envsubst | kubectl apply -f -
+  kubectl rollout status sts/prometheus-mw -n=${NAMESPACE} --timeout=120s
   popd > /dev/null 2>&1
 
   _console_msg "Installing Grafana ..."
@@ -44,7 +45,15 @@ function main() {
   SENDGRID_KEY=$(gcloud secrets versions access latest --secret="ALERTMANAGER_SENDGRID_KEY" --project="${GCP_PROJECT_ID}")
   export SENDGRID_KEY
   kustomize build . | envsubst "\$SENDGRID_KEY" | kubectl apply -f -
-  kubectl rollout restart sts/alertmanager-mw
+  sleep 5
+  kubectl rollout restart sts/alertmanager-mw -n=${NAMESPACE}
+  kubectl rollout status sts/alertmanager-mw -n=${NAMESPACE} --timeout=120s
+  popd > /dev/null 2>&1
+
+ _console_msg "Deploying Alerts ..."
+  pushd "alerts/" > /dev/null 2>&1
+  # TODO: should be some rule tests here with promtool
+  kubectl apply -f .
   popd > /dev/null 2>&1
 
 }
