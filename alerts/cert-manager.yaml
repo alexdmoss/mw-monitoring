@@ -1,0 +1,28 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: certificate-expiry
+  namespace: cert-manager
+  labels:
+    source: mw-monitoring.alerts
+spec:
+  groups:
+  - name: cert-manager
+    rules:
+      - record: namespace:certmanager_certificate_expiration_timestamp_seconds:as_days
+        expr: ceil(((certmanager_certificate_expiration_timestamp_seconds > 0) - time()) / 60 / 60 / 24)
+
+      - alert: platform.cert-exipiration-in-60-days
+        annotations:
+          description: A certificate will expire in less than 60 days. This should've been automatically updated by cert-manager.
+          summary: Cert Expiration
+          dashboard: /d/PciP2goWz
+        expr: namespace:certmanager_certificate_expiration_timestamp_seconds:as_days < 60
+        # for: 1h
+        labels:
+          group: cert-manager
+          priority: P3
+          severity: high
+          service: cert-manager
+          receiver: email
