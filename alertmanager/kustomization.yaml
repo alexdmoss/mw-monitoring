@@ -6,7 +6,7 @@ namespace: prometheus
 
 resources:
 - alertmanager.yaml
-- ingress.yaml
+# - ingress.yaml    # disabled until build auth into it
 - pdb.yaml
 - secret-config.yaml
 - service.yaml
