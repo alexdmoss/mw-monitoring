@@ -15,7 +15,7 @@ spec:
       expr: vector(1)
       labels:
         group: mw-monitoring
-        receiver: default
+        receiver: email
         priority: P3
         severity: none
         service: mw-monitoring
