@@ -5,7 +5,7 @@ metadata:
   name: mw
   namespace: ${NAMESPACE}
   labels:
-    app: prometheus
+    prometheus: mw
 spec:
   replicas: 2
   retention: 180d
@@ -25,10 +25,10 @@ spec:
       - podAffinityTerm:
           labelSelector:
             matchExpressions:
-            - key: app
+            - key: prometheus
               operator: In
               values:
-              - prometheus
+              - mw
           topologyKey: "kubernetes.io/hostname"
         weight: 100
   storage:
@@ -36,7 +36,7 @@ spec:
       metadata:
         name: prometheus-storage
         labels:
-          app: prometheus
+          prometheus: mw
       spec:
         accessModes: ["ReadWriteOnce"]
         storageClassName: standard
@@ -57,7 +57,7 @@ spec:
   alerting:
     alertmanagers:
       - namespace: prometheus
-        name: alertmanager
+        name: alertmanager-mw
         port: web
   baseImage: quay.io/prometheus/prometheus
   version: v2.12.0

@@ -5,12 +5,12 @@ metadata:
   name: prometheus
   namespace: prometheus
   labels:
-    app: prometheus
+    prometheus: mw
 spec:
-  jobLabel: app
+  jobLabel: prometheus
   selector:
     matchLabels:
-      app: prometheus
+      prometheus: mw
   namespaceSelector:
     matchNames:
       - prometheus

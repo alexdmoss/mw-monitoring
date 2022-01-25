@@ -8,4 +8,4 @@ spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: prometheus
+      prometheus: mw
