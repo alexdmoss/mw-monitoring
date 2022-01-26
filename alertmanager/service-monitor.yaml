@@ -3,11 +3,8 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: alertmanager
-  namespace: alertmanager
-  labels:
-    alertmanager: mw
 spec:
-  jobLabel: alertmanager
+  jobLabel: app
   selector:
     matchLabels:
       alertmanager: mw

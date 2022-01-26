@@ -3,8 +3,6 @@ apiVersion: monitoring.coreos.com/v1
 kind: Alertmanager
 metadata:
   name: mw
-  labels:
-    alertmanager: mw
 spec:
   replicas: 2
   serviceAccountName: prometheus

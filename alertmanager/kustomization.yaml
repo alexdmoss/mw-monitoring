@@ -4,6 +4,10 @@ kind: Kustomization
 
 namespace: prometheus
 
+commonLabels:
+  app: alertmanager-mw
+  alertmanager: mw
+
 resources:
 - alertmanager.yaml
 # - ingress.yaml    # disabled until build auth into it
