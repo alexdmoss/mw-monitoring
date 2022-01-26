@@ -30,10 +30,18 @@ Multiple replicas are handled through stickiness configured on the `Ingress` - w
 
 ### To Do
 
+- [ ] AlertManager + Prometheus access via ingress with auth
+- [ ] A default alert handler for no routes / reporting
+- [ ] Alerts for:
+  - [ ] Pods not scheduled
+  - [ ] Crash Loop Backoff
+  - [ ] 404
+  - [ ] 5xx
+  - [ ] Velero backup failed
+  - [ ] Certs about to expire
 - [ ] Grafana login through Google Account
 - [ ] Test what happens when a prometheus pod is down
 - [ ] Test what happens when a grafana pod is down
-- [ ] Set up AlertManager
 - [ ] Availability Alert for mosstech
 - [ ] Some tests for all this
 - [ ] Remove the old terraformed stuff

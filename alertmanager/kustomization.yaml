@@ -10,3 +10,4 @@ resources:
 - pdb.yaml
 - secret-config.yaml
 - service.yaml
+- service-monitor.yaml
