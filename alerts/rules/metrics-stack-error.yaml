@@ -1,0 +1,58 @@
+groups:
+  - name: kubernetes-absent
+    rules:
+      - alert: AlertmanagerDown
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: critical
+        annotations:
+          dashboard: /d/not-implemented
+          summary: Alertmanager has disappeared from Prometheus target discovery.
+        expr: |
+          absent(up{job="alertmanager-mw",namespace="prometheus"} == 1)
+        for: 15m
+      - alert: KubeStateMetricsDown
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: high
+        annotations:
+          dashboard: /d/not-implemented
+          summary: KubeStateMetrics has disappeared from Prometheus target discovery.
+        expr: |
+          absent(up{job="kube-state-metrics"} == 1)
+        for: 15m
+      - alert: NodeExporterDown
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: high
+        annotations:
+          dashboard: /d/not-implemented
+          summary: NodeExporter has disappeared from Prometheus target discovery.
+        expr: |
+          absent(up{job="node-exporter"} == 1)
+        for: 15m
+      - alert: PrometheusDown
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: high
+        annotations:
+          dashboard: /d/not-implemented
+          summary: Prometheus has disappeared from Prometheus target discovery.
+        expr: |
+          absent(up{job="prometheus-mw",namespace="prometheus"} == 1)
+        for: 15m
+      - alert: PrometheusOperatorDown
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: low
+        annotations:
+          dashboard: /d/not-implemented
+          summary: PrometheusOperator has disappeared from Prometheus target discovery.
+        expr: |
+          absent(up{job="prometheus-operator",namespace="prometheus-operator"} == 1)
+        for: 15m

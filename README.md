@@ -39,9 +39,12 @@ Multiple replicas are handled through stickiness configured on the `Ingress` - w
   - [ ] 5xx
   - [ ] Velero backup failed
   - [ ] Certs about to expire
+  - [ ] High latency alert
+  - [ ] OOMKill
+  - [ ] PV Filling
+  - [ ] Grafana not running
+- [ ] Dashboard links for all alerts
 - [ ] Grafana login through Google Account
-- [ ] Test what happens when a prometheus pod is down
-- [ ] Test what happens when a grafana pod is down
 - [ ] Availability Alert for mosstech
 - [ ] Some tests for all this
 - [ ] Remove the old terraformed stuff

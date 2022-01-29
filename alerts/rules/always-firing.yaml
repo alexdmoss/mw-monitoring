@@ -1,0 +1,12 @@
+groups:
+  - name: always-firing
+    rules:
+      - alert: always-firing
+        expr: vector(1)
+        labels:
+          group: mw-monitoring
+          receiver: default # or email
+          severity: none
+        annotations:
+          summary: This is an always-firing alert to test AlertManager is working
+          dashboard: /d/not-implemented

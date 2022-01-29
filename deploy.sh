@@ -52,8 +52,9 @@ function main() {
 
  _console_msg "Deploying Alerts ..."
   pushd "alerts/" > /dev/null 2>&1
-  # TODO: should be some rule tests here with promtool
-  kubectl apply -f .
+  pip install pipenv
+  pipenv install
+  pipenv run ./render-rules.py | kubectl apply -f -
   popd > /dev/null 2>&1
 
 }

@@ -1,0 +1,126 @@
+groups:
+  - name: prometheus.rules
+    rules:
+      - alert: PrometheusConfigReloadFailed
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: critical
+        annotations:
+          dashboard: /d/not-implemented
+          summary: Reloading Prometheus' configuration has failed for {{$labels.namespace}}/{{$labels.pod}}
+        expr: |
+          prometheus_config_last_reload_successful{job="prometheus-mw",namespace="prometheus"} == 0
+        for: 10m
+      - alert: PrometheusNotificationQueueRunningFull
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: low
+        annotations:
+          dashboard: /d/not-implemented
+          summary: Prometheus' alert notification queue is running full for {{$labels.namespace}}/{{ $labels.pod}}
+        expr: |
+          predict_linear(prometheus_notifications_queue_length{job="prometheus-mw",namespace="prometheus"}[5m], 60 * 30) > prometheus_notifications_queue_capacity{job="prometheus-mw",namespace="prometheus"}
+        for: 10m
+      - alert: PrometheusErrorSendingAlerts
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: high
+        annotations:
+          dashboard: /d/not-implemented
+          summary: Errors while sending alerts from Prometheus {{$labels.namespace}}/{{ $labels.pod}} to Alertmanager {{$labels.Alertmanager}}
+        expr: |
+          rate(prometheus_notifications_errors_total{job="prometheus-mw",namespace="prometheus"}[5m]) / rate(prometheus_notifications_sent_total{job="prometheus-mw",namespace="prometheus"}[5m]) > 0.01
+        for: 10m
+      - alert: PrometheusNotConnectedToAlertmanagers
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: critical
+        annotations:
+          dashboard: /d/not-implemented
+          summary: Prometheus {{ $labels.namespace }}/{{ $labels.pod}} is not connected to any Alertmanagers
+        expr: |
+          prometheus_notifications_alertmanagers_discovered{job="prometheus-mw",namespace="prometheus"} < 1
+        for: 10m
+      - alert: PrometheusTSDBReloadsFailing
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: low
+        annotations:
+          dashboard: /d/not-implemented
+          summary: "{{$labels.job}} at {{$labels.instance}} had {{$value | humanize}} reload failures over the last four hours."
+        expr: |
+          increase(prometheus_tsdb_reloads_failures_total{job="prometheus-mw",namespace="prometheus"}[2h]) > 0
+        for: 12h
+      - alert: PrometheusTSDBCompactionsFailing
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: low
+        annotations:
+          dashboard: /d/not-implemented
+          summary: "{{$labels.job}} at {{$labels.instance}} had {{$value | humanize}} compaction failures over the last four hours."
+        expr: |
+          increase(prometheus_tsdb_compactions_failed_total{job="prometheus-mw",namespace="prometheus"}[2h]) > 0
+        for: 12h
+      - alert: PrometheusTSDBWALCorruptions
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: moderate
+        annotations:
+          dashboard: /d/not-implemented
+          summary: "{{$labels.job}} at {{$labels.instance}} has a corrupted write-ahead log (WAL)."
+        expr: |
+          prometheus_tsdb_wal_corruptions_total{job="prometheus-mw",namespace="prometheus"} > 0
+        for: 4h
+      - alert: PrometheusNotIngestingSamples
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: high
+        annotations:
+          dashboard: /d/not-implemented
+          summary: Prometheus {{ $labels.namespace }}/{{ $labels.pod}} isn't ingesting samples.
+        expr: |
+          rate(prometheus_tsdb_head_samples_appended_total{job="prometheus-mw",namespace="prometheus"}[5m]) <= 0
+        for: 10m
+      - alert: PrometheusTargetScrapesDuplicate
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: high
+        annotations:
+          dashboard: /d/not-implemented
+          summary: "{{$labels.namespace}}/{{$labels.pod}} has many samples rejected due to duplicate timestamps but different values"
+        expr: |
+          increase(prometheus_target_scrapes_sample_duplicate_timestamp_total{job="prometheus-mw",namespace="prometheus"}[5m]) > 0
+        for: 10m
+  - name: prometheus-operator
+    rules:
+      - alert: PrometheusOperatorReconcileErrors
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: low
+        annotations:
+          dashboard: /d/not-implemented
+          summary: Errors while reconciling {{ $labels.controller }} in {{ $labels.namespace }} Namespace.
+        expr: |
+          rate(prometheus_operator_reconcile_errors_total{job="prometheus-operator",namespace="prometheus-operator"}[5m]) > 0.1
+        for: 10m
+      - alert: PrometheusOperatorNodeLookupErrors
+        labels:
+          group: mw-monitoring
+          receiver: default
+          severity: low
+        annotations:
+          dashboard: /d/not-implemented
+          summary: Errors while reconciling Prometheus in {{ $labels.namespace }} Namespace.
+        expr: |
+          rate(prometheus_operator_node_address_lookup_errors_total{job="prometheus-operator",namespace="prometheus-operator"}[5m]) > 0.1
+        for: 10m
