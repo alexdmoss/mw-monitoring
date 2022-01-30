@@ -1,0 +1,61 @@
+---
+rule_files:
+  - ../rules/cert-manager.yaml
+
+evaluation_interval: 60m
+
+tests:
+  - interval: 20m
+    input_series:
+      # NB: multiples of 86,400 for the number of days
+      - series: 'certmanager_certificate_expiration_timestamp_seconds{exported_namespace="alexos", name="alexos-tls"}'
+        values: "6220800-1200x75"
+      - series: 'certmanager_certificate_expiration_timestamp_seconds{exported_namespace="alchemyst", name="alchemyst-tls"}'
+        values: "2419200-1200x75"
+      - series: 'certmanager_certificate_expiration_timestamp_seconds{exported_namespace="fifteen-days", name="fifteen-tls"}'
+        values: "1209600-1200x75"
+      - series: 'certmanager_certificate_expiration_timestamp_seconds{exported_namespace="newly-created", name="new-tls"}'
+        values: "0x75"
+
+    promql_expr_test:
+      - expr: namespace:certmanager_certificate_expiration_timestamp_seconds:as_days
+        eval_time: 0m
+        exp_samples:
+          - labels: 'namespace:certmanager_certificate_expiration_timestamp_seconds:as_days{exported_namespace="alexos", name="alexos-tls"}'
+            value: 72
+          - labels: 'namespace:certmanager_certificate_expiration_timestamp_seconds:as_days{exported_namespace="alchemyst", name="alchemyst-tls"}'
+            value: 28
+          - labels: 'namespace:certmanager_certificate_expiration_timestamp_seconds:as_days{exported_namespace="fifteen-days", name="fifteen-tls"}'
+            value: 14
+      - expr: namespace:certmanager_certificate_expiration_timestamp_seconds:as_days
+        eval_time: 1441m # >24h later
+        exp_samples:
+          - labels: 'namespace:certmanager_certificate_expiration_timestamp_seconds:as_days{exported_namespace="alexos", name="alexos-tls"}'
+            value: 70
+          - labels: 'namespace:certmanager_certificate_expiration_timestamp_seconds:as_days{exported_namespace="alchemyst", name="alchemyst-tls"}'
+            value: 26
+          - labels: 'namespace:certmanager_certificate_expiration_timestamp_seconds:as_days{exported_namespace="fifteen-days", name="fifteen-tls"}'
+            value: 12
+
+    alert_rule_test:
+      - eval_time: 24h
+        alertname: cert-exipiration-in-60-days
+        exp_alerts:
+          - exp_annotations:
+              summary: A certificate will expire in less than 60 days. This should've been automatically updated by cert-manager.
+              dashboard: /d/not-implemented
+            exp_labels:
+              exported_namespace: alchemyst
+              name: alchemyst-tls
+              group: cert-manager
+              severity: high
+              receiver: email
+          - exp_annotations:
+              summary: A certificate will expire in less than 60 days. This should've been automatically updated by cert-manager.
+              dashboard: /d/not-implemented
+            exp_labels:
+              exported_namespace: fifteen-days
+              name: fifteen-tls
+              group: cert-manager
+              severity: high
+              receiver: email

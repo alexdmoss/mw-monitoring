@@ -33,34 +33,6 @@ groups:
             /
           count(kube_node_status_allocatable_memory_bytes)
         for: 5m
-      - alert: KubeCPUOvercommit
-        labels:
-          group: mw-monitoring
-          receiver: default
-          severity: low
-        annotations:
-          dashboard: /d/not-implemented
-          summary: Cluster has overcommitted CPU resource requests for Namespaces.
-        expr: |
-          sum(kube_resourcequota{job="kube-state-metrics", type="hard", resource="cpu"})
-            /
-          sum(kube_node_status_allocatable_cpu_cores)
-            > 1.5
-        for: 5m
-      - alert: KubeMemOvercommit
-        labels:
-          group: mw-monitoring
-          receiver: default
-          severity: low
-        annotations:
-          dashboard: /d/not-implemented
-          summary: Cluster has overcommitted memory resource requests for Namespaces.
-        expr: |
-          sum(kube_resourcequota{job="kube-state-metrics", type="hard", resource="memory"})
-            /
-          sum(kube_node_status_allocatable_memory_bytes{job="node-exporter"})
-            > 1.5
-        for: 5m
       - alert: CPUThrottlingHigh
         labels:
           group: mw-monitoring

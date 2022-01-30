@@ -75,12 +75,12 @@ def validate_rules(directory):
     return validation_errors
 
 
-def render():
+def render(directory):
 
     print('-> [INFO] Generating rules yaml ...')
 
-    for filename in os.listdir('rules'):
-        with open(f'rules/{filename}', 'r') as file_content:
+    for filename in os.listdir(directory):
+        with open(f'{directory}/{filename}', 'r') as file_content:
             rule_spec = yaml.load(file_content, Loader=yaml.SafeLoader)
             stripped_filename = filename.replace('.yaml', '')
 
@@ -108,7 +108,8 @@ if __name__ == "__main__":
     if validation_errors > 0:
         sys.exit(1)
 
-    render()
+    render('rules')
+    render('coreos-rules')
 
     print('-> [INFO] Script complete.')
 

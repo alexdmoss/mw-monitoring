@@ -6,8 +6,7 @@ groups:
 
       - alert: cert-exipiration-in-60-days
         annotations:
-          description: A certificate will expire in less than 60 days. This should've been automatically updated by cert-manager.
-          summary: Cert Expiration
+          summary: A certificate will expire in less than 60 days. This should've been automatically updated by cert-manager.
           dashboard: /d/not-implemented
         expr: namespace:certmanager_certificate_expiration_timestamp_seconds:as_days < 60
         for: 1h

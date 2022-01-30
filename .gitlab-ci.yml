@@ -39,8 +39,20 @@ deploy-alertmanager:
   script:
     - ./deploy.sh alertmanager
 
+test-alerts:
+  stage: deploy
+  image:
+    name: prom/prometheus
+    entrypoint: [ "/bin/sh", "-c" ]
+  script:
+  - cd alerts/ && ./test-alerts.sh
+
 deploy-alerts:
   stage: deploy
   extends: .deploy
+  needs: 
+    - test-alerts
+  before_script:
+    - go get -v github.com/prometheus/prometheus/cmd/promtool
   script:
     - ./deploy.sh alerts
