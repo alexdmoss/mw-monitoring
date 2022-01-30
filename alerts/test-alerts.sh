@@ -1,10 +1,12 @@
-#!/bin/bash
-set -euoE pipefail
+#!/bin/sh
+# No bash in promethus image
+
+set -eu
 
 exit_code=0
 
 for testfile in rules/*.yaml; do
-    if [[ ! -f "tests/$(basename "${testfile}")" ]]; then
+    if [ ! -f "tests/$(basename "${testfile}")" ]; then
         echo "-> [ERROR] Missing test for rules/${testfile}"
         exit_code=1
     fi
