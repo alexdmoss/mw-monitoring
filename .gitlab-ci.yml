@@ -6,8 +6,7 @@ variables:
   DOMAIN: grafana.alexos.dev
   GRAFANA_PASS: ${GRAFANA_PASSWORD}
 
-deploy:
-  stage: deploy
+.deploy:
   only:
     - master
   image: mosstech/ci-tools:latest
@@ -15,5 +14,33 @@ deploy:
   - echo "${GOOGLE_CREDENTIALS}" | gcloud auth activate-service-account --key-file -
   - region=$(gcloud container clusters list --project=${GCP_PROJECT_ID} --filter "NAME=${CLUSTER_NAME}" --format "value(zone)")
   - gcloud container clusters get-credentials ${CLUSTER_NAME} --project=${GCP_PROJECT_ID} --region=${region}
+
+deploy_prometheus:
+  stage: deploy
+  extends: .deploy
   script:
-    - ./deploy.sh
+    - ./deploy.sh prometheus
+
+deploy_grafana:
+  stage: deploy
+  extends: .deploy
+  script:
+    - ./deploy.sh grafana
+
+deploy_collectors:
+  stage: deploy
+  extends: .deploy
+  script:
+    - ./deploy.sh collectors
+
+deploy_alertmanager:
+  stage: deploy
+  extends: .deploy
+  script:
+    - ./deploy.sh alertmanager
+
+deploy_alerts:
+  stage: deploy
+  extends: .deploy
+  script:
+    - ./deploy.sh alerts
