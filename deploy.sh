@@ -50,7 +50,7 @@ function deploy_grafana() {
   echo "user=admin" > ./secret.tmp
   echo "password=${GRAFANA_PASS}" >> ./secret.tmp
 
-  kubectl apply -f ./grafana/namespace.yaml
+  kubectl apply -f ./namespace.yaml
 
   cp base-kustomization.yaml kustomization.yaml # easier when developing locally - not necessary in CI
   kustomize edit add configmap grafana-dashboards-websites --from-file=./dashboards/websites/*.json
@@ -74,7 +74,7 @@ function deploy_collectors() {
 
   pushd "metrics/" > /dev/null 2>&1
 
-  kubectl apply -f ./metrics/namespace.yaml
+  kubectl apply -f ./namespace.yaml
   kubectl apply -f ./kube-state-metrics/
   kubectl apply -f ./kubelet/
   kubectl apply -f ./node-exporter/rbac/
