@@ -15,31 +15,31 @@ variables:
   - region=$(gcloud container clusters list --project=${GCP_PROJECT_ID} --filter "NAME=${CLUSTER_NAME}" --format "value(zone)")
   - gcloud container clusters get-credentials ${CLUSTER_NAME} --project=${GCP_PROJECT_ID} --region=${region}
 
-deploy_prometheus:
+deploy-prometheus:
   stage: deploy
   extends: .deploy
   script:
     - ./deploy.sh prometheus
 
-deploy_grafana:
+deploy-grafana:
   stage: deploy
   extends: .deploy
   script:
     - ./deploy.sh grafana
 
-deploy_collectors:
+deploy-collectors:
   stage: deploy
   extends: .deploy
   script:
     - ./deploy.sh collectors
 
-deploy_alertmanager:
+deploy-alertmanager:
   stage: deploy
   extends: .deploy
   script:
     - ./deploy.sh alertmanager
 
-deploy_alerts:
+deploy-alerts:
   stage: deploy
   extends: .deploy
   script:

@@ -57,6 +57,8 @@ def validate_dashboard_annotation(alert, errors):
 def validate_rules(directory):
     validation_errors = 0
 
+    print('-> [INFO] Validating alert rules ...')
+
     for filename in os.listdir(directory):
         with open(f'{directory}/{filename}', 'r') as file_content:
             rule_spec = yaml.load(file_content, Loader=yaml.SafeLoader)
@@ -67,12 +69,16 @@ def validate_rules(directory):
             if len(errors) != 0:
                 validation_errors += 1
                 for error in errors:
-                    print(f'[{directory}/{filename}/{alert["alert"]}] {error}')
+                    print(
+                        f'-> [ERROR] [{directory}/{filename}/{alert["alert"]}] {error}')
 
     return validation_errors
 
 
 def render():
+
+    print('-> [INFO] Generating rules yaml ...')
+
     for filename in os.listdir('rules'):
         with open(f'rules/{filename}', 'r') as file_content:
             rule_spec = yaml.load(file_content, Loader=yaml.SafeLoader)
@@ -91,7 +97,8 @@ def render():
                 'spec': rule_spec
             }
 
-            print('---\n' + yaml.dump(rule_yaml))
+            with open('/tmp/alert-rules.yaml', 'a') as yaml_file:
+                yaml_file.write('---\n' + yaml.dump(rule_yaml))
 
 
 if __name__ == "__main__":
@@ -100,5 +107,9 @@ if __name__ == "__main__":
 
     if validation_errors > 0:
         sys.exit(1)
+
     render()
+
+    print('-> [INFO] Script complete.')
+
     sys.exit(0)

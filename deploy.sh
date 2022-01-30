@@ -7,10 +7,8 @@ function main() {
 
   _assert_variables_set DOMAIN GRAFANA_PASS GCP_PROJECT_ID
 
-  _console_msg "Setting up namespaces ..."
+  _console_msg "Ensuring prometheus namespace exists ..."
   kubectl apply -f ./prometheus/namespace.yaml
-  kubectl apply -f ./grafana/namespace.yaml
-  kubectl apply -f ./metrics/namespace.yaml
 
   case $component in
     "prometheus")
@@ -39,7 +37,7 @@ function deploy_prometheus() {
   export NAMESPACE=prometheus
   cat ./*.yaml | envsubst | kubectl apply -f -
   kubectl rollout status sts/prometheus-mw -n=${NAMESPACE} --timeout=120s
-  
+
   popd > /dev/null 2>&1
 
 }
@@ -51,6 +49,8 @@ function deploy_grafana() {
 
   echo "user=admin" > ./secret.tmp
   echo "password=${GRAFANA_PASS}" >> ./secret.tmp
+
+  kubectl apply -f ./grafana/namespace.yaml
 
   cp base-kustomization.yaml kustomization.yaml # easier when developing locally - not necessary in CI
   kustomize edit add configmap grafana-dashboards-websites --from-file=./dashboards/websites/*.json
@@ -74,6 +74,7 @@ function deploy_collectors() {
 
   pushd "metrics/" > /dev/null 2>&1
 
+  kubectl apply -f ./metrics/namespace.yaml
   kubectl apply -f ./kube-state-metrics/
   kubectl apply -f ./kubelet/
   kubectl apply -f ./node-exporter/rbac/
@@ -93,8 +94,8 @@ function deploy_alertmanager() {
   export SENDGRID_KEY
   kustomize build . | envsubst "\$SENDGRID_KEY" | kubectl apply -f -
   sleep 5
-  kubectl rollout restart sts/alertmanager-mw -n=${NAMESPACE}
-  kubectl rollout status sts/alertmanager-mw -n=${NAMESPACE} --timeout=120s
+  kubectl rollout restart sts/alertmanager-mw -n=prometheus
+  kubectl rollout status sts/alertmanager-mw -n=prometheus --timeout=120s
 
   popd > /dev/null 2>&1
 
@@ -108,7 +109,12 @@ function deploy_alerts() {
 
   pip install pipenv
   pipenv install
-  pipenv run ./render-rules.py | kubectl apply -f -
+  pipenv run ./render-rules.py
+  if [[ -f /tmp/alert-rules.yaml ]]; then
+    kubectl apply -f /tmp/alert-rules.yaml
+  else
+    _console_msg "/tmp/alert-rules.yaml does not exist. Check for validation errors above" ERROR
+  fi
 
   popd > /dev/null 2>&1
 
