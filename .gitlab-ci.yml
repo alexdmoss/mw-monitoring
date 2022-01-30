@@ -52,7 +52,5 @@ deploy-alerts:
   extends: .deploy
   needs: 
     - test-alerts
-  before_script:
-    - go get -v github.com/prometheus/prometheus/cmd/promtool
   script:
     - ./deploy.sh alerts
