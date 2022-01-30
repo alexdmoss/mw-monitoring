@@ -3,7 +3,7 @@ kind: PodDisruptionBudget
 apiVersion: policy/v1beta1
 metadata:
   name: prometheus
-  namespace: ${NAMESPACE}
+  namespace: prometheus
 spec:
   minAvailable: 1
   selector:

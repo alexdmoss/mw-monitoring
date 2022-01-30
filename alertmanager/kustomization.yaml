@@ -5,7 +5,6 @@ kind: Kustomization
 namespace: prometheus
 
 commonLabels:
-  app: alertmanager-mw
   alertmanager: mw
 
 resources:

@@ -34,9 +34,8 @@ function deploy_prometheus() {
 
   pushd "prometheus/" > /dev/null 2>&1
 
-  export NAMESPACE=prometheus
-  cat ./*.yaml | envsubst | kubectl apply -f -
-  kubectl rollout status sts/prometheus-mw -n=${NAMESPACE} --timeout=120s
+  kubectl apply -f .
+  kubectl rollout status sts/prometheus-mw -n=prometheus --timeout=120s
 
   popd > /dev/null 2>&1
 
