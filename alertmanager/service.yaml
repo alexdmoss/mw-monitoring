@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: alertmanager-mw
+  name: alertmanager
 spec:
   type: ClusterIP
   ports:
