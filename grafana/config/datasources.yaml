@@ -9,3 +9,11 @@ datasources:
     version: 1
     editable: false
     orgId: 1
+  - access: proxy
+    isDefault: false
+    name: loki
+    type: loki
+    url: http://loki.loki:3100
+    version: 1
+    editable: false
+    orgId: 1
