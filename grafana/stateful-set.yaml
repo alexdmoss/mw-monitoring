@@ -33,7 +33,7 @@ spec:
       terminationGracePeriodSeconds: 600
       containers:
         - name: grafana
-          image: grafana/grafana:6.6.0
+          image: grafana/grafana:8.5.3
           imagePullPolicy: IfNotPresent
           env:
           - name: GF_SECURITY_ADMIN_USER

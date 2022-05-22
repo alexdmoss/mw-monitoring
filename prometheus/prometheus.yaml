@@ -57,7 +57,7 @@ spec:
   alerting:
     alertmanagers:
       - namespace: prometheus
-        name: alertmanager-mw
+        name: mw
         port: web
   baseImage: quay.io/prometheus/prometheus
-  version: v2.12.0
+  version: v2.35.0
