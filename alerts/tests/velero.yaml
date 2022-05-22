@@ -1,0 +1,40 @@
+---
+rule_files:
+  - ../rules/velero.yaml
+
+evaluation_interval: 1m
+
+tests:
+  - interval: 1m
+    input_series:
+      - series: velero_backup_last_successful_timestamp{schedule="pv-backup"}
+        values: 3600x300
+
+    promql_expr_test:
+      - expr: velero_backup_last_successful_timestamp
+        eval_time: 1h
+        exp_samples:
+          - labels: velero_backup_last_successful_timestamp{schedule="pv-backup"}
+            value: 3600
+      - expr: backup:velero_backup_last_successful_timestamp:as_hours
+        eval_time: 3h
+        exp_samples:
+          - labels: backup:velero_backup_last_successful_timestamp:as_hours{schedule="pv-backup"}
+            value: 2
+
+    alert_rule_test:
+      - eval_time: 3h
+        alertname: velero-volume-backup-failure
+        exp_alerts: []
+
+      - eval_time: 4h
+        alertname: velero-volume-backup-failure
+        exp_alerts:
+          - exp_annotations:
+              summary: Last successful persistent volume backup has exceeded the threshold
+              dashboard: /d/velero
+            exp_labels:
+              group: velero
+              severity: high
+              receiver: email
+              schedule: pv-backup

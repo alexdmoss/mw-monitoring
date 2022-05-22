@@ -1,0 +1,15 @@
+groups:
+  - name: velero
+    rules:
+      - record: backup:velero_backup_last_successful_timestamp:as_hours
+        expr: (time() - velero_backup_last_successful_timestamp) / 3600
+      - alert: velero-volume-backup-failure
+        annotations:
+          summary: Last successful persistent volume backup has exceeded the threshold
+          dashboard: /d/not-implemented
+        expr: backup:velero_backup_last_successful_timestamp:as_hours{schedule="pv-backup"} > 2
+        for: 1h
+        labels:
+          group: velero
+          severity: high
+          receiver: email

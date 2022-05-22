@@ -85,6 +85,9 @@ spec:
             mountPath: "/var/lib/grafana/dashboards/k8s-resources"
           - name: dashboards-k8s-cluster
             mountPath: "/var/lib/grafana/dashboards/k8s-cluster"
+          - name: dashboards-control-plane
+            mountPath: "/var/lib/grafana/dashboards/control-plane"
+
       restartPolicy: Always
       volumes:
       - name: config
@@ -114,6 +117,9 @@ spec:
       - name: dashboards-k8s-cluster
         configMap:
           name: grafana-dashboards-k8s-cluster
+      - name: dashboards-control-plane
+        configMap:
+          name: grafana-dashboards-control-plane
   updateStrategy:
     type: RollingUpdate
   volumeClaimTemplates:

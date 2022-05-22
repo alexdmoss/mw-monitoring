@@ -58,6 +58,7 @@ function deploy_grafana() {
   kustomize edit add configmap grafana-dashboards-istio-control --from-file=./dashboards/istio-control/*.json
   kustomize edit add configmap grafana-dashboards-istio-services --from-file=./dashboards/istio-services/*.json
   kustomize edit add configmap grafana-dashboards-istio-workloads --from-file=./dashboards/istio-workloads/*.json
+  kustomize edit add configmap grafana-dashboards-control-plane --from-file=./dashboards/control-plane/*.json
 
   kustomize build . | kubectl apply -f -
 
