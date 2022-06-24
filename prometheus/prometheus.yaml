@@ -12,6 +12,7 @@ spec:
   scrapeInterval: 10s
   evaluationInterval: 30s
   serviceAccountName: prometheus
+  priorityClassName: has-volume-constraints
   # target Selectors with matchLabels.prometheus-namespace: ''
   serviceMonitorNamespaceSelector: {}
   serviceMonitorSelector: {}

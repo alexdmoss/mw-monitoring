@@ -30,6 +30,7 @@ spec:
         runAsNonRoot: true
       serviceAccount: grafana
       serviceAccountName: grafana
+      priorityClassName: has-volume-constraints
       terminationGracePeriodSeconds: 600
       containers:
         - name: grafana
