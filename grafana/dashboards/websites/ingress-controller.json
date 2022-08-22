@@ -83,7 +83,7 @@
         "tableColumn": "",
         "targets": [
           {
-            "expr": "sum(avg_over_time(nginx_ingress_controller_nginx_process_connections{controller_class=\"nginx\",namespace=\"ingress\"}[1m]))",
+            "expr": "sum(avg_over_time(nginx_ingress_controller_nginx_process_connections{controller_class=~\".*nginx.*\",namespace=\"ingress\"}[1m]))",
             "instant": false,
             "intervalFactor": 2,
             "refId": "A"
@@ -254,7 +254,7 @@
         "tableColumn": "",
         "targets": [
           {
-            "expr": "avg(nginx_ingress_controller_success{controller_class=\"nginx\"})",
+            "expr": "avg(nginx_ingress_controller_success{controller_class=~\".*nginx.*\"})",
             "refId": "A"
           }
         ],
@@ -576,7 +576,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "histogram_quantile(0.95,max(increase(nginx_ingress_controller_request_duration_seconds_bucket{ingress!=\"\",controller_class=\"nginx\"}[5m])) by (le, host))",
+            "expr": "histogram_quantile(0.95,max(increase(nginx_ingress_controller_request_duration_seconds_bucket{ingress!=\"\",controller_class=~\".*nginx.*\"}[5m])) by (le, host))",
             "legendFormat": "p95 - {{host}}",
             "refId": "B"
           }
@@ -665,13 +665,13 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "sum(irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress!=\"\",controller_class=\"nginx\",status=~\"4..\"}[5m])) / sum(irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress!=\"\",controller_class=\"nginx\"}[5m])) ",
+            "expr": "sum(irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress!=\"\",controller_class=~\".*nginx.*\",status=~\"4..\"}[5m])) / sum(irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress!=\"\",controller_class=~\".*nginx.*\"}[5m])) ",
             "intervalFactor": 2,
             "legendFormat": "4xx",
             "refId": "A"
           },
           {
-            "expr": "sum(irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress!=\"\",controller_class=\"nginx\",status=\"5..\"}[5m])) / sum(irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress!=\"\",controller_class=\"nginx\"}[5m]))",
+            "expr": "sum(irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress!=\"\",controller_class=~\".*nginx.*\",status=\"5..\"}[5m])) / sum(irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress!=\"\",controller_class=~\".*nginx.*\"}[5m]))",
             "intervalFactor": 2,
             "legendFormat": "5xx",
             "refId": "B"
@@ -760,7 +760,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "avg(nginx_ingress_controller_response_size_sum{ingress!=\"\",controller_class=\"nginx\"}) by (ingress)",
+            "expr": "avg(nginx_ingress_controller_response_size_sum{ingress!=\"\",controller_class=~\".*nginx.*\"}) by (ingress)",
             "legendFormat": "{{ingress}}",
             "refId": "A"
           }
@@ -847,12 +847,12 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "sum(irate(nginx_ingress_controller_request_size_sum{controller_class=\"nginx\"}[3m]))",
+            "expr": "sum(irate(nginx_ingress_controller_request_size_sum{controller_class=~\".*nginx.*\"}[3m]))",
             "legendFormat": "Request",
             "refId": "A"
           },
           {
-            "expr": "sum(irate(nginx_ingress_controller_response_size_sum{controller_class=\"nginx\"}[3m]))",
+            "expr": "sum(irate(nginx_ingress_controller_response_size_sum{controller_class=~\".*nginx.*\"}[3m]))",
             "legendFormat": "Response",
             "refId": "B"
           }
@@ -940,7 +940,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "sum(irate(nginx_ingress_controller_nginx_process_cpu_seconds_total{controller_class=\"nginx\"}[3m])) ",
+            "expr": "sum(irate(nginx_ingress_controller_nginx_process_cpu_seconds_total{controller_class=~\".*nginx.*\"}[3m])) ",
             "intervalFactor": 2,
             "legendFormat": "CPU",
             "refId": "A"
@@ -1029,7 +1029,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "avg(nginx_ingress_controller_nginx_process_resident_memory_bytes{controller_class=\"nginx\"}) ",
+            "expr": "avg(nginx_ingress_controller_nginx_process_resident_memory_bytes{controller_class=~\".*nginx.*\"}) ",
             "intervalFactor": 2,
             "legendFormat": "RSS Bytes",
             "refId": "A"

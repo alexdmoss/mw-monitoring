@@ -82,13 +82,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(flask_http_request_duration_seconds_count{service=\"alchemyst\"}[5m]))",
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{app=\"alchemyst\"}[5m]))",
           "interval": "1m",
           "legendFormat": "Overall",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(flask_http_request_duration_seconds_count{service=\"alchemyst\", status!=\"\"}[5m])) by (status)",
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{app=\"alchemyst\", status!=\"\"}[5m])) by (status)",
           "interval": "1m",
           "legendFormat": "{{status}}",
           "refId": "B"
@@ -176,17 +176,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.5,max(increase(flask_http_request_duration_seconds_bucket{service=\"alchemyst\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.5,max(increase(flask_http_request_duration_seconds_bucket{app=\"alchemyst\"}[5m])) by (le))",
           "legendFormat": "p50",
           "refId": "A"
         },
         {
-          "expr": "histogram_quantile(0.95,max(increase(flask_http_request_duration_seconds_bucket{service=\"alchemyst\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.95,max(increase(flask_http_request_duration_seconds_bucket{app=\"alchemyst\"}[5m])) by (le))",
           "legendFormat": "p995",
           "refId": "B"
         },
         {
-          "expr": "histogram_quantile(1,max(increase(flask_http_request_duration_seconds_bucket{service=\"alchemyst\"}[5m])) by (le))",
+          "expr": "histogram_quantile(1,max(increase(flask_http_request_duration_seconds_bucket{app=\"alchemyst\"}[5m])) by (le))",
           "legendFormat": "p100",
           "refId": "C"
         }
@@ -373,37 +373,37 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"499\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
+          "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"499\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
           "legendFormat": "499",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"500\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
+          "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"500\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
           "legendFormat": "500",
           "refId": "B"
         },
         {
-          "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"501\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
+          "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"501\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
           "legendFormat": "501",
           "refId": "C"
         },
         {
-          "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"502\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
+          "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"502\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
           "legendFormat": "502",
           "refId": "D"
         },
         {
-          "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"503\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
+          "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"503\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
           "legendFormat": "503",
           "refId": "E"
         },
         {
-          "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"504\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
+          "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"504\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
           "legendFormat": "504",
           "refId": "F"
         },
         {
-          "expr": "sum(rate(flask_http_request_total{service=\"alchemyst\",status=\"404\"}[5m])) / sum(rate(flask_http_request_total{service=\"alchemyst\"}[5m]))",
+          "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"404\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
           "legendFormat": "404",
           "refId": "G"
         }
@@ -884,7 +884,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(process_cpu_seconds_total{service=\"alchemyst\"}[1m])) by (pod)",
+          "expr": "sum(rate(process_cpu_seconds_total{app=\"alchemyst\"}[1m])) by (pod)",
           "legendFormat": "{{pod}}",
           "refId": "A"
         }
@@ -972,12 +972,12 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg by(pod) (process_resident_memory_bytes{service=\"alchemyst\"})",
+          "expr": "avg by(pod) (process_resident_memory_bytes{app=\"alchemyst\"})",
           "legendFormat": "RSS: {{pod}}",
           "refId": "A"
         },
         {
-          "expr": "avg by(pod) (process_virtual_memory_bytes{service=\"alchemyst\"})",
+          "expr": "avg by(pod) (process_virtual_memory_bytes{app=\"alchemyst\"})",
           "legendFormat": "VSS: {{pod}}",
           "refId": "B"
         }
@@ -1064,7 +1064,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg by(pod) (process_open_fds{service=\"alchemyst\"})",
+          "expr": "avg by(pod) (process_open_fds{app=\"alchemyst\"})",
           "legendFormat": "Open FD: {{pod}}",
           "refId": "A"
         }
@@ -1155,7 +1155,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(flask_http_request_duration_seconds_count{status=~\"[23]..\",service=\"alchemyst\"}[1m])) by (path)",
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{status=~\"[23]..\",app=\"alchemyst\"}[1m])) by (path)",
           "intervalFactor": 2,
           "legendFormat": "{{path}}",
           "refId": "A"
@@ -1247,7 +1247,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(flask_http_request_duration_seconds_count{status=\"404\",service=\"alchemyst\"}[1m])) by (path)",
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{status=\"404\",app=\"alchemyst\"}[1m])) by (path)",
           "legendFormat": "{{path}}",
           "refId": "A"
         }
