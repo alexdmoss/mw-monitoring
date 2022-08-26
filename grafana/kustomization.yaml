@@ -23,7 +23,6 @@ configMapGenerator:
   name: grafana-ini
 - files:
   - dashboards/mw/ingress-controller.json
-  - dashboards/mw/mosstech.io.json
   name: grafana-dashboards-mw
 - files:
   - dashboards/workloads/capacity-planning.json
