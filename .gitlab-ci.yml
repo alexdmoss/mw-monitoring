@@ -21,6 +21,12 @@ deploy-prometheus:
   script:
     - ./deploy.sh prometheus
 
+deploy-grafana-operator:
+  stage: deploy
+  extends: .deploy
+  script:
+    - ./deploy.sh grafana-operator
+
 # deploy-grafana:
 #   stage: deploy
 #   extends: .deploy

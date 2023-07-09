@@ -15,6 +15,8 @@ function main() {
       deploy_prometheus;;
     "grafana")
       deploy_grafana;;
+    "grafana-operator")
+      deploy_grafana_operator;;
     "collectors")
       deploy_collectors;;
     "alertmanager")
@@ -41,6 +43,14 @@ function deploy_prometheus() {
 
   popd > /dev/null 2>&1
 
+}
+
+function deploy_grafana_operator() {
+
+  _console_msg "Deploying Grafana Operator ..."
+
+  kustomize build ./grafana-operator/overlays/namespace_scoped | kubectl apply -f -
+  
 }
 
 function deploy_grafana() {
