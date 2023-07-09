@@ -84,7 +84,6 @@ function deploy_collectors() {
   kubectl apply -f ./kubelet/
 
   kubectl apply -f ./node-exporter/
-  kubectl rollout status ds/node-exporter -n=metrics --timeout=300s
 
   popd > /dev/null 2>&1
 
