@@ -27,11 +27,13 @@ deploy-grafana-operator:
   script:
     - ./deploy.sh grafana-operator
 
-# deploy-grafana:
-#   stage: deploy
-#   extends: .deploy
-#   script:
-#     - ./deploy.sh grafana
+deploy-grafana:
+  stage: deploy
+  extends: .deploy
+  needs:
+  - deploy-grafana-operator
+  script:
+    - ./deploy.sh grafana
 
 deploy-collectors:
   stage: deploy

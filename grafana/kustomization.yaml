@@ -3,6 +3,9 @@ kind: Kustomization
 
 namespace: grafana
 
+configurations:
+  - kustomizeconfig.yaml
+
 commonLabels:
   app: grafana
 
@@ -11,43 +14,6 @@ secretGenerator:
   - secret.tmp
   name: grafana-admin-user
 
-configMapGenerator:
-- files:
-  - config/datasources.yaml
-  name: grafana-datasources
-- files:
-  - config/dashboardproviders.yaml
-  name: grafana-dashboard-providers
-- files:
-  - config/grafana.ini
-  name: grafana-ini
-- files:
-  - dashboards/mw/ingress-controller.json
-  name: grafana-dashboards-mw
-- files:
-  - dashboards/workloads/capacity-planning.json
-  - dashboards/workloads/cluster-health.json
-  name: grafana-dashboards-workloads
-- files:
-  - dashboards/new/deployments.json
-  - dashboards/new/kubelet.json
-  - dashboards/new/nodes.json
-  - dashboards/new/pods.json
-  - dashboards/new/stateful-sets.json
-  name: grafana-dashboards-new
-- files:
-  - dashboards/newer/resources-by-cluster.json
-  - dashboards/newer/resources-by-namespace.json
-  name: grafana-dashboards-newer
-- files:
-  - dashboards/resource-usage/cluster-usage-saturation-errors.json
-  - dashboards/resource-usage/node-usage-saturation-errors.json
-  name: grafana-dashboards-usage
 
 resources:
-- ingress.yaml
-- pdb.yaml
-- service.yaml
-- service-account.yaml
-- service-monitor.yaml
-- stateful-set.yaml
+- grafana.yaml

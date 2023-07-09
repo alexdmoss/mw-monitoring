@@ -58,23 +58,24 @@ function deploy_grafana() {
 
   pushd "grafana/" > /dev/null 2>&1
 
-  echo "user=admin" > ./secret.tmp
-  echo "password=${GRAFANA_PASS}" >> ./secret.tmp
-
-  kubectl apply -f ./namespace.yaml
-
-  cp base-kustomization.yaml kustomization.yaml # easier when developing locally - not necessary in CI
-  kustomize edit add configmap grafana-dashboards-websites --from-file=./dashboards/websites/*.json
-  kustomize edit add configmap grafana-dashboards-k8s-resources --from-file=./dashboards/k8s-resources/*.json
-  kustomize edit add configmap grafana-dashboards-k8s-cluster --from-file=./dashboards/k8s-cluster/*.json
-  kustomize edit add configmap grafana-dashboards-istio-control --from-file=./dashboards/istio-control/*.json
-  kustomize edit add configmap grafana-dashboards-istio-services --from-file=./dashboards/istio-services/*.json
-  kustomize edit add configmap grafana-dashboards-istio-workloads --from-file=./dashboards/istio-workloads/*.json
-  kustomize edit add configmap grafana-dashboards-control-plane --from-file=./dashboards/control-plane/*.json
-
+  echo "GF_SECURITY_ADMIN_USER=admin" > ./secret.tmp
+  echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASS}" >> ./secret.tmp
+  
   kustomize build . | kubectl apply -f -
 
   rm -f ./secret.tmp
+
+  # kubectl apply -f ./namespace.yaml
+
+  # cp base-kustomization.yaml kustomization.yaml # easier when developing locally - not necessary in CI
+  # kustomize edit add configmap grafana-dashboards-websites --from-file=./dashboards/websites/*.json
+  # kustomize edit add configmap grafana-dashboards-k8s-resources --from-file=./dashboards/k8s-resources/*.json
+  # kustomize edit add configmap grafana-dashboards-k8s-cluster --from-file=./dashboards/k8s-cluster/*.json
+  # kustomize edit add configmap grafana-dashboards-istio-control --from-file=./dashboards/istio-control/*.json
+  # kustomize edit add configmap grafana-dashboards-istio-services --from-file=./dashboards/istio-services/*.json
+  # kustomize edit add configmap grafana-dashboards-istio-workloads --from-file=./dashboards/istio-workloads/*.json
+  # kustomize edit add configmap grafana-dashboards-control-plane --from-file=./dashboards/control-plane/*.json
+
 
   popd > /dev/null 2>&1
 
