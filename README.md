@@ -26,11 +26,13 @@ When this is up and running, you should be able to `kubectl port-forward svc/ale
 
 ## Grafana
 
-As I only envisage a small number of dashboards, I stuck with just loading via a `ConfigMap`. If this proves unwieldy, I'll load them from a GCS bucket periodically / in an `InitContainer` instead, but that's a little more config than I think I'll need in practice.
+Is installed via an operator. To update the manifests:
 
-It's a `StatefulSet`, so changes to dashboards are persisted ... *however* when it goes to multiple replicas there is no automatic sync there, so complete dashboards need to be added to the `ConfigMap` by saving their JSON in `./grafana/dashboards/` and re-running the pipeline.
+```sh
+flux pull artifact oci://ghcr.io/grafana-operator/kustomize/grafana-operator:v5.0.0 --output ./grafana-operator/
+```
 
-Multiple replicas are handled through stickiness configured on the `Ingress` - will see how this goes as I'd prefer not to have to [run a database behind Grafana](https://grafana.com/docs/grafana/latest/tutorials/ha_setup/) unless I have to.
+... then CI takes care of the deployment via kustomize. The operator is deployed in namespaced mode, meaning any grafana resources (including dashboards) are only looked for in the `grafana` namespace.
 
 ---
 
