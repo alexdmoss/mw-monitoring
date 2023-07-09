@@ -1,0 +1,28 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: alchemyst-frontend
+spec:
+  jobLabel: app
+  selector:
+    matchLabels:
+      app: alchemyst-frontend
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: alchemyst-backend
+spec:
+  jobLabel: app
+  selector:
+    matchLabels:
+      app: alchemyst-backend
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s

@@ -54,3 +54,9 @@ deploy-alerts:
     - test-alerts
   script:
     - ./deploy.sh alerts
+
+deploy-service-monitors:
+  stage: deploy
+  extends: .deploy
+  script:
+    - ./deploy.sh service-monitors

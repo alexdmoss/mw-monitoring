@@ -21,6 +21,8 @@ function main() {
       deploy_alertmanager;;
     "alerts")
       deploy_alerts;;
+    "service-monitors")
+      deploy_service_monitors;;
     *)
       _console_msg "Missing which component to deploy (first argument) in deploy.sh";
       exit 1;;
@@ -122,6 +124,15 @@ function deploy_alerts() {
 
   popd > /dev/null 2>&1
 
+}
+
+
+function deploy_service_monitors() {
+
+  _console_msg "Deploying Service Monitors ..."
+
+  kubectl apply -f service-monitors/ -n=prometheus
+  
 }
 
 function _assert_variables_set() {

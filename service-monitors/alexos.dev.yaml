@@ -1,0 +1,14 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: alexos
+spec:
+  jobLabel: app
+  selector:
+    matchLabels:
+      app: alexos
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
