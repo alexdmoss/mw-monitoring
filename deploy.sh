@@ -75,9 +75,14 @@ function deploy_collectors() {
   pushd "metrics/" > /dev/null 2>&1
 
   kubectl apply -f ./namespace.yaml
+
   kubectl apply -f ./kube-state-metrics/
+  kubectl rollout status deploy/kube-state-metrics -n=metrics --timeout=60s
+
   kubectl apply -f ./kubelet/
+
   kubectl apply -f ./node-exporter/
+  kubectl rollout status ds/node-exporter -n=metrics --timeout=120s
 
   popd > /dev/null 2>&1
 
