@@ -1,6 +1,6 @@
 # mw-monitoring
 
-Telemetry stack for my personal GKE cluster - Prometheus + Grafana + other bits to get useful data out of this
+Telemetry stack for my personal GKE cluster - Prometheus + Grafana + other bits to get useful data out of this.
 
 I've deliberately used [CoreOS' Prometheus Operator](https://github.com/coreos/prometheus-operator) as I recognise how useful this is, but stopped short of deploying the full [CoreOS kube-prometheus stack](https://github.com/coreos/kube-prometheus) as - great concept though it is - I want to learn about how this stuff hangs together.
 
@@ -12,11 +12,15 @@ This uses the [CoreOS Prometheus Operator](https://github.com/coreos/prometheus-
 
 ### Install
 
-The operator CRDs are installed from a different repo - they are sourced from [bundle.yaml](https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/master/bundle.yaml).
+The operator CRDs are installed from a different repo as the `ServiceMonitor` resource needs to exist for several other pipelines to work successfully.
 
 `Prometheus` itself is defined in (`./prometheus/`). I skimped on a dedicated `StorageClass` to save myself a few quid.
 
 When this is up and running, you should be able to `kubectl port-forward svc/prometheus-operated 9090:9090` and then hit `http://localhost:9090/` and see one of the Promethei.
+
+## Alert Manager
+
+AlertManager requires the SendGrid API key to be set up - see `./utils/create-alertmanager-secrets.sh`. This value can be regenerated from the SendGrid UI if necessary.
 
 ## Grafana
 
@@ -30,6 +34,7 @@ Multiple replicas are handled through stickiness configured on the `Ingress` - w
 
 ### To Do
 
+- [ ] Grafana Operator
 - [ ] AlertManager + Prometheus access via ingress with auth
 - [ ] A default alert handler for no routes / reporting
 - [ ] Alerts for:
@@ -63,7 +68,6 @@ Multiple replicas are handled through stickiness configured on the `Ingress` - w
 - [ ] `photos`
 - [ ] `wug`
 - [ ] `moss-work`
-- [ ] `right-sizer`
 - [ ] `kube-ops-view`
 
 ### Maybe To Do
@@ -71,7 +75,7 @@ Multiple replicas are handled through stickiness configured on the `Ingress` - w
 - [ ] promxy
 - [ ] Can you control the Grafana URLs used for dashboards?
 - [ ] Grafana plugins experimentation
-- [ ] https://grafana.com/docs/grafana/v6.5/features/datasources/stackdriver/
+- [ ] [Stackdriver](https://grafana.com/docs/grafana/v6.5/features/datasources/stackdriver/)
 
 mosstech:
 

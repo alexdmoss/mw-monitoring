@@ -103,7 +103,7 @@ function deploy_alertmanager() {
 
 function deploy_alerts() {
 
- _console_msg "Deploying Alerts ..."
+  _console_msg "Deploying Alerts ..."
 
   pushd "alerts/" > /dev/null 2>&1
 

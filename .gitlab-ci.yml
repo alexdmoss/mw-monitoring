@@ -21,11 +21,11 @@ deploy-prometheus:
   script:
     - ./deploy.sh prometheus
 
-deploy-grafana:
-  stage: deploy
-  extends: .deploy
-  script:
-    - ./deploy.sh grafana
+# deploy-grafana:
+#   stage: deploy
+#   extends: .deploy
+#   script:
+#     - ./deploy.sh grafana
 
 deploy-collectors:
   stage: deploy
