@@ -17,3 +17,4 @@ secretGenerator:
 
 resources:
 - grafana.yaml
+- ingress.yaml
