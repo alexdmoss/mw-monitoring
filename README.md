@@ -22,6 +22,8 @@ When this is up and running, you should be able to `kubectl port-forward svc/pro
 
 AlertManager requires the SendGrid API key to be set up - see `./utils/create-alertmanager-secrets.sh`. This value can be regenerated from the SendGrid UI if necessary.
 
+When this is up and running, you should be able to `kubectl port-forward svc/alertmanager-operated 9093:9093` and then hit `http://localhost:9093/` and see one of the Promethei.
+
 ## Grafana
 
 As I only envisage a small number of dashboards, I stuck with just loading via a `ConfigMap`. If this proves unwieldy, I'll load them from a GCS bucket periodically / in an `InitContainer` instead, but that's a little more config than I think I'll need in practice.
@@ -35,6 +37,7 @@ Multiple replicas are handled through stickiness configured on the `Ingress` - w
 ### To Do
 
 - [ ] Grafana Operator
+- [ ] Controller to generate ServiceMonitors for apps
 - [ ] AlertManager + Prometheus access via ingress with auth
 - [ ] A default alert handler for no routes / reporting
 - [ ] Alerts for:
