@@ -60,7 +60,9 @@ function deploy_grafana() {
 
   echo "GF_SECURITY_ADMIN_USER=admin" > ./secret.tmp
   echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASS}" >> ./secret.tmp
-  
+
+  # https://github.com/kubernetes-sigs/kustomize/issues/119
+  kustomize edit add resource dashboards/*.yaml
   kustomize build . | kubectl apply -f -
 
   rm -f ./secret.tmp
