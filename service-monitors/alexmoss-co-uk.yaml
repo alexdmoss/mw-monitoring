@@ -8,6 +8,9 @@ spec:
   selector:
     matchLabels:
       app: alexmoss-co-uk
+  namespaceSelector:
+    matchNames:
+      - alexmoss-co-uk
   endpoints:
     - port: metrics
       path: /metrics

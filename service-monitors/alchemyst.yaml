@@ -8,6 +8,9 @@ spec:
   selector:
     matchLabels:
       app: alchemyst-frontend
+  namespaceSelector:
+    matchNames:
+      - alchemyst
   endpoints:
     - port: http
       path: /metrics
@@ -22,6 +25,9 @@ spec:
   selector:
     matchLabels:
       app: alchemyst-backend
+  namespaceSelector:
+    matchNames:
+      - alchemyst
   endpoints:
     - port: http
       path: /metrics

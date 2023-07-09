@@ -8,6 +8,9 @@ spec:
   selector:
     matchLabels:
       app: alexos
+  namespaceSelector:
+    matchNames:
+      - alexos
   endpoints:
     - port: metrics
       path: /metrics
