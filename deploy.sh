@@ -77,7 +77,6 @@ function deploy_collectors() {
   kubectl apply -f ./namespace.yaml
   kubectl apply -f ./kube-state-metrics/
   kubectl apply -f ./kubelet/
-  kubectl apply -f ./node-exporter/rbac/
   kubectl apply -f ./node-exporter/
 
   popd > /dev/null 2>&1
