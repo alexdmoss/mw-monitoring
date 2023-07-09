@@ -54,6 +54,7 @@ function deploy_grafana_operator() {
 }
 
 function deploy_grafana() {
+
   _console_msg "Installing Grafana ..."
 
   pushd "grafana/" > /dev/null 2>&1
@@ -61,23 +62,24 @@ function deploy_grafana() {
   echo "GF_SECURITY_ADMIN_USER=admin" > ./secret.tmp
   echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASS}" >> ./secret.tmp
 
-  # https://github.com/kubernetes-sigs/kustomize/issues/119
-  kustomize edit add resource dashboards/*.yaml
   kustomize build . | kubectl apply -f -
 
   rm -f ./secret.tmp
 
-  # kubectl apply -f ./namespace.yaml
+  popd > /dev/null 2>&1
 
-  # cp base-kustomization.yaml kustomization.yaml # easier when developing locally - not necessary in CI
-  # kustomize edit add configmap grafana-dashboards-websites --from-file=./dashboards/websites/*.json
-  # kustomize edit add configmap grafana-dashboards-k8s-resources --from-file=./dashboards/k8s-resources/*.json
-  # kustomize edit add configmap grafana-dashboards-k8s-cluster --from-file=./dashboards/k8s-cluster/*.json
-  # kustomize edit add configmap grafana-dashboards-istio-control --from-file=./dashboards/istio-control/*.json
-  # kustomize edit add configmap grafana-dashboards-istio-services --from-file=./dashboards/istio-services/*.json
-  # kustomize edit add configmap grafana-dashboards-istio-workloads --from-file=./dashboards/istio-workloads/*.json
-  # kustomize edit add configmap grafana-dashboards-control-plane --from-file=./dashboards/control-plane/*.json
 
+  _console_msg "Installing Dashboards ..."
+
+  pushd "dashboards/" > /dev/null 2>&1
+
+  # https://github.com/kubernetes-sigs/kustomize/issues/119
+  yamls=$(find . -type f -name "*.yaml" | sort -bf | grep -v kustomization.yaml)
+  for yaml_file in ${yamls}; do
+    kustomize edit add resource "${yaml_file}"
+  done
+
+  kustomize build . | kubectl apply -f -
 
   popd > /dev/null 2>&1
 

@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: grafana
 
 configurations:
-  - kustomizeconfig.yaml
+- kustomizeconfig.yaml
 
 commonLabels:
   app: grafana
@@ -14,9 +14,7 @@ secretGenerator:
   - secret.tmp
   name: grafana-admin-user
 
-
 resources:
 - datasources.yaml
 - grafana.yaml
 - ingress.yaml
-- dashboards/*.yaml
