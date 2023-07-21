@@ -603,7 +603,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"contact-handler.*\"}[1m])) by (container) / avg by(container) (label_replace (kube_pod_container_resource_requests_cpu_cores{pod=~\"contact-handler.*\"}, \"container\", \"$1\", \"container\", \"(.*)\"))",
+              "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"contact-handler.*\"}[1m])) by (container) / avg by(container) (label_replace (kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"contact-handler.*\"}, \"container\", \"$1\", \"container\", \"(.*)\"))",
               "legendFormat": "{{container}}",
               "refId": "A"
             }
@@ -709,7 +709,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"contact-handler.*\"}) / avg by (container) (label_replace(kube_pod_container_resource_requests_memory_bytes{pod=~\"contact-handler.*\"}, \"container\", \"$1\", \"container\", \"(.*)\")) * 100",
+              "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"contact-handler.*\"}) / avg by (container) (label_replace(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"contact-handler.*\"}, \"container\", \"$1\", \"container\", \"(.*)\")) * 100",
               "intervalFactor": 2,
               "legendFormat": "{{container}}",
               "refId": "A"

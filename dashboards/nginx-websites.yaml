@@ -673,7 +673,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"$service-.*\"}[1m])) by (container) / avg by(container) (kube_pod_container_resource_requests_cpu_cores{pod=~\"$service-.*\"})",
+              "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"$service-.*\"}[1m])) by (container) / avg by(container) (kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"$service-.*\"})",
               "hide": false,
               "legendFormat": "{{container}}",
               "refId": "A"
@@ -781,7 +781,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"$service-.*\"}) / avg by (container) (kube_pod_container_resource_requests_memory_bytes{pod=~\"$service-.*\"}) * 100",
+              "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"$service-.*\"}) / avg by (container) (kube_pod_container_resource_requests{resource=\"memory\", pod=~\"$service-.*\"}) * 100",
               "intervalFactor": 2,
               "legendFormat": "{{container}}",
               "refId": "A"

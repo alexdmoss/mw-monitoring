@@ -1217,12 +1217,12 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(kube_pod_container_resource_requests_memory_bytes{pod=~\"nginx-ingress-controller-.*\"})",
+              "expr": "avg(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"nginx-ingress-controller-.*\"})",
               "legendFormat": "Average Pod Resource Requests",
               "refId": "A"
             },
             {
-              "expr": "max(kube_pod_container_resource_limits_memory_bytes{pod=~\"nginx-ingress-controller-.*\"})",
+              "expr": "max(kube_pod_container_resource_limits{resource=\"memory\", pod=~\"nginx-ingress-controller-.*\"})",
               "legendFormat": "Pod Resource Limit",
               "refId": "B"
             }

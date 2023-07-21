@@ -10,7 +10,7 @@ groups:
           dashboard: /d/not-implemented
           summary: Cluster has overcommitted CPU resource requests for Pods and cannot tolerate node failure.
         expr: |
-          sum(namespace:kube_pod_container_resource_requests_cpu_cores:sum)
+          sum(namespace:kube_pod_container_resource_requests_cpu:sum)
             /
           sum(kube_node_status_allocatable_cpu_cores)
             >
@@ -25,7 +25,7 @@ groups:
           dashboard: /d/not-implemented
           summary: Cluster has overcommitted memory resource requests for Pods and cannot tolerate node failure.
         expr: |
-          sum(namespace:kube_pod_container_resource_requests_memory_bytes:sum)
+          sum(namespace:kube_pod_container_resource_requests_memory:sum)
             /
           sum(kube_node_status_allocatable_memory_bytes)
             >

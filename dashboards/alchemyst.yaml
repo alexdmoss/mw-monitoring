@@ -592,7 +592,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"alchemyst-\\\\w+-\\\\w+$\"}[1m])) by (container) / avg by(container) (label_replace (kube_pod_container_resource_requests_cpu_cores{pod=~\"alchemyst-\\\\w+-\\\\w+$\"}, \"container\", \"$1\", \"container\", \"(.*)\"))",
+              "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"alchemyst-\\\\w+-\\\\w+$\"}[1m])) by (container) / avg by(container) (label_replace (kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"alchemyst-\\\\w+-\\\\w+$\"}, \"container\", \"$1\", \"container\", \"(.*)\"))",
               "legendFormat": "{{container_name}}",
               "refId": "A"
             }
@@ -698,7 +698,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"alchemyst-\\\\w+-\\\\w+$\"}) / avg by (container) (label_replace(kube_pod_container_resource_requests_memory_bytes{pod=~\"alchemyst-\\\\w+-\\\\w+$\"}, \"container\", \"$1\", \"container\", \"(.*)\")) * 100",
+              "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"alchemyst-\\\\w+-\\\\w+$\"}) / avg by (container) (label_replace(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"alchemyst-\\\\w+-\\\\w+$\"}, \"container\", \"$1\", \"container\", \"(.*)\")) * 100",
               "intervalFactor": 2,
               "legendFormat": "{{container}}",
               "refId": "A"
