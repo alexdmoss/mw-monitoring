@@ -75,13 +75,15 @@ function deploy_grafana() {
 
   pushd "dashboards/" > /dev/null 2>&1
 
-  # https://github.com/kubernetes-sigs/kustomize/issues/119
-  yamls=$(find . -type f -name "*.yaml" | sort -bf | grep -v kustomization.yaml)
-  for yaml_file in ${yamls}; do
-    kustomize edit add resource "${yaml_file}"
-  done
+  # # https://github.com/kubernetes-sigs/kustomize/issues/119
+  # yamls=$(find . -type f -name "*.yaml" | sort -bf | grep -v kustomization.yaml)
+  # for yaml_file in ${yamls}; do
+  #   kustomize edit add resource "${yaml_file}"
+  # done
 
-  kustomize build . | kubectl apply -f -
+  # kustomize build . | kubectl apply -f -
+
+  kubectl apply -n=grafana -f .
 
   popd > /dev/null 2>&1
 
