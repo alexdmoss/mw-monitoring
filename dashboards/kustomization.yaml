@@ -5,6 +5,7 @@ namespace: grafana
 
 commonLabels:
   app: grafana
+  dashboards: grafana
 
 resources:
 # dashboards added by script
