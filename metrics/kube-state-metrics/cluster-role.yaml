@@ -37,6 +37,7 @@ rules:
   - apiGroups: ["autoscaling"]
     resources:
       - horizontalpodautoscalers
+      - verticalpodautoscalers
     verbs: ["list", "watch"]
   - apiGroups: ["policy"]
     resources:
@@ -45,4 +46,8 @@ rules:
   - apiGroups: ["certificates.k8s.io"]
     resources:
       - certificatesigningrequests
+    verbs: ["list", "watch"]
+  - apiGroups: ["apiextensions.k8s.i"]
+    resources:
+      - customresourcedefinitions
     verbs: ["list", "watch"]
