@@ -35,16 +35,62 @@ spec:
                     labelsFromPath:
                       verticalpodautoscaler: [metadata, name]
                       namespace: [metadata, namespace]
-                      target_api_version: [apiVersion]
                       target_kind: [spec, targetRef, kind]
                       target_name: [spec, targetRef, name]
+                    # these only support first container in the Pod - see https://github.com/kubernetes/kube-state-metrics/issues/2041#issuecomment-1595809075
                     metrics:
-                      - name: "annotations"
-                        help: "Kubernetes annotations converted to Prometheus labels."
+                      # Target values
+                      - name: "containerrecommendations_cpu_target"
+                        help: "VPA status recommendation CPU target for first container, converted to Prometheus metric"
                         each:
                           type: Gauge
                           gauge:
-                            path: [metadata, annotations]
+                            path: [status, recommendation, containerRecommendations, "0", target, cpu]
+                      - name: "containerrecommendations_memory_target"
+                        help: "VPA status recommendation CPU target for first container, converted to Prometheus metric"
+                        each:
+                          type: Gauge
+                          gauge:
+                            path: [status, recommendation, containerRecommendations, "0", target, memory]
+                      # Uncapped Target values
+                      - name: "containerrecommendations_cpu_uncappedtarget"
+                        help: "VPA status recommendation CPU uncapped target for first container, converted to Prometheus metric"
+                        each:
+                          type: Gauge
+                          gauge:
+                            path: [status, recommendation, containerRecommendations, "0", uncappedTarget, cpu]
+                      - name: "containerrecommendations_memory_uncappedtarget"
+                        help: "VPA status recommendation memory uncapped target for first container, converted to Prometheus metric"
+                        each:
+                          type: Gauge
+                          gauge:
+                            path: [status, recommendation, containerRecommendations, "0", uncappedTarget, memory]  
+                      # Upper Bounds
+                      - name: "containerrecommendations_cpu_upperbound"
+                        help: "VPA status recommendation CPU upperbound for first container, converted to Prometheus metric"
+                        each:
+                          type: Gauge
+                          gauge:
+                            path: [status, recommendation, containerRecommendations, "0", upperBound, cpu]
+                      - name: "containerrecommendations_memory_upperbound"
+                        help: "VPA status recommendation memory upper bound for first container, converted to Prometheus metric"
+                        each:
+                          type: Gauge
+                          gauge:
+                            path: [status, recommendation, containerRecommendations, "0", upperBound, memory] 
+                      # Lower Bounds
+                      - name: "containerrecommendations_cpu_lowerbound"
+                        help: "VPA status recommendation CPU lower bound for first container, converted to Prometheus metric"
+                        each:
+                          type: Gauge
+                          gauge:
+                            path: [status, recommendation, containerRecommendations, "0", lowerBound, cpu]
+                      - name: "containerrecommendations_memory_lowerbound"
+                        help: "VPA status recommendation memory lower bound for first container, converted to Prometheus metric"
+                        each:
+                          type: Gauge
+                          gauge:
+                            path: [status, recommendation, containerRecommendations, "0", lowerBound, memory]
           ports:
             - name: metrics
               containerPort: 8080
