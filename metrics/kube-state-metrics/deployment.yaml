@@ -21,6 +21,30 @@ spec:
       containers:
         - name: kube-state-metrics
           image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.9.2
+          args:
+          - --custom-resource-state-config
+          # this looks ... yeah. See: https://github.com/kubernetes/kube-state-metrics/blob/main/docs/customresourcestate-metrics.md#verticalpodautoscaler
+          - |
+              kind: CustomResourceStateMetrics
+              spec:
+                resources:
+                  - groupVersionKind:
+                      group: autoscaling.k8s.io
+                      kind: "VerticalPodAutoscaler"
+                      version: "v1"
+                    labelsFromPath:
+                      verticalpodautoscaler: [metadata, name]
+                      namespace: [metadata, namespace]
+                      target_api_version: [apiVersion]
+                      target_kind: [spec, targetRef, kind]
+                      target_name: [spec, targetRef, name]
+                    metrics:
+                      - name: "annotations"
+                        help: "Kubernetes annotations converted to Prometheus labels."
+                        each:
+                          type: Gauge
+                          gauge:
+                            path: [metadata, annotations]
           ports:
             - name: metrics
               containerPort: 8080
