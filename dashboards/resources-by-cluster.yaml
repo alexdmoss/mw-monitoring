@@ -5,7 +5,7 @@ metadata:
   name: resources-by-cluster
 spec:
   folder: "cluster"
-  resyncPeriod: 30s
+  resyncPeriod: 10m
   instanceSelector:
     matchLabels:
       dashboards: "grafana"

@@ -5,7 +5,7 @@ metadata:
   name: node-usage-saturation-errors
 spec:
   folder: "cluster"
-  resyncPeriod: 30s
+  resyncPeriod: 10m
   instanceSelector:
     matchLabels:
       dashboards: "grafana"

@@ -5,7 +5,7 @@ metadata:
   name: velero
 spec:
   folder: "control-plane"
-  resyncPeriod: 30s
+  resyncPeriod: 10m
   instanceSelector:
     matchLabels:
       dashboards: "grafana"

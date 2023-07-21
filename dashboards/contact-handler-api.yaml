@@ -5,7 +5,7 @@ metadata:
   name: contact-handler-api
 spec:
   folder: "sites"
-  resyncPeriod: 30s
+  resyncPeriod: 10m
   instanceSelector:
     matchLabels:
       dashboards: "grafana"

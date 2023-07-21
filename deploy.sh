@@ -68,6 +68,8 @@ function deploy_grafana() {
 
   popd > /dev/null 2>&1
 
+  _console_msg "Waiting for sync (30s) ..."
+  sleep 30
 
   _console_msg "Installing Dashboards ..."
 

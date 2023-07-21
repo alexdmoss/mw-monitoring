@@ -5,7 +5,7 @@ metadata:
   name: nginx-websites
 spec:
   folder: "sites"
-  resyncPeriod: 30s
+  resyncPeriod: 10m
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
