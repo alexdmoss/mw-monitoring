@@ -86,6 +86,12 @@ spec:
             limits:
               memory: 40Mi
               cpu: 50m
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
           volumeMounts:
             - name: proc
               readOnly: true
