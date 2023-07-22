@@ -51,6 +51,9 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+              - ALL
       securityContext:
         runAsNonRoot: true
       serviceAccountName: grafana-operator-controller-manager

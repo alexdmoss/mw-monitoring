@@ -26,6 +26,9 @@ spec:
                       name: grafana-admin-user
               securityContext:
                 readOnlyRootFilesystem: true
+                capabilities:
+                  drop:
+                  - ALL
   config:
     log:
       mode: "console"
