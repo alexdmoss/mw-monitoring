@@ -24,6 +24,8 @@ spec:
                     secretKeyRef:
                       key: GF_SECURITY_ADMIN_PASSWORD
                       name: grafana-admin-user
+              securityContext:
+                readOnlyRootFilesystem: true
   config:
     log:
       mode: "console"

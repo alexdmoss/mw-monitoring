@@ -50,6 +50,7 @@ spec:
               memory: 20Mi
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
       securityContext:
         runAsNonRoot: true
       serviceAccountName: grafana-operator-controller-manager
