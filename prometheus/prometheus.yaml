@@ -7,7 +7,7 @@ metadata:
   labels:
     prometheus: mw
 spec:
-  replicas: 2
+  replicas: 1
   retention: 180d
   scrapeInterval: 10s
   evaluationInterval: 30s

@@ -40,6 +40,9 @@ flux pull artifact oci://ghcr.io/grafana-operator/kustomize/grafana-operator:v5.
 
 - [ ] Grafana Operator
 - [ ] Controller to generate ServiceMonitors for apps
+- [ ] ensure secret part of project migration
+- [ ] something to generate servicemonitors
+- [ ] remove servicemonitors from other repos
 - [ ] AlertManager + Prometheus access via ingress with auth
 - [ ] A default alert handler for no routes / reporting
 - [ ] Alerts for:
