@@ -29,13 +29,13 @@ spec:
                 capabilities:
                   drop:
                   - ALL
-              nodeSelector:
-                cloud.google.com/gke-spot: "true"
-              tolerations:
-              - effect: NoSchedule
-                key: cloud.google.com/gke-spot
-                operator: Equal
-                value: "true"
+          nodeSelector:
+            cloud.google.com/gke-spot: "true"
+          tolerations:
+          - effect: NoSchedule
+            key: cloud.google.com/gke-spot
+            operator: Equal
+            value: "true"
   config:
     log:
       mode: "console"
