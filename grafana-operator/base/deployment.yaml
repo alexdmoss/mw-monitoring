@@ -58,3 +58,10 @@ spec:
         runAsNonRoot: true
       serviceAccountName: grafana-operator-controller-manager
       terminationGracePeriodSeconds: 10
+      nodeSelector:
+        cloud.google.com/gke-spot: "true"
+      tolerations:
+      - effect: NoSchedule
+        key: cloud.google.com/gke-spot
+        operator: Equal
+        value: "true"

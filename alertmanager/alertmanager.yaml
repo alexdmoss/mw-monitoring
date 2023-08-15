@@ -30,3 +30,10 @@ spec:
   image: quay.io/prometheus/alertmanager:v0.24.0
   logFormat: json
   logLevel: debug
+  nodeSelector:
+    cloud.google.com/gke-spot: "true"
+  tolerations:
+  - effect: NoSchedule
+    key: cloud.google.com/gke-spot
+    operator: Equal
+    value: "true"

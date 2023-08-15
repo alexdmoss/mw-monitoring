@@ -62,3 +62,10 @@ spec:
         port: web
   baseImage: quay.io/prometheus/prometheus
   version: v2.35.0
+  nodeSelector:
+    cloud.google.com/gke-spot: "true"
+  tolerations:
+  - effect: NoSchedule
+    key: cloud.google.com/gke-spot
+    operator: Equal
+    value: "true"
