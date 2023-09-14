@@ -1,29 +1,21 @@
+    # nginx.ingress.kubernetes.io/affinity: "cookie"
+    # nginx.ingress.kubernetes.io/session-cookie-name: "GRAFANA_INGRESS"
+    # nginx.ingress.kubernetes.io/session-cookie-max-age: "3600"
+    # nginx.ingress.kubernetes.io/session-cookie-change-on-failure: "true"
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1beta1
 metadata:
   name: grafana
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/affinity: "cookie"
-    nginx.ingress.kubernetes.io/session-cookie-name: "GRAFANA_INGRESS"
-    nginx.ingress.kubernetes.io/session-cookie-max-age: "3600"
-    nginx.ingress.kubernetes.io/session-cookie-change-on-failure: "true"
 spec:
-  tls:
-    - secretName: grafana-tls
-      hosts:
-        - grafana.alexos.dev
+  parentRefs:
+  - kind: Gateway
+    name: shared-gateway
+    namespace: ingress
+  hostnames:
+  - grafana.alexos.dev
   rules:
-    - host: grafana.alexos.dev
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: grafana-service
-                port:
-                  name: grafana
+  - backendRefs:
+    - name: grafana
+      port: 3000
+
