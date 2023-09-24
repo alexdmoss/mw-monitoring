@@ -14,6 +14,8 @@ spec:
     metadata:
       labels:
         app: node-exporter
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       name: node-exporter
     spec:
       tolerations:

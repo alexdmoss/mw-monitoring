@@ -7,6 +7,9 @@ metadata:
   labels:
     prometheus: mw
 spec:
+  podMetadata:
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
   replicas: 1
   retention: 180d
   scrapeInterval: 10s

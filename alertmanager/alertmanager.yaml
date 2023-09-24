@@ -4,6 +4,9 @@ kind: Alertmanager
 metadata:
   name: mw
 spec:
+  podMetadata:
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
   replicas: 1
   serviceAccountName: prometheus
   externalUrl: https://alertmanager.alexos.dev

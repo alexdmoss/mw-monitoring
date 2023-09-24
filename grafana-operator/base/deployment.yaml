@@ -16,6 +16,8 @@ spec:
     metadata:
       labels:
         control-plane: grafana-operator-controller-manager
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     spec:
       containers:
         - args:
