@@ -13,3 +13,10 @@ patches:
       version: v1
       group: apps
       name: grafana-operator-controller-manager
+# custom addition for PSP
+  - path: securityContext.yaml
+    target:
+      kind: Deployment
+      version: v1
+      group: apps
+      name: grafana-operator-controller-manager
