@@ -15,10 +15,7 @@ spec:
         "list": [
           {
             "builtIn": 1,
-            "datasource": {
-              "type": "datasource",
-              "uid": "grafana"
-            },
+            "datasource": "-- Grafana --",
             "enable": true,
             "hide": true,
             "iconColor": "rgba(0, 211, 255, 1)",
@@ -39,10 +36,7 @@ spec:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -109,20 +103,12 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "sum(rate(flask_http_request_duration_seconds_count{app=\"alchemyst\"}[5m]))",
               "interval": "1m",
               "legendFormat": "Overall",
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "sum(rate(flask_http_request_duration_seconds_count{app=\"alchemyst\", status!=\"\"}[5m])) by (status)",
               "interval": "1m",
               "legendFormat": "{{status}}",
@@ -165,10 +151,7 @@ spec:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -211,28 +194,16 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "histogram_quantile(0.5,max(increase(flask_http_request_duration_seconds_bucket{app=\"alchemyst\"}[5m])) by (le))",
               "legendFormat": "p50",
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "histogram_quantile(0.95,max(increase(flask_http_request_duration_seconds_bucket{app=\"alchemyst\"}[5m])) by (le))",
               "legendFormat": "p995",
               "refId": "B"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "histogram_quantile(1,max(increase(flask_http_request_duration_seconds_bucket{app=\"alchemyst\"}[5m])) by (le))",
               "legendFormat": "p100",
               "refId": "C"
@@ -271,10 +242,7 @@ spec:
           }
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -377,10 +345,6 @@ spec:
           "pluginVersion": "10.0.1",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "editorMode": "code",
               "expr": "sum(rate(flask_http_request_total{job=~\"alchemyst-(.*)\",code!~\"5.*\"}[1m])) / sum(rate(flask_http_request_total{job=~\"alchemyst-(.*)\"}[1m]))",
               "legendFormat": "Request Success Rate",
@@ -396,10 +360,7 @@ spec:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -443,64 +404,36 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"499\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
               "legendFormat": "499",
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"500\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
               "legendFormat": "500",
               "refId": "B"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"501\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
               "legendFormat": "501",
               "refId": "C"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"502\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
               "legendFormat": "502",
               "refId": "D"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"503\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
               "legendFormat": "503",
               "refId": "E"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"504\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
               "legendFormat": "504",
               "refId": "F"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "sum(rate(flask_http_request_total{app=\"alchemyst\",status=\"404\"}[5m])) / sum(rate(flask_http_request_total{app=\"alchemyst\"}[5m]))",
               "legendFormat": "404",
               "refId": "G"
@@ -542,10 +475,7 @@ spec:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -588,10 +518,6 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "count(kube_pod_info{pod=~\"alchemyst-.*\"})",
               "legendFormat": "# of Pods",
               "refId": "A"
@@ -632,10 +558,7 @@ spec:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -680,10 +603,6 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"alchemyst-\\\\w+-\\\\w+$\"}[1m])) by (container) / avg by(container) (label_replace (kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"alchemyst-\\\\w+-\\\\w+$\"}, \"container\", \"$1\", \"container\", \"(.*)\"))",
               "legendFormat": "{{container_name}}",
               "refId": "A"
@@ -741,10 +660,7 @@ spec:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -789,10 +705,6 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"alchemyst-\\\\w+-\\\\w+$\"}) / avg by (container) (label_replace(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"alchemyst-\\\\w+-\\\\w+$\"}, \"container\", \"$1\", \"container\", \"(.*)\")) * 100",
               "intervalFactor": 2,
               "legendFormat": "{{container}}",
@@ -852,10 +764,7 @@ spec:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -898,10 +807,6 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "editorMode": "code",
               "expr": "avg(container_fs_usage_bytes{pod=~\"alchemyst.*\"})",
               "legendFormat": "Average Usage",
@@ -909,10 +814,6 @@ spec:
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "max(container_fs_limit_bytes{pod=~\"alchemyst.*\"})",
               "legendFormat": "Limit",
               "refId": "B"
@@ -949,10 +850,7 @@ spec:
           }
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1030,10 +928,6 @@ spec:
           "pluginVersion": "10.0.1",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "editorMode": "code",
               "expr": "sum(rate(process_cpu_seconds_total{service=~\"alchemyst-.*\"}[5m])) by (pod)",
               "legendFormat": "{{pod}}",
@@ -1045,10 +939,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1125,10 +1016,6 @@ spec:
           "pluginVersion": "10.0.1",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "editorMode": "code",
               "expr": "avg by(pod) (process_resident_memory_bytes{service=~\"alchemyst-.*\"})",
               "legendFormat": "RSS: {{pod}}",
@@ -1136,10 +1023,6 @@ spec:
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "editorMode": "code",
               "expr": "avg by(pod) (process_virtual_memory_bytes{service=~\"alchemyst-.*\"})",
               "legendFormat": "VSS: {{pod}}",
@@ -1151,10 +1034,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1231,10 +1111,6 @@ spec:
           "pluginVersion": "10.0.1",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "editorMode": "code",
               "expr": "avg by(pod) (process_open_fds{service=~\"alchemyst-.*\"})",
               "legendFormat": "Open FD: {{pod}}",
@@ -1246,10 +1122,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1367,10 +1240,6 @@ spec:
           "pluginVersion": "10.0.1",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "editorMode": "code",
               "expr": "sum(rate(flask_http_request_duration_seconds_count{status=~\"[23]..\",app=\"alchemyst\"}[1m])) by (path)",
               "intervalFactor": 2,
@@ -1387,10 +1256,7 @@ spec:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -1437,10 +1303,6 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
               "expr": "sum(rate(flask_http_request_duration_seconds_count{status=\"404\",app=\"alchemyst\"}[1m])) by (path)",
               "legendFormat": "{{path}}",
               "refId": "A"
@@ -1505,8 +1367,8 @@ spec:
         ]
       },
       "timezone": "",
-      "title": "alchemyst2",
-      "uid": "alchemyst2",
-      "version": 2,
+      "title": "alchemyst",
+      "uid": "alchemyst",
+      "version": 1,
       "weekStart": ""
     }
