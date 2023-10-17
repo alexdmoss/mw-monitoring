@@ -34,10 +34,9 @@ Is installed via an operator - see `./grafana-operator/generate-manifest.sh`. We
 
 ### To Do
 
-- [ ] Grafana Operator
+- [x] Grafana Operator
 - [ ] Controller to generate ServiceMonitors for apps
-- [ ] ensure secret part of project migration
-- [ ] something to generate servicemonitors
+- [x] ensure secret part of project migration
 - [ ] remove servicemonitors from other repos
 - [ ] AlertManager + Prometheus access via ingress with auth
 - [ ] A default alert handler for no routes / reporting
@@ -58,30 +57,7 @@ Is installed via an operator - see `./grafana-operator/generate-manifest.sh`. We
 - [ ] Some tests for all this
 - [ ] Remove the old terraformed stuff
 
-### Instrumentation To Do
-
-- [ ] `grafana`
-- [ ] `prometheus`
-- [ ] `prometheus-operator`
-- [ ] `gcloud exporter`
-- [ ] `gcp exporter`
-- [ ] log-based metrics
-- [ ] `contact-handler`
-- [ ] `alchemyst`
-- [ ] `alexandlou`
-- [ ] `photos`
-- [ ] `wug`
-- [ ] `moss-work`
-- [ ] `kube-ops-view`
-
 ### Maybe To Do
 
-- [ ] promxy
-- [ ] Can you control the Grafana URLs used for dashboards?
 - [ ] Grafana plugins experimentation
 - [ ] [Stackdriver](https://grafana.com/docs/grafana/v6.5/features/datasources/stackdriver/)
-
-mosstech:
-
-- defect with mosstech and 404'ing when e.g. /wibble
-- not seeing the 404's come through

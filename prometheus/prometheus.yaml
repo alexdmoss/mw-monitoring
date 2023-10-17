@@ -61,10 +61,10 @@ spec:
   alerting:
     alertmanagers:
       - namespace: prometheus
-        name: mw
+        name: alertmanager-mw
         port: web
   baseImage: quay.io/prometheus/prometheus
-  version: v2.35.0
+  version: v2.47.2
   nodeSelector:
     cloud.google.com/gke-spot: "true"
   tolerations:
