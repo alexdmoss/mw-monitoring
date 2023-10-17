@@ -10,7 +10,7 @@ groups:
           dashboard: /d/not-implemented
           summary: Alertmanager has disappeared from Prometheus target discovery.
         expr: |
-          absent(up{job="mw",namespace="prometheus",service="alertmanager"} == 1)
+          absent(up{job="mw",namespace="prometheus",service="alertmanager-mw"} == 1)
         for: 15m
       - alert: KubeStateMetricsDown
         labels:
