@@ -3,12 +3,15 @@ set -euoE pipefail
 
 pushd "$(dirname "${BASH_SOURCE[0]}")"/ > /dev/null
 
-VERSION=v5.4.0
+if [[ -z ${GRAFANA_OPERATOR_VERSION} ]]; then
+  echo "-> [ERROR] Must export GRAFANA_OPERATOR_VERSION, e.g. v5.4.0"
+  exit 1
+fi
 
-helm template oci://ghcr.io/grafana-operator/helm-charts/grafana-operator --version "${VERSION}" \
+helm template oci://ghcr.io/grafana-operator/helm-charts/grafana-operator --version "${GRAFANA_OPERATOR_VERSION}" \
   --name-template mw \
   --namespace grafana \
   -f values.yaml \
-  > manifest-${VERSION}.yaml
+  > manifest-"${GRAFANA_OPERATOR_VERSION}".yaml
 
 popd > /dev/null
