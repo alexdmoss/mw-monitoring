@@ -26,11 +26,7 @@ When this is up and running, you should be able to `kubectl port-forward svc/ale
 
 ## Grafana
 
-Is installed via an operator. To update the manifests:
-
-```sh
-flux pull artifact oci://ghcr.io/grafana-operator/kustomize/grafana-operator:v5.4.1 --output ./grafana-operator/
-```
+Is installed via an operator - see `./grafana-operator/generate-manifest.sh`. We apply the raw manifest generated locally via `helm template`.
 
 ... then CI takes care of the deployment via kustomize. The operator is deployed in namespaced mode, meaning any grafana resources (including dashboards) are only looked for in the `grafana` namespace.
 

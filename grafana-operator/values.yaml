@@ -1,0 +1,4 @@
+namespaceScope: true
+watchNamespaces: "grafana"
+securityContext: {"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":true,"runAsNonRoot":true, "allowPrivilegeEscalation":false}
+leaderElect: false

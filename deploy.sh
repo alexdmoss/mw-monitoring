@@ -49,7 +49,7 @@ function deploy_grafana_operator() {
 
   _console_msg "Deploying Grafana Operator ..."
 
-  kustomize build ./grafana-operator/overlays/namespace_scoped | kubectl apply --force-conflicts=true --server-side -f -
+  kubectl apply -n=grafana -f grafana-operator/manifest-"${GRAFANA_OPERATOR_VERSION}"
   
 }
 
