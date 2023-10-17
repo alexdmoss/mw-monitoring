@@ -15,10 +15,7 @@ spec:
         "list": [
         {
             "builtIn": 1,
-            "datasource": {
-            "type": "datasource",
-            "uid": "grafana"
-            },
+            "datasource": "-- Grafana --",
             "enable": true,
             "hide": true,
             "iconColor": "rgba(0, 211, 255, 1)",
@@ -35,10 +32,7 @@ spec:
     "liveNow": false,
     "panels": [
         {
-        "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-        },
+        "datasource": "prometheus",
         "fieldConfig": {
             "defaults": {
             "color": {
@@ -102,10 +96,7 @@ spec:
         "pluginVersion": "10.0.1",
         "targets": [
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "expr": "count(increase(kube_pod_container_status_restarts_total[1h]) > 5)",
             "format": "time_series",
             "intervalFactor": 2,
@@ -117,10 +108,7 @@ spec:
         "type": "stat"
         },
         {
-        "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-        },
+        "datasource": "prometheus",
         "fieldConfig": {
             "defaults": {
             "color": {
@@ -185,10 +173,7 @@ spec:
         "pluginVersion": "10.0.1",
         "targets": [
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "expr": "sum(kube_node_status_condition{condition=\"Ready\",status!=\"true\"})",
             "format": "time_series",
             "intervalFactor": 2,
@@ -200,10 +185,7 @@ spec:
         "type": "stat"
         },
         {
-        "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-        },
+        "datasource": "prometheus",
         "fieldConfig": {
             "defaults": {
             "color": {
@@ -263,10 +245,7 @@ spec:
         "pluginVersion": "10.0.1",
         "targets": [
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "expr": "sum(kube_node_spec_unschedulable)",
             "format": "time_series",
             "intervalFactor": 2,
@@ -278,10 +257,7 @@ spec:
         "type": "stat"
         },
         {
-        "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-        },
+        "datasource": "prometheus",
         "fieldConfig": {
             "defaults": {
             "color": {
@@ -341,10 +317,7 @@ spec:
         "pluginVersion": "10.0.1",
         "targets": [
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "expr": "sum(kube_node_status_condition{condition=\"MemoryPressure\",status=\"true\"})",
             "format": "time_series",
             "intervalFactor": 2,
@@ -356,10 +329,7 @@ spec:
         "type": "stat"
         },
         {
-        "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-        },
+        "datasource": "prometheus",
         "fieldConfig": {
             "defaults": {
             "color": {
@@ -419,10 +389,7 @@ spec:
         "pluginVersion": "10.0.1",
         "targets": [
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "expr": "sum(kube_node_status_condition{condition=\"DiskPressure\",status=\"true\"})",
             "format": "time_series",
             "intervalFactor": 2,
@@ -434,10 +401,7 @@ spec:
         "type": "stat"
         },
         {
-        "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-        },
+        "datasource": "prometheus",
         "fieldConfig": {
             "defaults": {
             "color": {
@@ -514,10 +478,7 @@ spec:
         "pluginVersion": "10.0.1",
         "targets": [
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "editorMode": "code",
             "expr": "sum(kubelet_running_pods) by (node)",
             "format": "time_series",
@@ -531,10 +492,7 @@ spec:
         "type": "timeseries"
         },
         {
-        "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-        },
+        "datasource": "prometheus",
         "fieldConfig": {
             "defaults": {
             "color": {
@@ -611,10 +569,7 @@ spec:
         "pluginVersion": "10.0.1",
         "targets": [
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "editorMode": "code",
             "expr": "sum(kubelet_running_containers) by (node)",
             "format": "time_series",
@@ -628,10 +583,7 @@ spec:
         "type": "timeseries"
         },
         {
-        "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-        },
+        "datasource": "prometheus",
         "description": "Rate of Kubelet Operations Errors in 5 min intervals",
         "fieldConfig": {
             "defaults": {
@@ -709,10 +661,7 @@ spec:
         "pluginVersion": "10.0.1",
         "targets": [
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "editorMode": "code",
             "expr": "sum(rate(kubelet_runtime_operations_errors_total[5m])) by (node)",
             "format": "time_series",

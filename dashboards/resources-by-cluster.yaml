@@ -15,10 +15,7 @@ spec:
             "list": [
             {
                 "builtIn": 1,
-                "datasource": {
-                "type": "datasource",
-                "uid": "grafana"
-                },
+                "datasource": "-- Grafana --",
                 "enable": true,
                 "hide": true,
                 "iconColor": "rgba(0, 211, 255, 1)",
@@ -35,10 +32,7 @@ spec:
         "liveNow": false,
         "panels": [
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "fieldConfig": {
                 "defaults": {
                 "color": {
@@ -96,10 +90,7 @@ spec:
             "pluginVersion": "10.0.1",
             "targets": [
                 {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-                },
+                "datasource": "prometheus",
                 "editorMode": "code",
                 "expr": "sum(kube_pod_container_resource_requests{resource=\"cpu\"}) / sum(node:node_num_cpu:sum)",
                 "format": "time_series",
@@ -112,10 +103,7 @@ spec:
             "type": "stat"
             },
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "fieldConfig": {
                 "defaults": {
                 "color": {
@@ -179,10 +167,7 @@ spec:
             "pluginVersion": "10.0.1",
             "targets": [
                 {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-                },
+                "datasource": "prometheus",
                 "editorMode": "code",
                 "expr": "sum(kube_pod_container_resource_limits{resource=\"cpu\"}) / sum(node:node_num_cpu:sum)",
                 "format": "time_series",
@@ -195,10 +180,7 @@ spec:
             "type": "stat"
             },
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "fieldConfig": {
                 "defaults": {
                 "color": {
@@ -262,10 +244,7 @@ spec:
             "pluginVersion": "10.0.1",
             "targets": [
                 {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-                },
+                "datasource": "prometheus",
                 "editorMode": "code",
                 "expr": "sum(kube_pod_container_resource_requests{resource=\"memory\"}) / sum(node_memory_MemTotal_bytes)",
                 "format": "time_series",
@@ -278,10 +257,7 @@ spec:
             "type": "stat"
             },
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "fieldConfig": {
                 "defaults": {
                 "color": {
@@ -345,10 +321,7 @@ spec:
             "pluginVersion": "10.0.1",
             "targets": [
                 {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-                },
+                "datasource": "prometheus",
                 "editorMode": "code",
                 "expr": "sum(kube_pod_container_resource_limits{resource=\"memory\"}) / sum(node_memory_MemTotal_bytes)",
                 "format": "time_series",
@@ -365,10 +338,7 @@ spec:
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "fieldConfig": {
                 "defaults": {
                 "links": []
@@ -412,10 +382,7 @@ spec:
             "steppedLine": false,
             "targets": [
                 {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-                },
+                "datasource": "prometheus",
                 "editorMode": "code",
                 "expr": "sum(irate(container_cpu_usage_seconds_total{namespace!=\"\"}[1m])) by (namespace)",
                 "format": "time_series",
@@ -462,10 +429,7 @@ spec:
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "fieldConfig": {
                 "defaults": {
                 "links": []
@@ -509,10 +473,7 @@ spec:
             "steppedLine": false,
             "targets": [
                 {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-                },
+                "datasource": "prometheus",
                 "expr": "sum(container_memory_rss{namespace!=\"\"}) by (namespace)",
                 "format": "time_series",
                 "intervalFactor": 2,
@@ -553,10 +514,7 @@ spec:
             }
             },
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "fieldConfig": {
                 "defaults": {
                 "color": {
@@ -661,10 +619,7 @@ spec:
             "pluginVersion": "10.0.1",
             "targets": [
                 {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-                },
+                "datasource": "prometheus",
                 "editorMode": "code",
                 "expr": "sum(rate(container_cpu_usage_seconds_total{namespace!=\"\"}[5m])) by (namespace)",
                 "format": "table",
@@ -685,10 +640,7 @@ spec:
             "type": "table"
             },
             {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "fieldConfig": {
                 "defaults": {
                 "color": {
@@ -785,10 +737,7 @@ spec:
             "pluginVersion": "10.0.1",
             "targets": [
                 {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-                },
+                "datasource": "prometheus",
                 "expr": "sum(container_memory_rss{namespace!=\"\"}) by (namespace)",
                 "format": "table",
                 "instant": true,

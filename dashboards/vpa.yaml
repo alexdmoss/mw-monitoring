@@ -15,10 +15,7 @@ spec:
         "list": [
           {
             "builtIn": 1,
-            "datasource": {
-              "type": "grafana",
-              "uid": "-- Grafana --"
-            },
+            "datasource": "-- Grafana --",
             "enable": true,
             "hide": true,
             "iconColor": "rgba(0, 211, 255, 1)",
@@ -35,10 +32,7 @@ spec:
       "liveNow": false,
       "panels": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -112,10 +106,7 @@ spec:
           },
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(label_replace(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=~\"$target.*\"}[1m]), \"pod\", \"$1\", \"pod\", \"(.*)-.*-.*\")) by (pod)",
               "hide": false,
@@ -125,10 +116,7 @@ spec:
               "refId": "B"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(kube_customresource_containerrecommendations_cpu_target{namespace=\"$namespace\", target_name=~\"$target\"}) by (target_name)",
               "instant": false,
@@ -137,10 +125,7 @@ spec:
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(kube_customresource_containerrecommendations_cpu_uncappedtarget{namespace=\"$namespace\", target_name=~\"$target\"}) by (target_name)",
               "hide": false,
@@ -150,10 +135,7 @@ spec:
               "refId": "C"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(kube_customresource_containerrecommendations_cpu_lowerbound{namespace=\"$namespace\", target_name=~\"$target\"}) by (target_name)",
               "hide": false,
@@ -163,10 +145,7 @@ spec:
               "refId": "D"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(kube_customresource_containerrecommendations_cpu_upperbound{namespace=\"$namespace\", target_name=~\"$target\"}) by (target_name)",
               "hide": false,
@@ -192,10 +171,7 @@ spec:
               "text": "ingress",
               "value": "ingress"
             },
-            "datasource": {
-              "type": "prometheus",
-              "uid": "a5e58a0e-ead8-467c-af7f-21bb17af3636"
-            },
+            "datasource": "prometheus",
             "definition": "label_values(namespace)",
             "hide": 0,
             "includeAll": false,
