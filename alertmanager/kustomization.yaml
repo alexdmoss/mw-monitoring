@@ -13,4 +13,3 @@ resources:
 - secret-config.yaml
 - service.yaml
 - service-monitor.yaml
-- test-webhook.yaml

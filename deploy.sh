@@ -25,6 +25,8 @@ function main() {
       deploy_alerts;;
     "service-monitors")
       deploy_service_monitors;;
+    "webhook")
+      deploy_webhook;;
     *)
       _console_msg "Missing which component to deploy (first argument) in deploy.sh";
       exit 1;;
@@ -99,6 +101,13 @@ function deploy_collectors() {
   popd > /dev/null 2>&1
 
 }
+
+function deploy_webhook() {
+  _console_msg "Deploying test-webhook ..."
+  kubectl apply -f ./test-webhook/test-webhook.yaml
+  kubectl rollout status deploy/alertmanager-test-webhook -n=prometheus --timeout=60s
+}
+
 
 function deploy_alertmanager() {
 

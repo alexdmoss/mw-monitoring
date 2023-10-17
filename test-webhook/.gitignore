@@ -1,0 +1,9 @@
+*.iml
+*.idea
+*.DS_Store
+*.swp
+
+**/bin/**
+**/pkg/**
+
+tmp/

@@ -69,3 +69,34 @@ deploy-service-monitors:
   extends: .deploy
   script:
     - ./deploy.sh service-monitors
+
+build-webhook:
+  stage: deploy
+  only:
+  - master
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  variables:
+    GOOGLE_APPLICATION_CREDENTIALS: ${CI_PROJECT_DIR}/kaniko.json
+  before_script:
+  - mkdir -p /kaniko/.docker
+  - echo "${GOOGLE_CREDENTIALS}" > ${CI_PROJECT_DIR}/kaniko.json
+  script:
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --compressed-caching=false
+      --snapshotMode=redo
+      --use-new-run
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${IMAGE_NAME}:main"
+  after_script:
+  - rm -f ${CI_PROJECT_DIR}/kaniko.json
+
+deploy-webhook:
+  stage: deploy
+  extends: .deploy
+  needs:
+  - build-webhook
+  script:
+    - ./deploy.sh webhook

@@ -39,7 +39,9 @@ Is installed via an operator - see `./grafana-operator/generate-manifest.sh`. We
 - [x] ensure secret part of project migration
 - [ ] remove servicemonitors from other repos
 - [ ] AlertManager + Prometheus access via ingress with auth
-- [ ] A default alert handler for no routes / reporting
+- [x] A default alert handler for no routes
+  - [ ] Tests for this!
+  - [ ] Dashboard for it being called
 - [ ] Alerts for:
   - [ ] Pods not scheduled
   - [ ] Crash Loop Backoff
