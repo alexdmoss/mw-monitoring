@@ -41,7 +41,7 @@ spec:
         runAsUser: 65534
       containers:
         - name: webhook
-          image: quay.io/prometheus-operator/prometheus-alertmanager-test-webhook:main
+          image: eu.gcr.io/${GCP_PROJECT_ID}/alertmanager-test-webhook:main
           ports:
             - name: http
               containerPort: 5001

@@ -104,7 +104,7 @@ function deploy_collectors() {
 
 function deploy_webhook() {
   _console_msg "Deploying test-webhook ..."
-  kubectl apply -f ./test-webhook/test-webhook.yaml
+  cat ./test-webhook/test-webhook.yaml | envsubst "\$GCP_PROJECT_ID" | kubectl apply -f -
   kubectl rollout status deploy/alertmanager-test-webhook -n=prometheus --timeout=60s
 }
 
