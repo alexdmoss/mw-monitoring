@@ -1,0 +1,60 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanager-test-webhook
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 5001
+      targetPort: http
+  selector:
+    app: alertmanager-test-webhook
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alertmanager-test-webhook
+  namespace: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alertmanager-test-webhook
+  template:
+    metadata:
+      labels:
+        app: alertmanager-test-webhook
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    spec:
+      nodeSelector:
+        cloud.google.com/gke-spot: "true"
+      tolerations:
+      - effect: NoSchedule
+        key: cloud.google.com/gke-spot
+        operator: Equal
+        value: "true"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      containers:
+        - name: webhook
+          image: quay.io/prometheus-operator/prometheus-alertmanager-test-webhook:latest
+          ports:
+            - name: http
+              containerPort: 5001
+          resources:
+            requests:
+              memory: 50Mi
+              cpu: 10m
+            limits:
+              memory: 50Mi
+              cpu: 10m
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL

@@ -9,8 +9,8 @@ commonLabels:
 
 resources:
 - alertmanager.yaml
-# - ingress.yaml    # disabled until build auth into it
 - pdb.yaml
 - secret-config.yaml
 - service.yaml
 - service-monitor.yaml
+- test-webhook.yaml
