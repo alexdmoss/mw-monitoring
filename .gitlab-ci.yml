@@ -84,11 +84,11 @@ build-webhook:
   - echo "${GOOGLE_CREDENTIALS}" > ${CI_PROJECT_DIR}/kaniko.json
   script:
     - /kaniko/executor
-      --context "${CI_PROJECT_DIR}"
+      --context "${CI_PROJECT_DIR}/test-webhook"
       --compressed-caching=false
       --snapshotMode=redo
       --use-new-run
-      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --dockerfile "${CI_PROJECT_DIR}/test-webhook/Dockerfile"
       --destination "${IMAGE_NAME}:main"
   after_script:
   - rm -f ${CI_PROJECT_DIR}/kaniko.json
