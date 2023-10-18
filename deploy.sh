@@ -115,9 +115,13 @@ function deploy_alertmanager() {
 
   pushd "alertmanager/" > /dev/null 2>&1
 
-  SENDGRID_KEY=$(gcloud secrets versions access latest --secret="ALERTMANAGER_SENDGRID_KEY" --project="${GCP_PROJECT_ID}")
-  export SENDGRID_KEY
-  kustomize build . | envsubst "\$SENDGRID_KEY" | kubectl apply -f -
+  SECRET_CONFIG=$(gcloud secrets versions access latest --secret="alert-manager" --project="${GCP_PROJECT_ID}")
+
+  SENDGRID_KEY=$(echo "${SECRET_CONFIG}" | grep ALERTMANAGER_SENDGRID_KEY | awk -F= '{print $2}')
+  SLACK_WEBHOOK_URL=$(echo "${SECRET_CONFIG}" | grep SLACK_WEBHOOK_URL | awk -F= '{print $2}')
+  export SENDGRID_KEY SLACK_WEBHOOK_URL
+
+  kustomize build . | envsubst "\$SENDGRID_KEY \$SLACK_WEBHOOK_URL" | kubectl apply -f -
   sleep 5
   kubectl rollout restart sts/alertmanager-mw -n=prometheus
   kubectl rollout status sts/alertmanager-mw -n=prometheus --timeout=120s
