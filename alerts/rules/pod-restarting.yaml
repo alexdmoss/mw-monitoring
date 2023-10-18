@@ -4,7 +4,7 @@ groups:
       - alert: pod-restarting
         labels:
           group: k8s-workloads
-          receiver: default
+          receiver: slack
           severity: high
         annotations:
           dashboard: /d/not-implemented

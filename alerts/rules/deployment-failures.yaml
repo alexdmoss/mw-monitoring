@@ -4,7 +4,7 @@ groups:
       - alert: deployment-generation-mismatch
         labels:
           group: k8s-workloads
-          receiver: default
+          receiver: slack
           severity: low
         annotations:
           dashboard: /d/not-implemented
@@ -20,7 +20,7 @@ groups:
       - alert: deployment-replicas-mismatch
         labels:
           group: k8s-workloads
-          receiver: default
+          receiver: slack
           severity: moderate
         annotations:
           dashboard: /d/not-implemented

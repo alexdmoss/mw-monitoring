@@ -36,27 +36,26 @@ Is installed via an operator - see `./grafana-operator/generate-manifest.sh`. We
 
 - [x] Grafana Operator
 - [ ] Controller to generate ServiceMonitors for apps
-- [x] ensure secret part of project migration
 - [ ] remove servicemonitors from other repos
+- [x] ensure secret part of project migration
 - [ ] AlertManager + Prometheus access via ingress with auth
 - [x] A default alert handler for no routes
   - [ ] Tests for this!
   - [ ] Dashboard for it being called
 - [ ] Alerts for:
-  - [ ] Pods not scheduled
-  - [ ] Crash Loop Backoff
+  - [x] Pods not scheduled
+  - [x] Crash Loop Backoff
   - [ ] 404
   - [ ] 5xx
-  - [ ] Velero backup failed
-  - [ ] Certs about to expire
+  - [x] Velero backup failed
+  - [-] _No longer using cert-manager_ Certs about to expire
   - [ ] High latency alert
   - [ ] OOMKill
   - [ ] PV Filling
-  - [ ] Grafana not running
+- [x] Slack integration
+- [ ] Slack integration improvements to formatting - own app?
 - [ ] Dashboard links for all alerts
 - [ ] Grafana login through Google Account
-- [ ] Availability Alert for mosstech
-- [ ] Some tests for all this
 - [ ] Remove the old terraformed stuff
 
 ### Maybe To Do

@@ -4,7 +4,7 @@ groups:
       - alert: daemonset-stuck
         labels:
           group: k8s-workloads
-          receiver: default
+          receiver: slack
           severity: moderate
         annotations:
           dashboard: /d/not-implemented
@@ -19,7 +19,7 @@ groups:
       - alert: daemonset-not-scheduled
         labels:
           group: k8s-workloads
-          receiver: default
+          receiver: slack
           severity: high
         annotations:
           dashboard: /d/not-implemented

@@ -4,7 +4,7 @@ groups:
       - alert: long-running-cronjob
         labels:
           group: k8s-workloads
-          receiver: default
+          receiver: slack
           severity: low
         annotations:
           dashboard: /d/not-implemented
@@ -15,7 +15,7 @@ groups:
       - alert: cronjob-has-not-completed
         labels:
           group: k8s-workloads
-          receiver: default
+          receiver: slack
           severity: low
         annotations:
           dashboard: /d/not-implemented
@@ -26,7 +26,7 @@ groups:
       - alert: cronjob-failed
         labels:
           group: k8s-workloads
-          receiver: default
+          receiver: slack
           severity: moderate
         annotations:
           dashboard: /d/not-implemented
