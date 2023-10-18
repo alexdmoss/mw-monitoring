@@ -3,7 +3,7 @@ groups:
     rules:
       - alert: pod-restarting
         labels:
-          group: k8s-workloads
+          group: pod-restarting
           receiver: slack
           severity: high
         annotations:

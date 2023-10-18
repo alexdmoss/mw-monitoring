@@ -5,7 +5,7 @@ groups:
         expr: vector(1)
         labels:
           group: mw-monitoring
-          receiver: default # or email
+          receiver: default
           severity: none
         annotations:
           summary: This is an always-firing alert to test AlertManager is working

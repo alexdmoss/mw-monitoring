@@ -18,9 +18,9 @@ tests:
               summary: Pod prometheus/alertmanager-test-webhook-1234 (webhook) has restarted 5.00 times in the last 5 minutes.
               dashboard: /d/not-implemented
             exp_labels:
-              group: k8s-workloads
+              group: pod-restarting
               severity: high
-              receiver: default
+              receiver: slack
               namespace: prometheus
               job: kube-state-metrics
               pod: alertmanager-test-webhook-1234

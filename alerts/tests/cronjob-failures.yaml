@@ -24,9 +24,9 @@ tests:
               summary: CronJob prometheus/alertmanager-test-cronjob is taking more than 1h to complete.
               dashboard: /d/not-implemented
             exp_labels:
-              group: k8s-workloads
+              group: cronjob-failures
               severity: low
-              receiver: default
+              receiver: slack
               namespace: prometheus
               cronjob: alertmanager-test-cronjob
               job: kube-state-metrics
@@ -40,9 +40,9 @@ tests:
               summary: Job prometheus/alertmanager-test-job-1234 is taking more than one hour to complete.
               dashboard: /d/not-implemented
             exp_labels:
-              group: k8s-workloads
+              group: cronjob-failures
               severity: low
-              receiver: default
+              receiver: slack
               namespace: prometheus
               job_name: alertmanager-test-job-1234
               job: kube-state-metrics
@@ -56,9 +56,9 @@ tests:
               summary: Job prometheus/alertmanager-test-job-1234 failed to complete.
               dashboard: /d/not-implemented
             exp_labels:
-              group: k8s-workloads
-              severity: moderate
-              receiver: default
+              group: cronjob-failures
+              severity: medium
+              receiver: slack
               namespace: prometheus
               job_name: alertmanager-test-job-1234
               job: kube-state-metrics

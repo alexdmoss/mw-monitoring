@@ -24,9 +24,9 @@ tests:
               summary: Deployment generation for prometheus/alertmanager-test-webhook does not match. This indicates that the Deployment has failed but has not been rolled back.
               dashboard: /d/not-implemented
             exp_labels:
-              group: k8s-workloads
+              group: deployment-failures
               severity: low
-              receiver: default
+              receiver: slack
               namespace: prometheus
               deployment: alertmanager-test-webhook
               job: kube-state-metrics
@@ -40,9 +40,9 @@ tests:
               summary: Deployment prometheus/alertmanager-test-webhook has not matched the expected number of replicas for longer than an hour.
               dashboard: /d/not-implemented
             exp_labels:
-              group: k8s-workloads
-              severity: moderate
-              receiver: default
+              group: deployment-failures
+              severity: medium
+              receiver: slack
               namespace: prometheus
               deployment: alertmanager-test-webhook
               job: kube-state-metrics

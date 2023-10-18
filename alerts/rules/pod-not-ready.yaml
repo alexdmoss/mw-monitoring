@@ -1,11 +1,11 @@
 groups:
-  - name: pod-restarting
+  - name: pod-not-ready
     rules:
       - alert: pod-not-ready
         labels:
-          group: k8s-workloads
+          group: pod-not-ready
           receiver: slack
-          severity: moderate
+          severity: medium
         annotations:
           dashboard: /d/not-implemented
           summary:

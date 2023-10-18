@@ -18,9 +18,9 @@ tests:
               summary: Pod prometheus/alertmanager-test-webhook-1234 has been in a non-ready state for longer than an hour.
               dashboard: /d/not-implemented
             exp_labels:
-              group: k8s-workloads
-              severity: moderate
-              receiver: default
+              group: pod-not-ready
+              severity: medium
+              receiver: slack
               namespace: prometheus
               pod: alertmanager-test-webhook-1234
       - eval_time: 58m

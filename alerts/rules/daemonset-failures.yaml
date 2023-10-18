@@ -1,11 +1,11 @@
 groups:
-  - name: statefulset-failures
+  - name: daemonset-failures
     rules:
       - alert: daemonset-stuck
         labels:
-          group: k8s-workloads
+          group: daemonset-failures
           receiver: slack
-          severity: moderate
+          severity: medium
         annotations:
           dashboard: /d/not-implemented
           summary:
@@ -18,7 +18,7 @@ groups:
         for: 15m
       - alert: daemonset-not-scheduled
         labels:
-          group: k8s-workloads
+          group: daemonset-failures
           receiver: slack
           severity: high
         annotations:

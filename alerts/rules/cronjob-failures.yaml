@@ -3,7 +3,7 @@ groups:
     rules:
       - alert: long-running-cronjob
         labels:
-          group: k8s-workloads
+          group: cronjob-failures
           receiver: slack
           severity: low
         annotations:
@@ -14,7 +14,7 @@ groups:
         for: 1h
       - alert: cronjob-has-not-completed
         labels:
-          group: k8s-workloads
+          group: cronjob-failures
           receiver: slack
           severity: low
         annotations:
@@ -25,9 +25,9 @@ groups:
         for: 1h
       - alert: cronjob-failed
         labels:
-          group: k8s-workloads
+          group: cronjob-failures
           receiver: slack
-          severity: moderate
+          severity: medium
         annotations:
           dashboard: /d/not-implemented
           summary: Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete.

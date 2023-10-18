@@ -24,9 +24,9 @@ tests:
               summary: Only 40% of the desired Pods of DaemonSet prometheus/alertmanager-test-daemonset are scheduled and ready.
               dashboard: /d/not-implemented
             exp_labels:
-              group: k8s-workloads
-              severity: moderate
-              receiver: default
+              group: daemonset-failures
+              severity: medium
+              receiver: slack
               namespace: prometheus
               daemonset: alertmanager-test-daemonset
               job: kube-state-metrics
@@ -40,9 +40,9 @@ tests:
               summary: 2 Pods of DaemonSet prometheus/alertmanager-test-daemonset are not scheduled.
               dashboard: /d/not-implemented
             exp_labels:
-              group: k8s-workloads
+              group: daemonset-failures
               severity: high
-              receiver: default
+              receiver: slack
               namespace: prometheus
               daemonset: alertmanager-test-daemonset
               job: kube-state-metrics

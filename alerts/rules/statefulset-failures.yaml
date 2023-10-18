@@ -3,7 +3,7 @@ groups:
     rules:
       - alert: statefulset-generation-mismatch
         labels:
-          group: k8s-workloads
+          group: statefulset-failures
           receiver: slack
           severity: low
         annotations:
@@ -19,9 +19,9 @@ groups:
         for: 15m
       - alert: statefulset-replicas-mismatch
         labels:
-          group: k8s-workloads
+          group: statefulset-failures
           receiver: slack
-          severity: moderate
+          severity: medium
         annotations:
           dashboard: /d/not-implemented
           summary:
@@ -34,9 +34,9 @@ groups:
         for: 15m
       - alert: statefulset-not-rolled-out
         labels:
-          group: k8s-workloads
+          group: statefulset-failures
           receiver: slack
-          severity: moderate
+          severity: medium
         annotations:
           dashboard: /d/not-implemented
           summary:
