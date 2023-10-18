@@ -1,0 +1,51 @@
+---
+rule_files:
+  - ../rules/daemonset-failures.yaml
+
+evaluation_interval: 15m
+
+tests:
+  - interval: 15m
+    input_series:
+      - series: 'kube_daemonset_status_number_ready{job="kube-state-metrics", namespace="prometheus", daemonset="alertmanager-test-daemonset"}'
+        values: '2+0x60'
+      - series: 'kube_daemonset_status_desired_number_scheduled{job="kube-state-metrics", namespace="prometheus", daemonset="alertmanager-test-daemonset"}'
+        values: '1+0x60'
+      - series: 'kube_daemonset_status_desired_number_scheduled{job="kube-state-metrics", namespace="prometheus", daemonset="alertmanager-test-daemonset"}'
+        values: '5+0x60'
+      - series: 'kube_daemonset_status_current_number_scheduled{job="kube-state-metrics", namespace="prometheus", daemonset="alertmanager-test-daemonset"}'
+        values: '3+0x60'
+
+    alert_rule_test:
+      - eval_time: 20m
+        alertname: daemonset-stuck
+        exp_alerts:
+          - exp_annotations:
+              summary: Only 40% of the desired Pods of DaemonSet prometheus/alertmanager-test-daemonset are scheduled and ready.
+              dashboard: /d/not-implemented
+            exp_labels:
+              group: k8s-workloads
+              severity: moderate
+              receiver: default
+              namespace: prometheus
+              daemonset: alertmanager-test-daemonset
+              job: kube-state-metrics
+      - eval_time: 14m
+        alertname: daemonset-stuck
+        exp_alerts: []
+      - eval_time: 20m
+        alertname: daemonset-not-scheduled
+        exp_alerts:
+          - exp_annotations:
+              summary: 2 Pods of DaemonSet prometheus/alertmanager-test-daemonset are not scheduled.
+              dashboard: /d/not-implemented
+            exp_labels:
+              group: k8s-workloads
+              severity: high
+              receiver: default
+              namespace: prometheus
+              daemonset: alertmanager-test-daemonset
+              job: kube-state-metrics
+      - eval_time: 14m
+        alertname: daemonset-not-scheduled
+        exp_alerts: []

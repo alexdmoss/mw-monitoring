@@ -1,0 +1,28 @@
+---
+rule_files:
+  - ../rules/pod-not-ready.yaml
+
+evaluation_interval: 1h
+
+tests:
+  - interval: 1h
+    input_series:
+      - series: 'kube_pod_status_phase{job="kube-state-metrics", phase="Pending", namespace="prometheus", pod="alertmanager-test-webhook-1234"}'
+        values: '1+1x12'
+
+    alert_rule_test:
+      - eval_time: 2h
+        alertname: pod-not-ready
+        exp_alerts:
+          - exp_annotations:
+              summary: Pod prometheus/alertmanager-test-webhook-1234 has been in a non-ready state for longer than an hour.
+              dashboard: /d/not-implemented
+            exp_labels:
+              group: k8s-workloads
+              severity: moderate
+              receiver: default
+              namespace: prometheus
+              pod: alertmanager-test-webhook-1234
+      - eval_time: 58m
+        alertname: pod-not-ready
+        exp_alerts: []

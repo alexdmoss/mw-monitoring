@@ -1,0 +1,51 @@
+---
+rule_files:
+  - ../rules/deployment-failures.yaml
+
+evaluation_interval: 15m
+
+tests:
+  - interval: 15m
+    input_series:
+      - series: 'kube_deployment_status_observed_generation{job="kube-state-metrics", namespace="prometheus", deployment="alertmanager-test-webhook"}'
+        values: '2+0x60'
+      - series: 'kube_deployment_metadata_generation{job="kube-state-metrics", namespace="prometheus", deployment="alertmanager-test-webhook"}'
+        values: '1+0x60'
+      - series: 'kube_deployment_spec_replicas{job="kube-state-metrics", namespace="prometheus", deployment="alertmanager-test-webhook"}'
+        values: '2+0x60'
+      - series: 'kube_deployment_status_replicas_available{job="kube-state-metrics", namespace="prometheus", deployment="alertmanager-test-webhook"}'
+        values: '1+0x60'
+
+    alert_rule_test:
+      - eval_time: 20m
+        alertname: deployment-generation-mismatch
+        exp_alerts:
+          - exp_annotations:
+              summary: Deployment generation for prometheus/alertmanager-test-webhook does not match. This indicates that the Deployment has failed but has not been rolled back.
+              dashboard: /d/not-implemented
+            exp_labels:
+              group: k8s-workloads
+              severity: low
+              receiver: default
+              namespace: prometheus
+              deployment: alertmanager-test-webhook
+              job: kube-state-metrics
+      - eval_time: 14m
+        alertname: deployment-generation-mismatch
+        exp_alerts: []
+      - eval_time: 2h
+        alertname: deployment-replicas-mismatch
+        exp_alerts:
+          - exp_annotations:
+              summary: Deployment prometheus/alertmanager-test-webhook has not matched the expected number of replicas for longer than an hour.
+              dashboard: /d/not-implemented
+            exp_labels:
+              group: k8s-workloads
+              severity: moderate
+              receiver: default
+              namespace: prometheus
+              deployment: alertmanager-test-webhook
+              job: kube-state-metrics
+      - eval_time: 58m
+        alertname: deployment-replicas-mismatch
+        exp_alerts: []

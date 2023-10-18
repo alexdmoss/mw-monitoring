@@ -1,0 +1,32 @@
+---
+rule_files:
+  - ../rules/pod-restarting.yaml
+
+evaluation_interval: 1m
+
+tests:
+  - interval: 1m
+    input_series:
+      - series: 'kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="prometheus",pod="alertmanager-test-webhook-1234",container="webhook"}'
+        values: '1+1x12'
+
+    alert_rule_test:
+      - eval_time: 11m
+        alertname: pod-restarting
+        exp_alerts:
+          - exp_annotations:
+              summary: Pod prometheus/alertmanager-test-webhook-1234 (webhook) has restarted 5.00 times in the last 5 minutes.
+              dashboard: /d/not-implemented
+            exp_labels:
+              group: k8s-workloads
+              severity: high
+              receiver: default
+              namespace: prometheus
+              job: kube-state-metrics
+              pod: alertmanager-test-webhook-1234
+              container: webhook
+      - eval_time: 1m
+        alertname: pod-restarting
+        exp_alerts: []
+
+

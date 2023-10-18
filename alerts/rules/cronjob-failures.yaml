@@ -1,0 +1,36 @@
+groups:
+  - name: cronjob-failures
+    rules:
+      - alert: long-running-cronjob
+        labels:
+          group: k8s-workloads
+          receiver: default
+          severity: low
+        annotations:
+          dashboard: /d/not-implemented
+          summary: CronJob {{ $labels.namespace }}/{{ $labels.cronjob }} is taking more than 1h to complete.
+        expr: |
+          time() - kube_cronjob_next_schedule_time{job="kube-state-metrics"} > 3600
+        for: 1h
+      - alert: cronjob-has-not-completed
+        labels:
+          group: k8s-workloads
+          receiver: default
+          severity: low
+        annotations:
+          dashboard: /d/not-implemented
+          summary: Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more than one hour to complete.
+        expr: |
+          kube_job_spec_completions{job="kube-state-metrics"} - kube_job_status_succeeded{job="kube-state-metrics"}  > 0
+        for: 1h
+      - alert: cronjob-failed
+        labels:
+          group: k8s-workloads
+          receiver: default
+          severity: moderate
+        annotations:
+          dashboard: /d/not-implemented
+          summary: Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete.
+        expr: |
+          kube_job_status_failed{job="kube-state-metrics"}  > 0
+        for: 1h

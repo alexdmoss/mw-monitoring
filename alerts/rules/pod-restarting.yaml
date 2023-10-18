@@ -1,0 +1,16 @@
+groups:
+  - name: pod-restarting
+    rules:
+      - alert: pod-restarting
+        labels:
+          group: k8s-workloads
+          receiver: default
+          severity: high
+        annotations:
+          dashboard: /d/not-implemented
+          summary:
+            Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container}}) 
+            has restarted {{ printf "%.2f" $value }} times in the last 5 minutes.
+        expr: |
+          increase(kube_pod_container_status_restarts_total{job="kube-state-metrics"}[5m]) > 0
+        for: 10m

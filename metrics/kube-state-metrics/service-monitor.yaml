@@ -35,7 +35,6 @@ spec:
             kube_pod_created|\
             kube_pod_owner|\
             kube_pod_start_time|\
-            kube_pod_status_phase|\
             kube_pod_status_ready|\
             kube_pod_status_scheduled|\
             kube_pod_status_scheduled_time|\
