@@ -9,11 +9,11 @@ spec:
     name: shared-gateway
     namespace: ingress
   hostnames:
-  - grafana.alexos.dev
+  - alertmanager.alexos.dev
   rules:
   - backendRefs:
-    - name: grafana-service
-      port: 3000
+    - name: alertmanager-operated
+      port: 9093
 ---
 apiVersion: networking.gke.io/v1
 kind: HealthCheckPolicy
@@ -30,10 +30,10 @@ spec:
     config:
       type: HTTP
       httpHealthCheck:
-        port: 3000
-        requestPath: /api/health
+        port: 9093
+        requestPath: /-/healthy
   targetRef:
     group: ""
     kind: Service
-    name: grafana-service
+    name: alertmanager-operated
 
