@@ -36,4 +36,19 @@ spec:
     group: ""
     kind: Service
     name: alertmanager-operated
-
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: alertmanager-iap
+spec:
+  default:
+    iap:
+      enabled: true
+      oauth2ClientSecret:
+        name: iap-client
+      clientID: 482562318875-4mur2ghbflur5povg2dln7a7de83vjkl.apps.googleusercontent.com
+  targetRef:
+    group: ""
+    kind: Service
+    name: alertmanager-operated

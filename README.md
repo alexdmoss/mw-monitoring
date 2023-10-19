@@ -24,6 +24,21 @@ AlertManager requires the SendGrid API key to be set up - see `./utils/create-al
 
 When this is up and running, you should be able to `kubectl port-forward svc/alertmanager-operated 9093:9093` and then hit `http://localhost:9093/` and see one of the Promethei.
 
+IAP auth has now been configured also:
+
+### Authentication
+
+Basic Auth has been replaced with Google's Identity Aware Proxy across my shared `Gateway`. If looking for that config, look at commits before October 2023.
+
+Set up has been done manually for now - may revisit this later. General gist is:
+
+- Enable IAP via the Console
+- find the Backend Service for this workload in the IAP panel and toggle IAP to On. _This should create a credential in [API Credentials](https://console.cloud.google.com/apis/credentials) automatically_
+- Within the credential that's automatically created:
+  - Copy the client ID from the credential that's created into `ingress.yaml` - `GCPBackendPolicy`
+  - Create a secret from the client secret, and make sure the name matches up - `kubectl create secret generic iap-client --from-file=iap-secret.txt`
+- Apply the `GCPBackendPolicy`
+
 ## Grafana
 
 Is installed via an operator - see `./grafana-operator/generate-manifest.sh`. We apply the raw manifest generated locally via `helm template`.
@@ -38,7 +53,7 @@ Is installed via an operator - see `./grafana-operator/generate-manifest.sh`. We
 - [ ] Controller to generate ServiceMonitors for apps
 - [ ] remove servicemonitors from other repos
 - [x] ensure secret part of project migration
-- [ ] AlertManager + Prometheus access via ingress with auth
+- [x] AlertManager access via ingress with auth
 - [x] A default alert handler for no routes
   - [ ] Tests for this!
   - [ ] Dashboard for it being called
