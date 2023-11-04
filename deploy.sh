@@ -64,6 +64,7 @@ function deploy_grafana() {
   echo "GF_SECURITY_ADMIN_USER=admin" > ./secret.tmp
   echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASS}" >> ./secret.tmp
 
+  kubectl apply -f ./namespace.yaml
   kustomize build . | kubectl apply -f -
 
   rm -f ./secret.tmp

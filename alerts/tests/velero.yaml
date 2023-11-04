@@ -36,5 +36,5 @@ tests:
             exp_labels:
               group: velero
               severity: high
-              receiver: email
+              receiver: slack
               schedule: pv-backup
