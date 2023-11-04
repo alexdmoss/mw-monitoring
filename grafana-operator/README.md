@@ -1,27 +1,10 @@
 # Deploy with kustomize
 
-Two overlays are provided, for namespace scoped and cluster scoped installation.
-To install the Grafana operator, select one of the overlays and edit its `kustomization.yaml` file.
-Make sure `namespace` is set to the namespace where you want to install the operator.
-Then run:
+Need to grab manifests manually, helm does not include (yet?):
 
-```shell
-kubectl create -k deploy/kustomize/overlays/cluster_scoped
-```
-
-for a cluster scoped installation, or:
-
-```shell
-kubectl create -k deploy/kustomize/overlays/namespace_scoped
-```
-
-for a namespace scoped installation.
-
-When you want to patch the grafana operator instead of using `kubectl apply` you need to use `kubectl replace`.
-Else you will get the following error `invalid: metadata.annotations: Too long: must have at most 262144 bytes`.
-
-For example
-
-```shell
-kubectl replace -k deploy/kustomize/overlays/cluster_scoped
+```sh
+curl -sLo crd-dashboard.yaml https://raw.githubusercontent.com/grafana-operator/grafana-operator/master/deploy/helm/grafana-operator/crds/grafana.integreatly.org_grafanadashboards.yaml
+curl -sLo crd-datasource.yaml https://raw.githubusercontent.com/grafana-operator/grafana-operator/master/deploy/helm/grafana-operator/crds/grafana.integreatly.org_grafanadatasources.yaml
+curl -sLo crd-folder.yaml https://raw.githubusercontent.com/grafana-operator/grafana-operator/master/deploy/helm/grafana-operator/crds/grafana.integreatly.org_grafanafolders.yaml
+curl -sLo crd-list.yaml https://raw.githubusercontent.com/grafana-operator/grafana-operator/master/deploy/helm/grafana-operator/crds/grafana.integreatly.org_grafanas.yaml
 ```
