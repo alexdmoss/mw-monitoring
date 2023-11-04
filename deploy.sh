@@ -51,6 +51,7 @@ function deploy_grafana_operator() {
 
   _console_msg "Deploying Grafana Operator ..."
 
+  kubectl apply -f ./namespace.yaml
   kubectl apply -n=grafana -f grafana-operator/manifest-"${GRAFANA_OPERATOR_VERSION}".yaml
   
 }
@@ -64,7 +65,6 @@ function deploy_grafana() {
   echo "GF_SECURITY_ADMIN_USER=admin" > ./secret.tmp
   echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASS}" >> ./secret.tmp
 
-  kubectl apply -f ./namespace.yaml
   kustomize build . | kubectl apply -f -
 
   rm -f ./secret.tmp
