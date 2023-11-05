@@ -4,7 +4,7 @@ set -euoE pipefail
 pushd "$(dirname "${BASH_SOURCE[0]}")"/ > /dev/null
 
 if [[ -z ${GRAFANA_OPERATOR_VERSION} ]]; then
-  echo "-> [ERROR] Must export GRAFANA_OPERATOR_VERSION, e.g. v5.4.0"
+  echo "-> [ERROR] Must export GRAFANA_OPERATOR_VERSION, e.g. v5.4.2"
   exit 1
 fi
 
