@@ -28,15 +28,14 @@ tests:
         alertname: velero-volume-backup-failure
         exp_alerts: []
 
-      ### not working and can't get time series right - return to
-      # - eval_time: 4h
-      #   alertname: velero-volume-backup-failure
-      #   exp_alerts:
-      #     - exp_annotations:
-      #         summary: Last successful persistent volume backup has exceeded the threshold
-      #         dashboard: /d/velero
-      #       exp_labels:
-      #         group: velero
-      #         severity: high
-      #         receiver: slack
-      #         schedule: pv-backup
+      - eval_time: 6h
+        alertname: velero-volume-backup-failure
+        exp_alerts:
+          - exp_annotations:
+              summary: Last successful persistent volume backup has exceeded the threshold
+              dashboard: /d/velero
+            exp_labels:
+              group: velero
+              severity: high
+              receiver: slack
+              schedule: pv-backup
