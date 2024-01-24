@@ -47,7 +47,7 @@ spec:
       enabled: true
       oauth2ClientSecret:
         name: iap-client
-      clientID: 482562318875-4mur2ghbflur5povg2dln7a7de83vjkl.apps.googleusercontent.com
+      clientID: 316747838102-1lbd1thb1g794qki36r5sqs9mvnn1voc.apps.googleusercontent.com
   targetRef:
     group: ""
     kind: Service
