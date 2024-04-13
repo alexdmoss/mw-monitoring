@@ -79,7 +79,7 @@ build-webhook:
     entrypoint: [""]
   variables:
     GOOGLE_APPLICATION_CREDENTIALS: ${CI_PROJECT_DIR}/kaniko.json
-    IMAGE_NAME: eu.gcr.io/${GCP_PROJECT_ID}/alertmanager-test-webhook:main
+    IMAGE_NAME: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:main
   before_script:
   - mkdir -p /kaniko/.docker
   - echo "${GOOGLE_CREDENTIALS}" > ${CI_PROJECT_DIR}/kaniko.json
