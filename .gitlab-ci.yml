@@ -5,12 +5,12 @@ stages:
 variables:
   DOMAIN: grafana.alexos.dev
   GRAFANA_PASS: ${GRAFANA_PASSWORD}
-  GRAFANA_OPERATOR_VERSION: v5.4.2
+  GRAFANA_OPERATOR_VERSION: v5.9.0
 
 .deploy:
   only:
     - master
-  image: mosstech/ci-tools:latest
+  image: al3xos/ci-tools:latest
   before_script:
   - echo "${GOOGLE_CREDENTIALS}" | gcloud auth activate-service-account --key-file -
   - region=$(gcloud container clusters list --project=${GCP_PROJECT_ID} --filter "NAME=${CLUSTER_NAME}" --format "value(zone)")

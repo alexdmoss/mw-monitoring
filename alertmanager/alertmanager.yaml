@@ -30,7 +30,7 @@ spec:
     fsGroup: 2000
     runAsUser: 1000
     runAsNonRoot: true
-  image: quay.io/prometheus/alertmanager:v0.26.0
+  image: quay.io/prometheus/alertmanager:v0.27.0
   logFormat: json
   logLevel: debug
   nodeSelector:

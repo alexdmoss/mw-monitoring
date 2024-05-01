@@ -52,10 +52,7 @@ function deploy_grafana_operator() {
   _console_msg "Deploying Grafana Operator ..."
 
   kubectl apply -f grafana-operator/namespace.yaml
-  kubectl apply -f grafana-operator/crd-dashboard.yaml
-  kubectl apply -f grafana-operator/crd-datasource.yaml
-  kubectl apply -f grafana-operator/crd-folder.yaml
-  kubectl apply -f grafana-operator/crd-list.yaml
+  kubectl apply -f grafana-operator/crd*.yaml
   kubectl apply -n=grafana -f grafana-operator/manifest-"${GRAFANA_OPERATOR_VERSION}".yaml
   
 }

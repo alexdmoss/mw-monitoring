@@ -8,7 +8,7 @@ if [[ -z ${GRAFANA_OPERATOR_VERSION} ]]; then
   exit 1
 fi
 
-helm template oci://ghcr.io/grafana-operator/helm-charts/grafana-operator --version "${GRAFANA_OPERATOR_VERSION}" \
+helm template oci://ghcr.io/grafana/helm-charts/grafana-operator --version "${GRAFANA_OPERATOR_VERSION}" \
   --name-template mw \
   --namespace grafana \
   -f values.yaml \
