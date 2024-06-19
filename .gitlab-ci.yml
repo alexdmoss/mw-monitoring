@@ -6,6 +6,7 @@ variables:
   DOMAIN: grafana.alexos.dev
   GRAFANA_PASS: ${GRAFANA_PASSWORD}
   GRAFANA_OPERATOR_VERSION: v5.9.0
+  GOOGLE_CREDENTIALS: "${APPLICATION_CI_CREDENTIALS}"
 
 .deploy:
   only:
