@@ -2,7 +2,7 @@
 kind: HTTPRoute
 apiVersion: gateway.networking.k8s.io/v1beta1
 metadata:
-  name: grafana
+  name: alertmanager
 spec:
   parentRefs:
   - kind: Gateway
@@ -36,19 +36,19 @@ spec:
     group: ""
     kind: Service
     name: alertmanager-operated
----
-apiVersion: networking.gke.io/v1
-kind: GCPBackendPolicy
-metadata:
-  name: alertmanager-iap
-spec:
-  default:
-    iap:
-      enabled: true
-      oauth2ClientSecret:
-        name: iap-client
-      clientID: 144598668561-jj8l9i7ui623j2rv6ip3fjiduq8jkfp8.apps.googleusercontent.com
-  targetRef:
-    group: ""
-    kind: Service
-    name: alertmanager-operated
+# ---
+# apiVersion: networking.gke.io/v1
+# kind: GCPBackendPolicy
+# metadata:
+#   name: alertmanager-iap
+# spec:
+#   default:
+#     iap:
+#       enabled: true
+#       oauth2ClientSecret:
+#         name: iap-client
+#       clientID: 144598668561-jj8l9i7ui623j2rv6ip3fjiduq8jkfp8.apps.googleusercontent.com
+#   targetRef:
+#     group: ""
+#     kind: Service
+#     name: alertmanager-operated
