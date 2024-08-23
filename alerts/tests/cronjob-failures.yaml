@@ -21,7 +21,7 @@ tests:
         alertname: long-running-cronjob
         exp_alerts:
           - exp_annotations:
-              summary: CronJob prometheus/alertmanager-test-cronjob is taking more than 1h to complete.
+              summary: CronJob metrics/alertmanager-test-cronjob is taking more than 1h to complete.
               dashboard: /d/not-implemented
             exp_labels:
               group: cronjob-failures
@@ -37,7 +37,7 @@ tests:
         alertname: cronjob-has-not-completed
         exp_alerts:
           - exp_annotations:
-              summary: Job prometheus/alertmanager-test-job-1234 is taking more than one hour to complete.
+              summary: Job metrics/alertmanager-test-job-1234 is taking more than one hour to complete.
               dashboard: /d/not-implemented
             exp_labels:
               group: cronjob-failures
@@ -53,7 +53,7 @@ tests:
         alertname: cronjob-failed
         exp_alerts:
           - exp_annotations:
-              summary: Job prometheus/alertmanager-test-job-1234 failed to complete.
+              summary: Job metrics/alertmanager-test-job-1234 failed to complete.
               dashboard: /d/not-implemented
             exp_labels:
               group: cronjob-failures

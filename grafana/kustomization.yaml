@@ -6,9 +6,6 @@ namespace: metrics
 configurations:
 - kustomizeconfig.yaml
 
-commonLabels:
-  app: grafana
-
 secretGenerator:
 - envs:
   - secret.tmp
@@ -19,3 +16,8 @@ resources:
 - folders.yaml
 - grafana.yaml
 - ingress.yaml
+
+labels:
+- includeSelectors: true
+  pairs:
+    app: grafana
