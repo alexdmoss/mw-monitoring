@@ -21,7 +21,7 @@ tests:
         alertname: daemonset-stuck
         exp_alerts:
           - exp_annotations:
-              summary: Only 40% of the desired Pods of DaemonSet prometheus/alertmanager-test-daemonset are scheduled and ready.
+              summary: Only 40% of the desired Pods of DaemonSet metrics/alertmanager-test-daemonset are scheduled and ready.
               dashboard: /d/not-implemented
             exp_labels:
               group: daemonset-failures
@@ -37,7 +37,7 @@ tests:
         alertname: daemonset-not-scheduled
         exp_alerts:
           - exp_annotations:
-              summary: 2 Pods of DaemonSet prometheus/alertmanager-test-daemonset are not scheduled.
+              summary: 2 Pods of DaemonSet metrics/alertmanager-test-daemonset are not scheduled.
               dashboard: /d/not-implemented
             exp_labels:
               group: daemonset-failures

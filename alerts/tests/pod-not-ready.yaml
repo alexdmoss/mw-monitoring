@@ -15,7 +15,7 @@ tests:
         alertname: pod-not-ready
         exp_alerts:
           - exp_annotations:
-              summary: Pod prometheus/alertmanager-test-webhook-1234 has been in a non-ready state for longer than an hour.
+              summary: Pod metrics/alertmanager-test-webhook-1234 has been in a non-ready state for longer than an hour.
               dashboard: /d/not-implemented
             exp_labels:
               group: pod-not-ready

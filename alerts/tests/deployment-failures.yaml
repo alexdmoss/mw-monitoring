@@ -21,7 +21,7 @@ tests:
         alertname: deployment-generation-mismatch
         exp_alerts:
           - exp_annotations:
-              summary: Deployment generation for prometheus/alertmanager-test-webhook does not match. This indicates that the Deployment has failed but has not been rolled back.
+              summary: Deployment generation for metrics/alertmanager-test-webhook does not match. This indicates that the Deployment has failed but has not been rolled back.
               dashboard: /d/not-implemented
             exp_labels:
               group: deployment-failures
@@ -37,7 +37,7 @@ tests:
         alertname: deployment-replicas-mismatch
         exp_alerts:
           - exp_annotations:
-              summary: Deployment prometheus/alertmanager-test-webhook has not matched the expected number of replicas for longer than an hour.
+              summary: Deployment metrics/alertmanager-test-webhook has not matched the expected number of replicas for longer than an hour.
               dashboard: /d/not-implemented
             exp_labels:
               group: deployment-failures

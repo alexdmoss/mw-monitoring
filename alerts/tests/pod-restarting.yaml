@@ -15,7 +15,7 @@ tests:
         alertname: pod-restarting
         exp_alerts:
           - exp_annotations:
-              summary: Pod prometheus/alertmanager-test-webhook-1234 (webhook) has restarted 5.00 times in the last 5 minutes.
+              summary: Pod metrics/alertmanager-test-webhook-1234 (webhook) has restarted 5.00 times in the last 5 minutes.
               dashboard: /d/not-implemented
             exp_labels:
               group: pod-restarting
