@@ -7,13 +7,13 @@ evaluation_interval: 15m
 tests:
   - interval: 15m
     input_series:
-      - series: 'kube_deployment_status_observed_generation{job="kube-state-metrics", namespace="prometheus", deployment="alertmanager-test-webhook"}'
+      - series: 'kube_deployment_status_observed_generation{job="kube-state-metrics", namespace="metrics", deployment="alertmanager-test-webhook"}'
         values: '2+0x60'
-      - series: 'kube_deployment_metadata_generation{job="kube-state-metrics", namespace="prometheus", deployment="alertmanager-test-webhook"}'
+      - series: 'kube_deployment_metadata_generation{job="kube-state-metrics", namespace="metrics", deployment="alertmanager-test-webhook"}'
         values: '1+0x60'
-      - series: 'kube_deployment_spec_replicas{job="kube-state-metrics", namespace="prometheus", deployment="alertmanager-test-webhook"}'
+      - series: 'kube_deployment_spec_replicas{job="kube-state-metrics", namespace="metrics", deployment="alertmanager-test-webhook"}'
         values: '2+0x60'
-      - series: 'kube_deployment_status_replicas_available{job="kube-state-metrics", namespace="prometheus", deployment="alertmanager-test-webhook"}'
+      - series: 'kube_deployment_status_replicas_available{job="kube-state-metrics", namespace="metrics", deployment="alertmanager-test-webhook"}'
         values: '1+0x60'
 
     alert_rule_test:

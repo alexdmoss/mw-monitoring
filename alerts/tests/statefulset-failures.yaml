@@ -7,13 +7,13 @@ evaluation_interval: 15m
 tests:
   - interval: 15m
     input_series:
-      - series: 'kube_statefulset_status_observed_generation{job="kube-state-metrics", namespace="prometheus", statefulset="alertmanager-test-statefulset"}'
+      - series: 'kube_statefulset_status_observed_generation{job="kube-state-metrics", namespace="metrics", statefulset="alertmanager-test-statefulset"}'
         values: '2+0x60'
-      - series: 'kube_statefulset_metadata_generation{job="kube-state-metrics", namespace="prometheus", statefulset="alertmanager-test-statefulset"}'
+      - series: 'kube_statefulset_metadata_generation{job="kube-state-metrics", namespace="metrics", statefulset="alertmanager-test-statefulset"}'
         values: '1+0x60'
-      - series: 'kube_statefulset_status_replicas{job="kube-state-metrics", namespace="prometheus", statefulset="alertmanager-test-statefulset"}'
+      - series: 'kube_statefulset_status_replicas{job="kube-state-metrics", namespace="metrics", statefulset="alertmanager-test-statefulset"}'
         values: '2+0x60'
-      - series: 'kube_statefulset_status_replicas_ready{job="kube-state-metrics", namespace="prometheus", statefulset="alertmanager-test-statefulset"}'
+      - series: 'kube_statefulset_status_replicas_ready{job="kube-state-metrics", namespace="metrics", statefulset="alertmanager-test-statefulset"}'
         values: '1+0x60'
 
     alert_rule_test:

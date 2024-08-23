@@ -7,7 +7,7 @@ evaluation_interval: 1h
 tests:
   - interval: 1h
     input_series:
-      - series: 'kube_pod_status_phase{job="kube-state-metrics", phase="Pending", namespace="prometheus", pod="alertmanager-test-webhook-1234"}'
+      - series: 'kube_pod_status_phase{job="kube-state-metrics", phase="Pending", namespace="metrics", pod="alertmanager-test-webhook-1234"}'
         values: '1+1x12'
 
     alert_rule_test:

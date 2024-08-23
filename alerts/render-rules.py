@@ -89,7 +89,7 @@ def render(directory):
                 'kind': 'PrometheusRule',
                 'metadata': {
                     'name': f'{stripped_filename}',
-                    'namespace': 'prometheus',
+                    'namespace': 'metrics',
                     'labels': {
                         'source': 'mw-monitoring-alerts',
                     },
