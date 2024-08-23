@@ -3,7 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: prometheus
-  namespace: prometheus
+  namespace: metrics
   labels:
     prometheus: mw
 spec:

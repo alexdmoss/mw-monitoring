@@ -10,7 +10,7 @@ fi
 
 helm template oci://ghcr.io/grafana/helm-charts/grafana-operator --version "${GRAFANA_OPERATOR_VERSION}" \
   --name-template mw \
-  --namespace grafana \
+  --namespace metrics \
   -f values.yaml \
   > manifest-"${GRAFANA_OPERATOR_VERSION}".yaml
 

@@ -5,7 +5,7 @@ metadata:
   labels:
     prometheus: mw
   name: prometheus
-  namespace: prometheus
+  namespace: metrics
 spec:
   type: ClusterIP
   ports:

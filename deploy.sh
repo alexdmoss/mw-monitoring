@@ -7,9 +7,6 @@ function main() {
 
   _assert_variables_set DOMAIN GRAFANA_PASS GCP_PROJECT_ID
 
-  _console_msg "Ensuring prometheus namespace exists ..."
-  kubectl apply -f ./prometheus/namespace.yaml
-
   case $component in
     "prometheus")
       deploy_prometheus;;
@@ -41,7 +38,7 @@ function deploy_prometheus() {
   pushd "prometheus/" > /dev/null 2>&1
 
   kubectl apply -f .
-  kubectl rollout status sts/prometheus-mw -n=prometheus --timeout=120s
+  kubectl rollout status sts/prometheus-mw -n=metrics --timeout=120s
 
   popd > /dev/null 2>&1
 
@@ -51,9 +48,8 @@ function deploy_grafana_operator() {
 
   _console_msg "Deploying Grafana Operator ..."
 
-  kubectl apply -f grafana-operator/namespace.yaml
   kubectl apply -f grafana-operator/crds/
-  kubectl apply -n=grafana -f grafana-operator/manifest-"${GRAFANA_OPERATOR_VERSION}".yaml
+  kubectl apply -n=metrics -f grafana-operator/manifest-"${GRAFANA_OPERATOR_VERSION}".yaml
   
 }
 
@@ -79,7 +75,7 @@ function deploy_grafana() {
 
   pushd "dashboards/" > /dev/null 2>&1
 
-  kubectl apply -n=grafana -f .
+  kubectl apply -n=metrics -f .
 
   popd > /dev/null 2>&1
 
@@ -90,8 +86,6 @@ function deploy_collectors() {
   _console_msg "Installing Metric Collectors ..."
 
   pushd "metrics/" > /dev/null 2>&1
-
-  kubectl apply -f ./namespace.yaml
 
   kubectl apply -f ./kube-state-metrics/
   kubectl rollout status deploy/kube-state-metrics -n=metrics --timeout=60s
@@ -106,8 +100,8 @@ function deploy_collectors() {
 
 function deploy_webhook() {
   _console_msg "Deploying test-webhook ..."
-  cat ./test-webhook/test-webhook.yaml | envsubst "\$GCP_PROJECT_ID" | kubectl apply -n=prometheus -f -
-  kubectl rollout status deploy/alertmanager-test-webhook -n=prometheus --timeout=60s
+  cat ./test-webhook/test-webhook.yaml | envsubst "\$GCP_PROJECT_ID" | kubectl apply -n=metrics -f -
+  kubectl rollout status deploy/alertmanager-test-webhook -n=metrics --timeout=60s
 }
 
 
@@ -125,8 +119,8 @@ function deploy_alertmanager() {
 
   kustomize build . | envsubst "\$SENDGRID_KEY \$SLACK_WEBHOOK_URL" | kubectl apply -f -
   sleep 5
-  kubectl rollout restart sts/alertmanager-mw -n=prometheus
-  kubectl rollout status sts/alertmanager-mw -n=prometheus --timeout=120s
+  kubectl rollout restart sts/alertmanager-mw -n=metrics
+  kubectl rollout status sts/alertmanager-mw -n=metrics --timeout=120s
 
   popd > /dev/null 2>&1
 
@@ -156,7 +150,7 @@ function deploy_service_monitors() {
 
   _console_msg "Deploying Service Monitors ..."
 
-  kubectl apply -f service-monitors/ -n=prometheus
+  kubectl apply -f service-monitors/ -n=metrics
   
 }
 

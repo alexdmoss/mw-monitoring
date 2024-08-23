@@ -21,7 +21,7 @@ tests:
               group: pod-restarting
               severity: high
               receiver: slack
-              namespace: prometheus
+              namespace: metrics
               job: kube-state-metrics
               pod: alertmanager-test-webhook-1234
               container: webhook

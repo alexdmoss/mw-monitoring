@@ -346,7 +346,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: WATCH_NAMESPACE
-              value: grafana
+              value: metrics
             - name: WATCH_NAMESPACE_SELECTOR
               value: ""
               

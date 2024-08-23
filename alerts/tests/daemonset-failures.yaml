@@ -27,7 +27,7 @@ tests:
               group: daemonset-failures
               severity: medium
               receiver: slack
-              namespace: prometheus
+              namespace: metrics
               daemonset: alertmanager-test-daemonset
               job: kube-state-metrics
       - eval_time: 14m
@@ -43,7 +43,7 @@ tests:
               group: daemonset-failures
               severity: high
               receiver: slack
-              namespace: prometheus
+              namespace: metrics
               daemonset: alertmanager-test-daemonset
               job: kube-state-metrics
       - eval_time: 14m

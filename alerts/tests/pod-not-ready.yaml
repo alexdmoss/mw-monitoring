@@ -21,7 +21,7 @@ tests:
               group: pod-not-ready
               severity: medium
               receiver: slack
-              namespace: prometheus
+              namespace: metrics
               pod: alertmanager-test-webhook-1234
       - eval_time: 58m
         alertname: pod-not-ready

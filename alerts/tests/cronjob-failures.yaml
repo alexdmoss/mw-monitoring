@@ -27,7 +27,7 @@ tests:
               group: cronjob-failures
               severity: low
               receiver: slack
-              namespace: prometheus
+              namespace: metrics
               cronjob: alertmanager-test-cronjob
               job: kube-state-metrics
       - eval_time: 58m
@@ -43,7 +43,7 @@ tests:
               group: cronjob-failures
               severity: low
               receiver: slack
-              namespace: prometheus
+              namespace: metrics
               job_name: alertmanager-test-job-1234
               job: kube-state-metrics
       - eval_time: 58m
@@ -59,7 +59,7 @@ tests:
               group: cronjob-failures
               severity: medium
               receiver: slack
-              namespace: prometheus
+              namespace: metrics
               job_name: alertmanager-test-job-1234
               job: kube-state-metrics
       - eval_time: 58m

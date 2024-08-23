@@ -27,7 +27,7 @@ tests:
               group: statefulset-failures
               severity: low
               receiver: slack
-              namespace: prometheus
+              namespace: metrics
               statefulset: alertmanager-test-statefulset
               job: kube-state-metrics
       - eval_time: 14m
@@ -43,7 +43,7 @@ tests:
               group: statefulset-failures
               severity: medium
               receiver: slack
-              namespace: prometheus
+              namespace: metrics
               statefulset: alertmanager-test-statefulset
               job: kube-state-metrics
       - eval_time: 14m

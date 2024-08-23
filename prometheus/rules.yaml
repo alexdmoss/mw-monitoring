@@ -6,7 +6,7 @@ metadata:
     prometheus: mw
     role: k8s-recording-rules
   name: k8s-recording-rules
-  namespace: prometheus
+  namespace: metrics
 spec:
   groups:
     - name: k8s.rules

@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: alertmanager-test-webhook
-  namespace: prometheus
+  namespace: metrics
 spec:
   type: ClusterIP
   ports:
@@ -17,7 +17,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: alertmanager-test-webhook
-  namespace: prometheus
+  namespace: metrics
 spec:
   replicas: 1
   selector:

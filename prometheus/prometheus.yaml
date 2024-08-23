@@ -3,7 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
   name: mw
-  namespace: prometheus
+  namespace: metrics
   labels:
     prometheus: mw
 spec:
