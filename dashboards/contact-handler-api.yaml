@@ -96,7 +96,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-api.*\", code!=\"\"}[5m])) by (code)",
+              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\", code!=\"\"}[5m])) by (code)",
               "interval": "1m",
               "legendFormat": "{{code}}",
               "refId": "B"
@@ -184,17 +184,17 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.5,max(increase(http_request_duration_seconds_bucket{service=~\"contact-handler-api.*\"}[5m])) by (le))",
+              "expr": "histogram_quantile(0.5,max(increase(http_request_duration_seconds_bucket{service=~\"contact-.*\"}[5m])) by (le))",
               "legendFormat": "p50",
               "refId": "A"
             },
             {
-              "expr": "histogram_quantile(0.95,max(increase(http_request_duration_seconds_bucket{service=~\"contact-handler-api.*\"}[5m])) by (le))",
+              "expr": "histogram_quantile(0.95,max(increase(http_request_duration_seconds_bucket{service=~\"contact-.*\"}[5m])) by (le))",
               "legendFormat": "p995",
               "refId": "B"
             },
             {
-              "expr": "histogram_quantile(1,max(increase(http_request_duration_seconds_bucket{service=~\"contact-handler-api.*\"}[5m])) by (le))",
+              "expr": "histogram_quantile(1,max(increase(http_request_duration_seconds_bucket{service=~\"contact-.*\"}[5m])) by (le))",
               "legendFormat": "p100",
               "refId": "C"
             }
@@ -283,7 +283,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-api.*\",code!~\"[45].*\"}[1m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-api.*\"}[1m]))",
+              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\",code!~\"[45].*\"}[1m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\"}[1m]))",
               "legendFormat": "Request Success Rate",
               "refId": "A"
             }
@@ -381,52 +381,52 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\",code=\"499\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\"}[5m]))",
+              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\",code=\"499\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\"}[5m]))",
               "legendFormat": "499",
               "refId": "A"
             },
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\",code=\"500\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\"}[5m]))",
+              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\",code=\"500\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\"}[5m]))",
               "legendFormat": "500",
               "refId": "B"
             },
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\",code=\"501\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\"}[5m]))",
+              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\",code=\"501\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\"}[5m]))",
               "legendFormat": "501",
               "refId": "C"
             },
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\",code=\"502\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\"}[5m]))",
+              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\",code=\"502\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\"}[5m]))",
               "legendFormat": "502",
               "refId": "D"
             },
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\",code=\"503\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\"}[5m]))",
+              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\",code=\"503\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\"}[5m]))",
               "legendFormat": "503",
               "refId": "E"
             },
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\",code=\"504\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\"}[5m]))",
+              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\",code=\"504\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\"}[5m]))",
               "legendFormat": "504",
               "refId": "F"
             },
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\",code=\"404\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\"}[5m]))",
+              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\",code=\"404\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\"}[5m]))",
               "legendFormat": "404",
               "refId": "G"
             },
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\",code=\"401\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\"}[5m]))",
+              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\",code=\"401\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\"}[5m]))",
               "legendFormat": "401",
               "refId": "H"
             },
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\",code=\"403\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\"}[5m]))",
+              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\",code=\"403\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\"}[5m]))",
               "legendFormat": "403",
               "refId": "I"
             },
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\",code=\"405\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-handler-.*\"}[5m]))",
+              "expr": "sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\",code=\"405\"}[5m])) / sum(rate(http_request_duration_seconds_count{service=~\"contact-.*\"}[5m]))",
               "legendFormat": "405",
               "refId": "J"
             }
@@ -514,7 +514,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "count(kube_pod_info{pod=~\"contact-handler-api.*\"})",
+              "expr": "count(kube_pod_info{pod=~\"contact-.*\"})",
               "legendFormat": "# of Pods",
               "refId": "A"
             }
@@ -603,7 +603,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"contact-handler.*\"}[1m])) by (container) / avg by(container) (label_replace (kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"contact-handler.*\"}, \"container\", \"$1\", \"container\", \"(.*)\"))",
+              "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"contact-.*\"}[1m])) by (container) / avg by(container) (label_replace (kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"contact-.*\"}, \"container\", \"$1\", \"container\", \"(.*)\"))",
               "legendFormat": "{{container}}",
               "refId": "A"
             }
@@ -709,7 +709,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"contact-handler.*\"}) / avg by (container) (label_replace(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"contact-handler.*\"}, \"container\", \"$1\", \"container\", \"(.*)\")) * 100",
+              "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"contact-.*\"}) / avg by (container) (label_replace(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"contact-.*\"}, \"container\", \"$1\", \"container\", \"(.*)\")) * 100",
               "intervalFactor": 2,
               "legendFormat": "{{container}}",
               "refId": "A"
@@ -815,12 +815,12 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(container_fs_usage_bytes{pod=~\"contact-handler.*\"})",
+              "expr": "avg(container_fs_usage_bytes{pod=~\"contact-.*\"})",
               "legendFormat": "Average Usage",
               "refId": "A"
             },
             {
-              "expr": "max(container_fs_limit_bytes{pod=~\"contact-handler.*\"})",
+              "expr": "max(container_fs_limit_bytes{pod=~\"contact-.*\"})",
               "legendFormat": "Limit",
               "refId": "B"
             }
@@ -907,7 +907,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(process_cpu_seconds_total{service=~\"contact-handler.*\"}[1m])) by (pod)",
+              "expr": "sum(rate(process_cpu_seconds_total{service=~\"contact-.*\"}[1m])) by (pod)",
               "legendFormat": "{{pod}}",
               "refId": "A"
             }
@@ -995,12 +995,12 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg by(pod) (process_resident_memory_bytes{service=~\"contact-handler.*\"})",
+              "expr": "avg by(pod) (process_resident_memory_bytes{service=~\"contact-.*\"})",
               "legendFormat": "RSS: {{pod}}",
               "refId": "A"
             },
             {
-              "expr": "avg by(pod) (process_virtual_memory_bytes{service=~\"contact-handler.*\"})",
+              "expr": "avg by(pod) (process_virtual_memory_bytes{service=~\"contact-.*\"})",
               "legendFormat": "VSS: {{pod}}",
               "refId": "B"
             }
@@ -1087,7 +1087,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg by(pod) (process_open_fds{service=~\"contact-handler.*\"})",
+              "expr": "avg by(pod) (process_open_fds{service=~\"contact-.*\"})",
               "legendFormat": "Open FD: {{pod}}",
               "refId": "A"
             }
@@ -1174,7 +1174,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(http_response_size_bytes_count{service=~\"contact-handler.*\"}[5m])) by (path)",
+              "expr": "sum(rate(http_response_size_bytes_count{service=~\"contact-.*\"}[5m])) by (path)",
               "legendFormat": "{{path}}",
               "refId": "A"
             }
@@ -1261,7 +1261,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.9,\n    sum(\n        rate(http_request_duration_seconds_bucket{service=~\"contact-handler-api.*\"}[5m])\n    ) by (path, le)\n)",
+              "expr": "histogram_quantile(0.9,\n    sum(\n        rate(http_request_duration_seconds_bucket{service=~\"contact-.*\"}[5m])\n    ) by (path, le)\n)",
               "legendFormat": "{{path}}",
               "refId": "A"
             }
@@ -1353,7 +1353,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{code=~\"[23]..\",service=~\"contact-handler.*\"}[5m])) by (path)",
+              "expr": "sum(rate(http_request_duration_seconds_count{code=~\"[23]..\",service=~\"contact-.*\"}[5m])) by (path)",
               "intervalFactor": 2,
               "legendFormat": "{{path}}",
               "refId": "A"
@@ -1446,7 +1446,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{code=~\"4..\", service=~\"contact-handler.*\"}[5m])) by (code, path)",
+              "expr": "sum(rate(http_request_duration_seconds_count{code=~\"4..\", service=~\"contact-.*\"}[5m])) by (code, path)",
               "interval": "",
               "legendFormat": "{{path}} - {{code}}",
               "refId": "A"
@@ -1538,7 +1538,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{code=~\"5..\",service=~\"contact-handler.*\"}[5m])) by (code, path)",
+              "expr": "sum(rate(http_request_duration_seconds_count{code=~\"5..\",service=~\"contact-.*\"}[5m])) by (code, path)",
               "legendFormat": "{{path}} - {{code}}",
               "refId": "A"
             }

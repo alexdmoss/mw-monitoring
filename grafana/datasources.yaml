@@ -11,7 +11,7 @@ spec:
     name: prometheus
     type: prometheus
     access: proxy
-    url: http://prometheus-operated.prometheus.svc:9090
+    url: http://prometheus-operated.metrics.svc:9090
     orgId: 1
     isDefault: true
     jsonData:
