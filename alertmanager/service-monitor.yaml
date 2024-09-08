@@ -10,7 +10,7 @@ spec:
       alertmanager: mw
   namespaceSelector:
     matchNames:
-      - prometheus
+      - metrics
   endpoints:
     - port: web
       interval: 30s
