@@ -1,4 +1,4 @@
-FROM golang:1.22-alpine3 as builder
+FROM golang:1.22-alpine as builder
 
 RUN mkdir /binary 
 WORKDIR /binary
