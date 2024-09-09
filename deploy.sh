@@ -8,6 +8,8 @@ function main() {
   _assert_variables_set DOMAIN GRAFANA_PASS GCP_PROJECT_ID
 
   case $component in
+    "gmp")
+      deploy_gmp;;
     "prometheus")
       deploy_prometheus;;
     "grafana")
@@ -42,6 +44,13 @@ function deploy_prometheus() {
 
   popd > /dev/null 2>&1
 
+}
+
+function deploy_gmp() {
+  _console_msg "Installing Google-Managed Prometheus resources ..."
+  pushd "gmp/" > /dev/null 2>&1
+  kubectl apply -f .
+  popd > /dev/null 2>&1
 }
 
 function deploy_grafana_operator() {

@@ -17,11 +17,11 @@ variables:
   - region=$(gcloud container clusters list --project=${GCP_PROJECT_ID} --filter "NAME=${CLUSTER_NAME}" --format "value(zone)")
   - gcloud container clusters get-credentials ${CLUSTER_NAME} --project=${GCP_PROJECT_ID} --region=${region}
 
-deploy-prometheus:
-  stage: deploy
-  extends: .deploy
-  script:
-    - ./deploy.sh prometheus
+# deploy-prometheus:
+#   stage: deploy
+#   extends: .deploy
+#   script:
+#     - ./deploy.sh prometheus
 
 deploy-grafana-operator:
   stage: deploy
@@ -37,39 +37,45 @@ deploy-grafana:
   script:
     - ./deploy.sh grafana
 
-deploy-collectors:
+deploy-gmp:
   stage: deploy
   extends: .deploy
   script:
-    - ./deploy.sh collectors
+    - ./deploy.sh gmp
 
-deploy-alertmanager:
-  stage: deploy
-  extends: .deploy
-  script:
-    - ./deploy.sh alertmanager
+# deploy-collectors:
+#   stage: deploy
+#   extends: .deploy
+#   script:
+#     - ./deploy.sh collectors
 
-test-alerts:
-  stage: deploy
-  image:
-    name: prom/prometheus
-    entrypoint: [ "/bin/sh", "-c" ]
-  script:
-  - cd alerts/ && ./test-alerts.sh
+# deploy-alertmanager:
+#   stage: deploy
+#   extends: .deploy
+#   script:
+#     - ./deploy.sh alertmanager
 
-deploy-alerts:
-  stage: deploy
-  extends: .deploy
-  needs: 
-    - test-alerts
-  script:
-    - ./deploy.sh alerts
+# test-alerts:
+#   stage: deploy
+#   image:
+#     name: prom/prometheus
+#     entrypoint: [ "/bin/sh", "-c" ]
+#   script:
+#   - cd alerts/ && ./test-alerts.sh
 
-deploy-service-monitors:
-  stage: deploy
-  extends: .deploy
-  script:
-    - ./deploy.sh service-monitors
+# deploy-alerts:
+#   stage: deploy
+#   extends: .deploy
+#   needs: 
+#     - test-alerts
+#   script:
+#     - ./deploy.sh alerts
+
+# deploy-service-monitors:
+#   stage: deploy
+#   extends: .deploy
+#   script:
+#     - ./deploy.sh service-monitors
 
 build-webhook:
   stage: deploy
