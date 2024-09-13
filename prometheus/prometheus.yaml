@@ -60,7 +60,7 @@ spec:
     runAsNonRoot: true
   alerting:
     alertmanagers:
-      - namespace: prometheus
+      - namespace: metrics
         name: alertmanager-mw
         port: web
   baseImage: quay.io/prometheus/prometheus

@@ -2,15 +2,16 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: alexmoss-co-uk
+  name: alexmoss
+  namespace: metrics
 spec:
   jobLabel: app
   selector:
     matchLabels:
-      app: alexmoss-co-uk
+      app: alexmoss
   namespaceSelector:
     matchNames:
-      - alexmoss-co-uk
+      - alexmoss
   endpoints:
     - port: metrics
       path: /metrics

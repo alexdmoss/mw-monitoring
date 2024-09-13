@@ -3,6 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: alchemyst-frontend
+  namespace: metrics
 spec:
   jobLabel: app
   selector:
@@ -20,6 +21,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: alchemyst-backend
+  namespace: metrics
 spec:
   jobLabel: app
   selector:
