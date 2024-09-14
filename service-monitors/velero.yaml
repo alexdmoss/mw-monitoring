@@ -3,12 +3,16 @@ apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: velero
+  namespace: metrics
   labels:
     app: velero
 spec:
   selector:
     matchLabels:
       app: velero
+  namespaceSelector:
+    matchNames:
+      - velero
   podMetricsEndpoints:
     - port: metrics
       path: /metrics
