@@ -1,0 +1,18 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: photo-album
+  namespace: metrics
+spec:
+  jobLabel: app
+  selector:
+    matchLabels:
+      app: photo-album
+  namespaceSelector:
+    matchNames:
+      - photo-album
+  endpoints:
+    - port: app
+      path: /metrics
+      interval: 30s
