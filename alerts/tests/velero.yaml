@@ -2,13 +2,13 @@
 rule_files:
   - ../rules/velero.yaml
 
-evaluation_interval: 1m
+evaluation_interval: 1h
 
 tests:
-  - interval: 1m
+  - interval: 1h
     input_series:
       - series: velero_backup_last_successful_timestamp{schedule="pv-backup"}
-        values: 3600x600
+        values: 3600x48
 
 
     promql_expr_test:
@@ -17,18 +17,33 @@ tests:
         exp_samples:
           - labels: velero_backup_last_successful_timestamp{schedule="pv-backup"}
             value: 3600
+      - expr: velero_backup_last_successful_timestamp
+        eval_time: 2h
+        exp_samples:
+          - labels: velero_backup_last_successful_timestamp{schedule="pv-backup"}
+            value: 3600
+      - expr: backup:velero_backup_last_successful_timestamp:as_hours
+        eval_time: 1h
+        exp_samples:
+          - labels: backup:velero_backup_last_successful_timestamp:as_hours{schedule="pv-backup"}
+            value: 0
       - expr: backup:velero_backup_last_successful_timestamp:as_hours
         eval_time: 3h
         exp_samples:
           - labels: backup:velero_backup_last_successful_timestamp:as_hours{schedule="pv-backup"}
             value: 2
+      - expr: backup:velero_backup_last_successful_timestamp:as_hours
+        eval_time: 6h
+        exp_samples:
+          - labels: backup:velero_backup_last_successful_timestamp:as_hours{schedule="pv-backup"}
+            value: 5
 
     alert_rule_test:
       - eval_time: 3h
         alertname: velero-volume-backup-failure
         exp_alerts: []
 
-      - eval_time: 6h
+      - eval_time: 28h
         alertname: velero-volume-backup-failure
         exp_alerts:
           - exp_annotations:

@@ -7,7 +7,7 @@ groups:
         annotations:
           summary: Last successful persistent volume backup has exceeded the threshold
           dashboard: /d/velero
-        expr: backup:velero_backup_last_successful_timestamp:as_hours{schedule="pv-backup"} > 2
+        expr: backup:velero_backup_last_successful_timestamp:as_hours{schedule="pv-backup"} > 24
         for: 2h
         labels:
           group: velero
