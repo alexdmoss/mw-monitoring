@@ -109,7 +109,6 @@ spec:
               cpu: 10m
             limits:
               memory: 100Mi
-              cpu: 100m
           securityContext:
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
