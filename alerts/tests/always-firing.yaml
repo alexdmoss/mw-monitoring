@@ -19,5 +19,5 @@ tests:
               dashboard: /d/not-implemented
             exp_labels:
               group: mw-monitoring
-              receiver: email
+              receiver: default
               severity: none
