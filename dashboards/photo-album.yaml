@@ -43,11 +43,7 @@ spec:
           "type": "row"
         },
         {
-          "datasource": {
-            "default": true,
-            "type": "prometheus",
-            "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -234,10 +230,7 @@ spec:
           "pluginVersion": "10.0.1",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(rate(http_request_duration_seconds_count{service=\"photo-album\"}[5m]))",
               "interval": "1m",
@@ -246,10 +239,7 @@ spec:
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(rate(http_request_duration_seconds_count{service=\"photo-album\", status!=\"\"}[5m])) by (status)",
               "interval": "1m",
@@ -262,11 +252,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "default": true,
-            "type": "prometheus",
-            "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -347,10 +333,7 @@ spec:
           "pluginVersion": "10.0.1",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "histogram_quantile(0.5,max(increase(http_request_duration_seconds_bucket{service=\"photo-album\"}[5m])) by (le))",
               "legendFormat": "p50",
@@ -358,10 +341,7 @@ spec:
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "histogram_quantile(0.95,max(increase(http_request_duration_seconds_bucket{service=\"photo-album\"}[5m])) by (le))",
               "legendFormat": "p995",
@@ -369,10 +349,7 @@ spec:
               "refId": "B"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "histogram_quantile(1,max(increase(http_request_duration_seconds_bucket{service=\"photo-album\"}[5m])) by (le))",
               "legendFormat": "p100",
@@ -384,11 +361,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "default": true,
-            "type": "prometheus",
-            "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -494,10 +467,7 @@ spec:
           "pluginVersion": "10.0.1",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(rate(http_requests_total{service=\"photo-album\",code!~\"5.*\"}[1m])) / sum(rate(http_requests_total{service=\"photo-album\"}[1m]))",
               "legendFormat": "Request Success Rate",
@@ -509,11 +479,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "default": true,
-            "type": "prometheus",
-            "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -615,10 +581,7 @@ spec:
           "pluginVersion": "10.0.1",
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(rate(http_requests_total{service=\"photo-album\",status=\"499\"}[5m])) / sum(rate(http_requests_total{service=\"photo-album\"}[5m]))",
               "legendFormat": "499",
@@ -626,10 +589,7 @@ spec:
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(rate(http_requests_total{service=\"photo-album\",status=\"500\"}[5m])) / sum(rate(http_requests_total{service=\"photo-album\"}[5m]))",
               "legendFormat": "500",
@@ -637,10 +597,7 @@ spec:
               "refId": "B"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(rate(http_requests_total{service=\"photo-album\",status=\"501\"}[5m])) / sum(rate(http_requests_total{service=\"photo-album\"}[5m]))",
               "legendFormat": "501",
@@ -648,10 +605,7 @@ spec:
               "refId": "C"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(rate(http_requests_total{service=\"photo-album\",status=\"502\"}[5m])) / sum(rate(http_requests_total{service=\"photo-album\"}[5m]))",
               "legendFormat": "502",
@@ -659,10 +613,7 @@ spec:
               "refId": "D"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(rate(http_requests_total{service=\"photo-album\",status=\"503\"}[5m])) / sum(rate(http_requests_total{service=\"photo-album\"}[5m]))",
               "legendFormat": "503",
@@ -670,10 +621,7 @@ spec:
               "refId": "E"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(rate(http_requests_total{service=\"photo-album\",status=\"504\"}[5m])) / sum(rate(http_requests_total{service=\"photo-album\"}[5m]))",
               "legendFormat": "504",
@@ -681,10 +629,7 @@ spec:
               "refId": "F"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "editorMode": "code",
               "expr": "sum(rate(http_requests_total{service=\"photo-album\",status=\"404\"}[5m])) / sum(rate(http_requests_total{service=\"photo-album\"}[5m]))",
               "legendFormat": "404",
@@ -795,11 +740,7 @@ spec:
           "id": 28,
           "panels": [
             {
-              "datasource": {
-                "default": true,
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "fieldConfig": {
                 "defaults": {
                   "color": {
@@ -920,10 +861,7 @@ spec:
               "pluginVersion": "10.0.1",
               "targets": [
                 {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-                  },
+                  "datasource": "prometheus",
                   "editorMode": "code",
                   "expr": "sum(rate(http_request_duration_seconds_count{service=\"photo-album\"}[1m])) by (handler)",
                   "intervalFactor": 2,
@@ -936,11 +874,7 @@ spec:
               "type": "timeseries"
             },
             {
-              "datasource": {
-                "default": true,
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "fieldConfig": {
                 "defaults": {
                   "color": {
@@ -1061,10 +995,7 @@ spec:
               "pluginVersion": "10.0.1",
               "targets": [
                 {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-                  },
+                  "datasource": "prometheus",
                   "editorMode": "code",
                   "expr": "sum(rate(http_requests_created{service=\"photo-album\",status!~\"[23]..\"}[1m])) by (handler, status)",
                   "legendFormat": "{{path}}",
@@ -1090,11 +1021,7 @@ spec:
           "id": 27,
           "panels": [
             {
-              "datasource": {
-                "default": true,
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "fieldConfig": {
                 "defaults": {
                   "color": {
@@ -1224,10 +1151,7 @@ spec:
               "pluginVersion": "10.0.1",
               "targets": [
                 {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-                  },
+                  "datasource": "prometheus",
                   "editorMode": "code",
                   "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"photo-album-.*\"}[1m])) by (container) / avg by(container) (label_replace (kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"photo-album-.*\"}, \"container\", \"$1\", \"container\", \"(.*)\"))",
                   "legendFormat": "{{container_name}}",
@@ -1239,11 +1163,7 @@ spec:
               "type": "timeseries"
             },
             {
-              "datasource": {
-                "default": true,
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "fieldConfig": {
                 "defaults": {
                   "color": {
@@ -1374,10 +1294,7 @@ spec:
               "pluginVersion": "10.0.1",
               "targets": [
                 {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-                  },
+                  "datasource": "prometheus",
                   "editorMode": "code",
                   "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"photo-album-.*\"}) / avg by (container) (label_replace(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"photo-album-.*\"}, \"container\", \"$1\", \"container\", \"(.*)\")) * 100",
                   "intervalFactor": 2,
@@ -1390,11 +1307,7 @@ spec:
               "type": "timeseries"
             },
             {
-              "datasource": {
-                "default": true,
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "fieldConfig": {
                 "defaults": {
                   "color": {
@@ -1475,10 +1388,7 @@ spec:
               "pluginVersion": "10.0.1",
               "targets": [
                 {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-                  },
+                  "datasource": "prometheus",
                   "editorMode": "code",
                   "expr": "sum(rate(process_cpu_seconds_total{service=\"photo-album\"}[5m])) by (pod)",
                   "legendFormat": "{{pod}}",
@@ -1490,11 +1400,7 @@ spec:
               "type": "timeseries"
             },
             {
-              "datasource": {
-                "default": true,
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "fieldConfig": {
                 "defaults": {
                   "color": {
@@ -1574,10 +1480,7 @@ spec:
               "pluginVersion": "10.0.1",
               "targets": [
                 {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-                  },
+                  "datasource": "prometheus",
                   "editorMode": "code",
                   "expr": "avg by(pod) (process_resident_memory_bytes{service=\"photo-album\"})",
                   "legendFormat": "RSS: {{pod}}",
@@ -1585,10 +1488,7 @@ spec:
                   "refId": "A"
                 },
                 {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-                  },
+                  "datasource": "prometheus",
                   "editorMode": "code",
                   "expr": "avg by(pod) (process_virtual_memory_bytes{service=\"photo-album\"})",
                   "legendFormat": "VSS: {{pod}}",
@@ -1600,11 +1500,7 @@ spec:
               "type": "timeseries"
             },
             {
-              "datasource": {
-                "default": true,
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "fieldConfig": {
                 "defaults": {
                   "color": {
@@ -1684,10 +1580,7 @@ spec:
               "pluginVersion": "10.0.1",
               "targets": [
                 {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-                  },
+                  "datasource": "prometheus",
                   "editorMode": "code",
                   "expr": "avg by(pod) (process_open_fds{service=\"photo-album\"})",
                   "legendFormat": "Open FD: {{pod}}",

@@ -34,10 +34,7 @@ spec:
       "links": [],
       "panels": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -211,10 +208,7 @@ spec:
           },
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "sum(rate(nginx_http_requests_total{pod=~\"$service-.*\",status!=\"\"}[5m])) by (status)",
               "hide": false,
               "interval": "1m",
@@ -226,10 +220,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -309,28 +300,19 @@ spec:
           },
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "histogram_quantile(0.5,max(increase(nginx_http_request_duration_seconds_bucket{pod=~\"$service-.*\"}[5m])) by (le))",
               "legendFormat": "p50",
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "histogram_quantile(0.95,max(increase(nginx_http_request_duration_seconds_bucket{pod=~\"$service-.*\"}[5m])) by (le))",
               "legendFormat": "p95",
               "refId": "B"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "histogram_quantile(1,max(increase(nginx_http_request_duration_seconds_bucket{pod=~\"$service-.*\"}[5m])) by (le))",
               "legendFormat": "p100",
               "refId": "C"
@@ -340,10 +322,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -447,10 +426,7 @@ spec:
           },
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "sum(rate(nginx_http_requests_total{pod=~\"$service-.*\",code!~\"5.*\"}[1m])) / sum(rate(nginx_http_requests_total{pod=~\"$service-.*\"}[1m]))",
               "interval": "",
               "legendFormat": "Request Success Rate",
@@ -461,10 +437,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -565,55 +538,37 @@ spec:
           },
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "sum(rate(nginx_http_requests_total{pod=~\"$service-.*\",status=\"499\"}[5m])) / sum(rate(nginx_http_requests_total{pod=~\"$service-.*\"}[5m]))",
               "legendFormat": "499",
               "refId": "A"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "sum(rate(nginx_http_requests_total{pod=~\"$service-.*\",status=\"500\"}[5m])) / sum(rate(nginx_http_requests_total{pod=~\"$service-.*\"}[5m]))",
               "legendFormat": "500",
               "refId": "B"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "sum(rate(nginx_http_requests_total{pod=~\"$service-.*\",status=\"501\"}[5m])) / sum(rate(nginx_http_requests_total{pod=~\"$service-.*\"}[5m]))",
               "legendFormat": "501",
               "refId": "C"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "sum(rate(nginx_http_requests_total{pod=~\"$service-.*\",status=\"502\"}[5m])) / sum(rate(nginx_http_requests_total{pod=~\"$service-.*\"}[5m]))",
               "legendFormat": "502",
               "refId": "D"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "sum(rate(nginx_http_requests_total{pod=~\"$service-.*\",status=\"503\"}[5m])) / sum(rate(nginx_http_requests_total{pod=~\"$service-.*\"}[5m]))",
               "legendFormat": "503",
               "refId": "E"
             },
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "sum(rate(nginx_http_requests_total{pod=~\"$service-.*\",status=\"504\"}[5m])) / sum(rate(nginx_http_requests_total{pod=~\"$service-.*\"}[5m]))",
               "legendFormat": "504",
               "refId": "F"
@@ -623,10 +578,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -706,10 +658,7 @@ spec:
           },
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "count(kube_pod_info{pod=~\"$service-.*\"})",
               "legendFormat": "# of Pods",
               "refId": "A"
@@ -719,10 +668,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -800,10 +746,7 @@ spec:
           },
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "sum(nginx_http_connections{pod=~\"$service-.*\"}) by (state)",
               "interval": "",
               "legendFormat": "{{state}}",
@@ -814,10 +757,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -947,10 +887,7 @@ spec:
           },
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"$service-.*\"}[1m])) by (container) / avg by(container) (kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"$service-.*\"})",
               "hide": false,
               "legendFormat": "{{container}}",
@@ -961,10 +898,7 @@ spec:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-          },
+          "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1095,10 +1029,7 @@ spec:
           },
           "targets": [
             {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"$service-.*\"}) / avg by (container) (kube_pod_container_resource_requests{resource=\"memory\", pod=~\"$service-.*\"}) * 100",
               "intervalFactor": 2,
               "legendFormat": "{{container}}",
@@ -1122,10 +1053,7 @@ spec:
               "text": "alexos",
               "value": "alexos"
             },
-            "datasource": {
-              "type": "prometheus",
-              "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-            },
+            "datasource": "prometheus",
             "definition": "label_values(nginx_http_connections, namespace)\n",
             "hide": 0,
             "includeAll": false,

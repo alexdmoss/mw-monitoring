@@ -980,11 +980,7 @@ spec:
           "id": 27,
           "panels": [
             {
-              "datasource": {
-                "default": true,
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "fieldConfig": {
                 "defaults": {
                   "color": {
@@ -1114,10 +1110,7 @@ spec:
               "pluginVersion": "10.0.1",
               "targets": [
                 {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-                  },
+                  "datasource": "prometheus",
                   "editorMode": "code",
                   "expr": "avg(rate(container_cpu_usage_seconds_total{pod=~\"alchemyst-.*\"}[1m])) by (container) / avg by(container) (label_replace (kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"alchemyst-.*\"}, \"container\", \"$1\", \"container\", \"(.*)\"))",
                   "legendFormat": "{{container_name}}",
@@ -1129,11 +1122,7 @@ spec:
               "type": "timeseries"
             },
             {
-              "datasource": {
-                "default": true,
-                "type": "prometheus",
-                "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-              },
+              "datasource": "prometheus",
               "fieldConfig": {
                 "defaults": {
                   "color": {
@@ -1264,10 +1253,7 @@ spec:
               "pluginVersion": "10.0.1",
               "targets": [
                 {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "3b557ac3-cedb-4f04-8bcf-dc7043090070"
-                  },
+                  "datasource": "prometheus",
                   "editorMode": "code",
                   "expr": "avg by (container) (container_memory_usage_bytes {pod=~\"alchemyst-.*\"}) / avg by (container) (label_replace(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"alchemyst-.*\"}, \"container\", \"$1\", \"container\", \"(.*)\")) * 100",
                   "intervalFactor": 2,
