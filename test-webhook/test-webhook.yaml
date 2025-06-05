@@ -43,6 +43,7 @@ spec:
       containers:
         - name: webhook
           image: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:main
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 8000
@@ -59,3 +60,19 @@ spec:
             capabilities:
               drop:
               - ALL
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3

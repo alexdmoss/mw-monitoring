@@ -1,11 +1,11 @@
-FROM golang:1.24-alpine as builder
+FROM golang:1.24-alpine AS builder
 
 RUN mkdir /binary 
 WORKDIR /binary
 
-ADD ./ /binary/
+COPY ./ /binary/
 
-RUN apk update && apk add --no-cache git ca-certificates tzdata && update-ca-certificates
+RUN apk update && apk add --no-cache ca-certificates git tzdata && update-ca-certificates
 
 RUN adduser -u 1000 -D -g '' appuser
 

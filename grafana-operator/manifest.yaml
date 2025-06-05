@@ -365,7 +365,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           image: "ghcr.io/grafana/grafana-operator:v5.12.0"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             - name: WATCH_NAMESPACE
               value: metrics
@@ -394,6 +394,12 @@ spec:
             httpGet:
               path: /readyz
               port: 8081
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
       volumes:
         - name: dashboards-dir
           emptyDir: {}

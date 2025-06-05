@@ -14,4 +14,9 @@ helm template oci://ghcr.io/grafana/helm-charts/grafana-operator --version "${GR
   -f values.yaml \
   > manifest-"${GRAFANA_OPERATOR_VERSION}".yaml
 
+echo "****************************************************************************"
+echo "Now RENAME this file to `manifest.yaml` to avoid issues with snyk reporting"
+echo "after comparing to the previous version."
+echo "****************************************************************************"
+
 popd > /dev/null

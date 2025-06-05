@@ -30,6 +30,7 @@ spec:
       containers:
         - name: kube-state-metrics
           image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.13.0
+          imagePullPolicy: Always
           args:
           - --custom-resource-state-config
           # this looks ... yeah. See: https://github.com/kubernetes/kube-state-metrics/blob/main/docs/customresourcestate-metrics.md#verticalpodautoscaler
@@ -115,3 +116,19 @@ spec:
             capabilities:
               drop:
               - ALL
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3

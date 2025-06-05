@@ -1,0 +1,3 @@
+# # looks like a secret but isn't - base64 encoded string
+k8s/alertmanager/secret.yaml:kubernetes-secret-yaml:3
+5160713d360e2fb2b4e4b424bdb1107a7164e7a3:k8s/alertmanager/secret.yaml:kubernetes-secret-yaml:3

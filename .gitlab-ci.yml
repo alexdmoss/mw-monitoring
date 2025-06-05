@@ -1,4 +1,5 @@
 stages:
+- scan
 - deploy
 
 
@@ -16,6 +17,17 @@ variables:
   - echo "${GOOGLE_CREDENTIALS}" | gcloud auth activate-service-account --key-file -
   - region=$(gcloud container clusters list --project=${GCP_PROJECT_ID} --filter "NAME=${CLUSTER_NAME}" --format "value(zone)")
   - gcloud container clusters get-credentials ${CLUSTER_NAME} --project=${GCP_PROJECT_ID} --region=${region}
+
+include:
+  # security scans
+  - component: gitlab.com/alexos-dev/gitlab-ci-components/security-scan@~latest
+    inputs:
+      job-stage: scan
+      job-needs: ["build-webhook"]
+      image-names: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:main
+      dockerfiles: test-webhook/Dockerfile
+      snyk-language: go
+      snyk-library: all
 
 deploy-prometheus:
   stage: deploy
