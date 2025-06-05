@@ -58,7 +58,7 @@ function deploy_grafana_operator() {
   _console_msg "Deploying Grafana Operator ..."
 
   kubectl apply --server-side=true -f grafana-operator/crds/
-  kubectl apply -n=metrics -f grafana-operator/manifest-"${GRAFANA_OPERATOR_VERSION}".yaml
+  kubectl apply -n=metrics -f grafana-operator/manifest.yaml
   
 }
 
