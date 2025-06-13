@@ -11,7 +11,7 @@ spec:
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
   replicas: 1
-  retention: 180d
+  retention: 30d
   scrapeInterval: 10s
   evaluationInterval: 30s
   serviceAccountName: prometheus
