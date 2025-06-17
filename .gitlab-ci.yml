@@ -11,7 +11,7 @@ variables:
 
 .deploy:
   only:
-    - master
+    - main
   image: al3xos/ci-tools:latest
   before_script:
   - echo "${GOOGLE_CREDENTIALS}" | gcloud auth activate-service-account --key-file -
@@ -22,7 +22,7 @@ variables:
 build-webhook:
   stage: build-and-test
   only:
-  - master
+  - main
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -54,6 +54,21 @@ include:
       skip-image-tag: "true"
       snyk-language: go
       snyk-library: all
+
+sonarcloud-check:
+  stage: scan
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - sonar-scanner
+  only:
+    - main
+  allow_failure: true
 
 deploy-prometheus:
   stage: deploy

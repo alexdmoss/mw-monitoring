@@ -40,6 +40,7 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534
+      automountServiceAccountToken: false
       containers:
         - name: webhook
           image: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:main
@@ -51,9 +52,11 @@ spec:
             requests:
               memory: 50Mi
               cpu: 10m
+              ephemeral-storage: 20Mi
             limits:
               memory: 50Mi
               cpu: 10m
+              ephemeral-storage: 20Mi
           securityContext:
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false

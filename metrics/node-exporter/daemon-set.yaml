@@ -27,6 +27,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 65534
       serviceAccountName: node-exporter
+      automountServiceAccountToken: false
       hostNetwork: true
       hostPID: true
       affinity:
@@ -85,9 +86,11 @@ spec:
             requests:
               memory: 10Mi
               cpu: 10m
+              ephemeral-storage: 50Mi
             limits:
               memory: 40Mi
               cpu: 50m
+              ephemeral-storage: 50Mi
           securityContext:
             capabilities:
               drop:
