@@ -1,9 +1,10 @@
 FROM golang:1.24-alpine AS builder
 
 RUN mkdir /binary 
-WORKDIR /binary
 
-COPY ./ /binary/
+COPY ./test-webhook /binary/
+
+WORKDIR /binary
 
 RUN apk update && apk add --no-cache ca-certificates git tzdata && update-ca-certificates
 

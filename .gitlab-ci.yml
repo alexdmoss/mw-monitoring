@@ -25,7 +25,7 @@ include:
       job-stage: build-and-test
       job-suffix: test-webhook
       image-name: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook
-      dockerfile: test-webhook/Dockerfile
+      dockerfile: webhook.Dockerfile
   # security scans
   - component: gitlab.com/alexos-dev/gitlab-ci-components/security-scan@~latest
     inputs:
