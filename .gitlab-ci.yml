@@ -32,7 +32,7 @@ include:
       job-stage: build-and-test
       job-needs: ["buildkit-build-test-webhook"]
       image-names: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:latest
-      dockerfiles: test-webhook/Dockerfile
+      dockerfiles: webhook.Dockerfile
       skip-image-tag: "true"
       snyk-language: go
       snyk-library: all
