@@ -43,7 +43,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: webhook
-          image: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:main
+          image: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:latest
           imagePullPolicy: Always
           ports:
             - name: http

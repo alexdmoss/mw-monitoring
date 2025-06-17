@@ -19,37 +19,19 @@ variables:
   - gcloud container clusters get-credentials ${CLUSTER_NAME} --project=${GCP_PROJECT_ID} --region=${region}
 
 
-build-webhook:
-  stage: build-and-test
-  only:
-  - main
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
-  variables:
-    GOOGLE_APPLICATION_CREDENTIALS: ${CI_PROJECT_DIR}/kaniko.json
-    IMAGE_NAME: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:main
-  before_script:
-  - mkdir -p /kaniko/.docker
-  - echo "${GOOGLE_CREDENTIALS}" > ${CI_PROJECT_DIR}/kaniko.json
-  script:
-    - /kaniko/executor
-      --context "${CI_PROJECT_DIR}/test-webhook"
-      --compressed-caching=false
-      --snapshot-mode=redo
-      --use-new-run
-      --dockerfile "${CI_PROJECT_DIR}/test-webhook/Dockerfile"
-      --destination "${IMAGE_NAME}"
-  after_script:
-  - rm -f ${CI_PROJECT_DIR}/kaniko.json
-
 include:
+  - component: gitlab.com/alexos-dev/gitlab-ci-components/buildkit@~latest
+    inputs:
+      job-stage: build-and-test
+      job-suffix: test-webhook
+      image-name: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook
+      dockerfile: test-webhook/Dockerfile
   # security scans
   - component: gitlab.com/alexos-dev/gitlab-ci-components/security-scan@~latest
     inputs:
       job-stage: build-and-test
-      job-needs: ["build-webhook"]
-      image-names: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:main
+      job-needs: ["buildkit-build-test-webhook"]
+      image-names: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:latest
       dockerfiles: test-webhook/Dockerfile
       skip-image-tag: "true"
       snyk-language: go
@@ -131,11 +113,10 @@ deploy-service-monitors:
   script:
     - ./deploy.sh service-monitors
 
-
 deploy-webhook:
   stage: deploy
   extends: .deploy
   needs:
-  - build-webhook
+  - buildkit-build-test-webhook
   script:
     - ./deploy.sh webhook
