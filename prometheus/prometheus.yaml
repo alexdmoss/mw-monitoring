@@ -63,7 +63,7 @@ spec:
         name: alertmanager-mw
         port: web
   baseImage: quay.io/prometheus/prometheus
-  version: v3.3.1
+  version: v3.5.0
   nodeSelector:
     cloud.google.com/gke-spot: "true"
   tolerations:
