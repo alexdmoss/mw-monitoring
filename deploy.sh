@@ -122,11 +122,11 @@ function deploy_alertmanager() {
 
   SECRET_CONFIG=$(gcloud secrets versions access latest --secret="alert-manager" --project="${GCP_PROJECT_ID}")
 
-  SENDGRID_KEY=$(echo "${SECRET_CONFIG}" | grep ALERTMANAGER_SENDGRID_KEY | awk -F= '{print $2}')
+  POSTMARK_KEY=$(echo "${SECRET_CONFIG}" | grep ALERTMANAGER_POSTMARK_KEY | awk -F= '{print $2}')
   SLACK_WEBHOOK_URL=$(echo "${SECRET_CONFIG}" | grep SLACK_WEBHOOK_URL | awk -F= '{print $2}')
-  export SENDGRID_KEY SLACK_WEBHOOK_URL
+  export POSTMARK_KEY SLACK_WEBHOOK_URL
 
-  kustomize build . | envsubst "\$SENDGRID_KEY \$SLACK_WEBHOOK_URL" | kubectl apply -f -
+  kustomize build . | envsubst "\$POSTMARK_KEY \$SLACK_WEBHOOK_URL" | kubectl apply -f -
   sleep 5
   kubectl rollout restart sts/alertmanager-mw -n=metrics
   kubectl rollout status sts/alertmanager-mw -n=metrics --timeout=120s

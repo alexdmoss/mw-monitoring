@@ -20,7 +20,7 @@ When this is up and running, you should be able to `kubectl port-forward svc/pro
 
 ## Alert Manager
 
-AlertManager requires the SendGrid API key to be set up - see `./utils/create-alertmanager-secrets.sh`. This value can be regenerated from the SendGrid UI if necessary.
+AlertManager requires the Postmark API key to be set up for sending email - see `./utils/create-alertmanager-secrets.sh`. This value can be regenerated from the Postmark UI if necessary.
 
 When this is up and running, you should be able to `kubectl port-forward svc/alertmanager-operated 9093:9093` and then hit `http://localhost:9093/` and see one of the Promethei.
 
