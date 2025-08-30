@@ -15,3 +15,6 @@ spec:
   selector:
     matchLabels:
       app: prometheus-operator
+  namespaceSelector:
+    matchNames:
+      - prometheus-operator
