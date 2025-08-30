@@ -122,12 +122,12 @@ function deploy_alertmanager() {
 
   SECRET_CONFIG=$(gcloud secrets versions access latest --secret="alert-manager" --project="${GCP_PROJECT_ID}")
 
-  POSTMARK_ACCESS_KEY=$(echo "${SECRET_CONFIG}" | grep POSTMARK_ACCESS_KEY | awk -F= '{print $2}')
-  POSTMARK_SECRET_KEY=$(echo "${SECRET_CONFIG}" | grep POSTMARK_SECRET_KEY | awk -F= '{print $2}')
-  SLACK_WEBHOOK_URL=$(echo "${SECRET_CONFIG}" | grep SLACK_WEBHOOK_URL | awk -F= '{print $2}')
-  export POSTMARK_KEY SLACK_WEBHOOK_URL
+  ALERTMANAGER_EMAIL_HOST=$(echo "${SECRET_CONFIG}" | grep ALERTMANAGER_EMAIL_HOST | awk -F= '{print $2}')
+  ALERTMANAGER_EMAIL_USER=$(echo "${SECRET_CONFIG}" | grep ALERTMANAGER_EMAIL_USER | awk -F= '{print $2}')
+  ALERTMANAGER_EMAIL_PASS=$(echo "${SECRET_CONFIG}" | grep ALERTMANAGER_EMAIL_PASS | awk -F= '{print $2}')
+  export SLACK_WEBHOOK_URL ALERTMANAGER_EMAIL_HOST ALERTMANAGER_EMAIL_USER ALERTMANAGER_EMAIL_PASS
 
-  kustomize build . | envsubst "\$POSTMARK_ACCESS_KEY \$POSTMARK_SECRET_KEY \$SLACK_WEBHOOK_URL" | kubectl apply -f -
+  kustomize build . | envsubst "\$ALERTMANAGER_EMAIL_HOST \$ALERTMANAGER_EMAIL_USER \$ALERTMANAGER_EMAIL_PASS \$SLACK_WEBHOOK_URL" | kubectl apply -f -
   sleep 5
   kubectl rollout restart sts/alertmanager-mw -n=metrics
   kubectl rollout status sts/alertmanager-mw -n=metrics --timeout=120s

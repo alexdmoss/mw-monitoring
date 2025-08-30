@@ -20,11 +20,7 @@ When this is up and running, you should be able to `kubectl port-forward svc/pro
 
 ## Alert Manager
 
-AlertManager requires the Postmark API key to be set up for sending email - see `./utils/create-alertmanager-secrets.sh`. This value can be regenerated from the Postmark UI if necessary.
-
 When this is up and running, you should be able to `kubectl port-forward svc/alertmanager-operated 9093:9093` and then hit `http://localhost:9093/` and see one of the Promethei.
-
-IAP auth has now been configured also:
 
 ### Authentication
 
@@ -38,6 +34,23 @@ Set up has been done manually for now - may revisit this later. General gist is:
   - Copy the client ID from the credential that's created into `ingress.yaml` - `GCPBackendPolicy`
   - Create a secret from the client secret, and make sure the name matches up - `kubectl create secret generic iap-client --from-file=iap-secret.txt -n=metrics`
 - Apply the `GCPBackendPolicy`
+
+### Testing Alerts
+
+The `always-firing` alert is helpful for testing - taking a copy of it and changing its receiver for example. I've found that editing the AlertManager config to define a new receiver block with a much shorter repeat interval to be the best approach for me:
+
+```yaml
+      - receiver: testing
+        group_by: [group]
+        repeat_interval: 1m
+        group_interval: 1m
+        matchers:
+        - receiver="testing"
+```
+
+... then configuring an appropriate receiver matching that name to test with.
+
+There is also a `./fire-test-alert.sh` script which is occasionally useful - and needs port-forwarding to AlertManager to work.
 
 ## Grafana
 

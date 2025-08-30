@@ -6,7 +6,7 @@ url='http://localhost:9093/api/v2/alerts'
 summary='Testing summary!'
 group='mw-monitoring'
 severity='none'
-receiver='default'
+receiver='testing'
 
 # Function to send alert
 send_alert() {
