@@ -122,6 +122,7 @@ function deploy_alertmanager() {
 
   SECRET_CONFIG=$(gcloud secrets versions access latest --secret="alert-manager" --project="${GCP_PROJECT_ID}")
 
+  SLACK_WEBHOOK_URL=$(echo "${SECRET_CONFIG}" | grep SLACK_WEBHOOK_URL | awk -F= '{print $2}')
   ALERTMANAGER_EMAIL_HOST=$(echo "${SECRET_CONFIG}" | grep ALERTMANAGER_EMAIL_HOST | awk -F= '{print $2}')
   ALERTMANAGER_EMAIL_USER=$(echo "${SECRET_CONFIG}" | grep ALERTMANAGER_EMAIL_USER | awk -F= '{print $2}')
   ALERTMANAGER_EMAIL_PASS=$(echo "${SECRET_CONFIG}" | grep ALERTMANAGER_EMAIL_PASS | awk -F= '{print $2}')
