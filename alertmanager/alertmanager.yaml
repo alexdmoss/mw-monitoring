@@ -30,6 +30,7 @@ spec:
     runAsUser: 1000
     runAsNonRoot: true
   image: quay.io/prometheus/alertmanager:main
+  imagePullPolicy: Always
   logFormat: json
   logLevel: debug
   nodeSelector:
