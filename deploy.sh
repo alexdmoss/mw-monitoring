@@ -109,7 +109,7 @@ function deploy_collectors() {
 
 function deploy_webhook() {
   _console_msg "Deploying test-webhook ..."
-  cat ./test-webhook/test-webhook.yaml | envsubst "\$GCP_PROJECT_ID" | kubectl apply -n=metrics -f -
+  cat ./test-webhook.yaml | envsubst "\$GCP_PROJECT_ID" | kubectl apply -n=metrics -f -
   kubectl rollout status deploy/alertmanager-test-webhook -n=metrics --timeout=60s
 }
 
@@ -143,9 +143,8 @@ function deploy_alerts() {
 
   pushd "alerts/" > /dev/null 2>&1
 
-  pip install pipenv
-  pipenv install
-  pipenv run ./render-rules.py
+  uv venv
+  uv run ./render-rules.py
   if [[ -f /tmp/alert-rules.yaml ]]; then
     kubectl apply -f /tmp/alert-rules.yaml
   else

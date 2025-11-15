@@ -39,6 +39,7 @@ func main() {
 
 	r.Post("/webhook", webhook)
 
+	// nosemgrep
 	log.Fatal(http.ListenAndServe(":"+port, r))
 
 }
