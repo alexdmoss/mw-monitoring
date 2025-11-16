@@ -364,7 +364,7 @@ spec:
               - ALL
             readOnlyRootFilesystem: true
             runAsNonRoot: true
-            secompProfile:
+            seccompProfile:
               type: RuntimeDefault
           image: "ghcr.io/grafana/grafana-operator:v5.12.0"
           imagePullPolicy: Always

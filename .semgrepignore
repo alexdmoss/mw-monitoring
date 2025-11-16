@@ -1,0 +1,37 @@
+# Ignore k8s manifests - covered by kics
+grafana-operator/
+grafana/
+metrics/
+
+# Test files and test data
+tests/__pycache__/
+exercise_tracker/__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+
+# Build and distribution
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Configuration and data files
+*.yaml
+*.yml
+*.json
+*.toml
+*.ini
+*.conf
+*.md
+*.txt
+
+# Kubernetes and deployment configs
+k8s/
+
+# Git
+.git/
+
+# IDE
+.vscode/
+.idea/
