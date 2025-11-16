@@ -109,7 +109,9 @@ function deploy_collectors() {
 
 function deploy_webhook() {
   _console_msg "Deploying test-webhook ..."
-  cat ./test-webhook.yaml | envsubst "\$GCP_PROJECT_ID" | kubectl apply -n=metrics -f -
+  IMAGE_TAG=${IMAGE_NAME}:${CI_COMMIT_SHA}-$(echo "${CI_COMMIT_TIMESTAMP}" | sed 's/[:+]/./g')
+  export IMAGE_TAG
+  cat ./test-webhook.yaml | envsubst "\$GCP_PROJECT_ID \$IMAGE_TAG" | kubectl apply -n=metrics -f -
   kubectl rollout status deploy/alertmanager-test-webhook -n=metrics --timeout=60s
 }
 

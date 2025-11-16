@@ -43,7 +43,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: webhook
-          image: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:latest
+          image: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:${IMAGE_TAG}
           imagePullPolicy: Always
           ports:
             - name: http
@@ -60,6 +60,8 @@ spec:
           securityContext:
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault
             capabilities:
               drop:
               - ALL

@@ -29,10 +29,10 @@ include:
     inputs:
       job-stage: build-and-test
       job-needs: ["buildkit-build-test-webhook"]
-      image-names: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook:latest
+      image-names: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook
       dockerfiles: webhook.Dockerfile
-      skip-image-tag: "true"
       language-scan: "true"
+      include-kics-ignore: "true"
 
 deploy-prometheus:
   stage: deploy

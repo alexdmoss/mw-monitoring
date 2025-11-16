@@ -1,0 +1,5 @@
+exclude-queries:
+- aa8f7a35-9923-4cad-bd61-a19b7f6aac91      # hostPath needed by node-exporter
+- 302736f4-b16c-41b8-befe-c0baffa0bd9d2     # hostPID needed by node-exporter
+- 5308a7a8-06f8-45ac-bf10-791fe21de46e3     # hostPath needed by node-exporter
+- b7bca5c4-1dab-4c2c-8cbe-3050b9d59b14     # Grafana Operator needs to manage secrets

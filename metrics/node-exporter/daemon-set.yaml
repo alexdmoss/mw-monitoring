@@ -92,11 +92,29 @@ spec:
               cpu: 50m
               ephemeral-storage: 50Mi
           securityContext:
+            secompProfile:
+              type: RuntimeDefault
             capabilities:
               drop:
               - ALL
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9100
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9100
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
           volumeMounts:
             - name: proc
               readOnly: true
