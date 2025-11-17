@@ -354,7 +354,7 @@ spec:
         app.kubernetes.io/component: operator
     spec:
       serviceAccountName: mw-grafana-operator
-      automountServiceAccountToken: false
+      automountServiceAccountToken: true
       containers:
         - name: grafana-operator
           securityContext:
