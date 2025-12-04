@@ -45,6 +45,9 @@ spec:
   default:
     iap:
       enabled: true
+      oauth2ClientSecret:
+        name: iap-client
+      clientID: $IAP_CLIENT_ID
   targetRef:
     group: ""
     kind: Service
