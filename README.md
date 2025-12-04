@@ -29,11 +29,7 @@ Basic Auth has been replaced with Google's Identity Aware Proxy across my shared
 Set up has been done manually for now - may revisit this later. General gist is:
 
 - Enable IAP via the Console
-- find the Backend Service for this workload in the IAP panel and toggle IAP to On. _This should create a credential in [API Credentials](https://console.cloud.google.com/apis/credentials) automatically_
-- Within the credential that's automatically created:
-  - Copy the client ID from the credential that's created and add it to the alert-manager GCP secret with the key IAP_CLIENT_ID
-  - Create a secret from the client secret, and make sure the name matches up - `kubectl create secret generic iap-client --from-file=iap-secret.txt -n=metrics`
-- Apply the `GCPBackendPolicy`
+- find the Backend Service for this workload in the IAP panel and toggle IAP to On
 
 ### Testing Alerts
 
