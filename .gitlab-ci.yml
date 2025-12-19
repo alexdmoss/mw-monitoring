@@ -26,6 +26,8 @@ include:
       dockerfile: webhook.Dockerfile
   # security scans
   - component: gitlab.com/alexos-dev/gitlab-ci-components/security-scan@~latest
+    rules:
+      - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     inputs:
       job-stage: build-and-test
       job-needs: ["buildkit-build-test-webhook"]
