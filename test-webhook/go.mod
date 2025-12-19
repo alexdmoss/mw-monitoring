@@ -5,7 +5,7 @@ go 1.24.0
 require (
 	github.com/go-chi/chi/v5 v5.2.3
 	github.com/go-chi/render v1.0.3
-	github.com/prometheus/alertmanager v0.29.0
+	github.com/prometheus/alertmanager v0.30.0
 )
 
 require (
@@ -24,4 +24,5 @@ require (
 	golang.org/x/sys v0.38.0 // indirect
 	golang.org/x/text v0.31.0 // indirect
 	google.golang.org/protobuf v1.36.10 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
