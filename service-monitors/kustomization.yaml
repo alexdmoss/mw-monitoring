@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: metrics
+
+resources:
+- alchemyst.yaml
+- alexandlou.yaml
+- alexmoss.yaml
+- alexos.dev.yaml
+- contact-handler.yaml
+- kyverno.yaml
+- photo-album.yaml
+- prometheus-operator.yaml
+- velero.yaml

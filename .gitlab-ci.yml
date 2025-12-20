@@ -1,106 +1,91 @@
 stages:
-- build-and-test
-- deploy
-
+- release
 
 variables:
   DOMAIN: grafana.alexos.dev
   GRAFANA_PASS: ${GRAFANA_PASSWORD}
   GRAFANA_OPERATOR_VERSION: v5.12.0
 
-.deploy:
-  only:
-    - main
+webhook:
+  stage: release
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   image: al3xos/ci-tools:latest
-  before_script:
-  - region=$(gcloud container clusters list --project=${GCP_PROJECT_ID} --filter "NAME=${CLUSTER_NAME}" --format "value(zone)")
-  - gcloud container clusters get-credentials ${CLUSTER_NAME} --project=${GCP_PROJECT_ID} --region=${region}
-
-
-include:
-  - component: gitlab.com/alexos-dev/gitlab-ci-components/buildkit@~latest
-    inputs:
-      job-stage: build-and-test
-      job-suffix: test-webhook
-      image-name: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook
-      dockerfile: webhook.Dockerfile
-  # security scans
-  - component: gitlab.com/alexos-dev/gitlab-ci-components/security-scan@~latest
-    rules:
-      - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    inputs:
-      job-stage: build-and-test
-      job-needs: ["buildkit-build-test-webhook"]
-      image-names: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook
-      dockerfiles: webhook.Dockerfile
-      language-scan: "true"
-      include-kics-ignore: "true"
-
-deploy-prometheus:
-  stage: deploy
-  extends: .deploy
   script:
-    - ./deploy.sh prometheus
+    - alexos-cli build --image-name=$IMAGE_NAME --gcr-login --dockerfile=webhook.Dockerfile
+    - alexos-cli scan code
+    - alexos-cli scan secrets
+    - alexos-cli scan container --image-name=$IMAGE_NAME
+    - alexos-cli scan iac
+    - alexos-cli deploy kubernetes --image-name=$IMAGE_NAME --namespace=$NAMESPACE --envvars=DATA_PROJECT_ID,BUCKET_NAME
 
-deploy-grafana-operator:
-  stage: deploy
-  extends: .deploy
+telemetry:
+  stage: release
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  image: al3xos/ci-tools:latest
   script:
-    - ./deploy.sh grafana-operator
+    - alexos-cli deploy kubernetes --manifests=prometheus --namespace=metrics --image-name=required-but-not-used --skip-rollout-check
+    - kubectl rollout status sts/prometheus-mw -n=metrics --timeout=120s
+    - alexos-cli deploy kubernetes --manifests=kube-state-metrics --namespace=metrics --image-name=required-but-not-used
+    - alexos-cli deploy kubernetes --manifests=kubelet --namespace=metrics --image-name=required-but-not-used
+    - alexos-cli deploy kubernetes --manifests=node-exporter --namespace=metrics --image-name=required-but-not-used
+    - alexos-cli deploy kubernetes --manifests=service-monitors --namespace=metrics --image-name=required-but-not-used
 
-deploy-grafana:
-  stage: deploy
-  extends: .deploy
-  needs:
-  - deploy-grafana-operator
+grafana:
+  stage: release
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  image: al3xos/ci-tools:latest
   script:
-    - ./deploy.sh grafana
-
-### disabled as standing cost is >£1 per day without even doing much with it
-# deploy-gmp:
-#   stage: deploy
-#   extends: .deploy
-#   script:
-#     - ./deploy.sh gmp
-
-deploy-collectors:
-  stage: deploy
-  extends: .deploy
-  script:
-    - ./deploy.sh collectors
-
-deploy-alertmanager:
-  stage: deploy
-  extends: .deploy
-  script:
-    - ./deploy.sh alertmanager
+    - kubectl apply --server-side=true -f grafana-operator/crds/
+    - alexos-cli deploy kubernetes --manifests=grafana-operator --namespace=metrics --image-name=required-but-not-used --skip-rollout-check
+    - sleep 10
+    - echo "GF_SECURITY_ADMIN_USER=admin" > ./secret.tmp
+    - echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASS}" >> ./secret.tmp
+    - alexos-cli deploy kubernetes --manifests=grafana --namespace=metrics --image-name=required-but-not-used --skip-rollout-check
+    - sleep 30
+    - alexos-cli deploy kubernetes --manifests=dashboards --namespace=metrics --image-name=required-but-not-used --skip-rollout-check
 
 test-alerts:
-  stage: build-and-test
+  stage: release
   image:
     name: prom/prometheus
     entrypoint: [ "/bin/sh", "-c" ]
   script:
   - cd alerts/ && ./test-alerts.sh
 
-deploy-alerts:
-  stage: deploy
-  extends: .deploy
-  needs: 
-    - test-alerts
-  script:
-    - ./deploy.sh alerts
-
-deploy-service-monitors:
-  stage: deploy
-  extends: .deploy
-  script:
-    - ./deploy.sh service-monitors
-
-deploy-webhook:
-  stage: deploy
-  extends: .deploy
+alerts:
+  stage: release
   needs:
-  - buildkit-build-test-webhook
-  script:
-    - ./deploy.sh webhook
+    - test-alerts
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  image: al3xos/ci-tools:latest
+  script: |
+    cd alertmanager/
+    
+    SECRET_CONFIG=$(gcloud secrets versions access latest --secret="alert-manager" --project="${GCP_PROJECT_ID}")
+    IAP_CLIENT_ID=$(echo "${SECRET_CONFIG}" | grep IAP_CLIENT_ID | awk -F= '{print $2}')
+    SLACK_WEBHOOK_URL=$(echo "${SECRET_CONFIG}" | grep SLACK_WEBHOOK_URL | awk -F= '{print $2}')
+    ALERTMANAGER_EMAIL_HOST=$(echo "${SECRET_CONFIG}" | grep ALERTMANAGER_EMAIL_HOST | awk -F= '{print $2}')
+    ALERTMANAGER_EMAIL_USER=$(echo "${SECRET_CONFIG}" | grep ALERTMANAGER_EMAIL_USER | awk -F= '{print $2}')
+    ALERTMANAGER_EMAIL_PASS=$(echo "${SECRET_CONFIG}" | grep ALERTMANAGER_EMAIL_PASS | awk -F= '{print $2}')
+    export IAP_CLIENT_ID SLACK_WEBHOOK_URL ALERTMANAGER_EMAIL_HOST ALERTMANAGER_EMAIL_USER ALERTMANAGER_EMAIL_PASS
+
+    alexos-cli deploy kubernetes \
+      --manifests=alertmanager --namespace=metrics \
+      --image-name=required-but-not-used --skip-rollout-check \
+      --envvars IAP_CLIENT_ID,ALERTMANAGER_EMAIL_HOST,ALERTMANAGER_EMAIL_USER,ALERTMANAGER_EMAIL_PASS,SLACK_WEBHOOK_URL
+    sleep 5
+    kubectl rollout restart sts/alertmanager-mw -n=metrics
+    kubectl rollout status sts/alertmanager-mw -n=metrics --timeout=120s
+
+    cd alerts/
+    uv venv
+    uv run ./render-rules.py
+    if [[ -f /tmp/alert-rules.yaml ]]; then
+      kubectl apply -f /tmp/alert-rules.yaml
+    else
+      echo "/tmp/alert-rules.yaml does not exist. Check for validation errors above"
+    fi
