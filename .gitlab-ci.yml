@@ -30,7 +30,7 @@ telemetry:
   script:
     - alexos-cli deploy kubernetes --manifests=prometheus --namespace=metrics --image-name=required-but-not-used --skip-rollout-check
     - kubectl rollout status sts/prometheus-mw -n=metrics --timeout=120s
-    - alexos-cli deploy kubernetes --manifests=kube-state-metrics --namespace=metrics --image-name=required-but-not-used
+    - alexos-cli deploy kubernetes --manifests=kube-state-metrics --namespace=metrics --image-name="registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.13.0"
     - alexos-cli deploy kubernetes --manifests=kubelet --namespace=metrics --image-name=required-but-not-used
     - alexos-cli deploy kubernetes --manifests=node-exporter --namespace=metrics --image-name=required-but-not-used
     - alexos-cli deploy kubernetes --manifests=service-monitors --namespace=metrics --image-name=required-but-not-used
@@ -44,9 +44,10 @@ grafana:
     - alexos-cli deploy kubernetes --manifests=grafana-operator --namespace=metrics --image-name=required-but-not-used --skip-rollout-check
     - kubectl apply --server-side=true -f grafana-operator/crds/
     - sleep 10
-    - echo "GF_SECURITY_ADMIN_USER=admin" > ./secret.tmp
-    - echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASS}" >> ./secret.tmp
-    - alexos-cli deploy kubernetes --manifests=grafana --namespace=metrics --image-name=required-but-not-used --skip-rollout-check
+    - echo "GF_SECURITY_ADMIN_USER=admin" > ./grafana/secret.tmp
+    - echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASS}" >> ./grafana/secret.tmp
+    - alexos-cli deploy kubernetes --manifests=grafana --namespace=metrics --image-name="ghcr.io/grafana/grafana-operator:v5.12.0" --skip-rollout-check
+    - rm ./grafana/secret.tmp
     - sleep 30
     - alexos-cli deploy kubernetes --manifests=dashboards --namespace=metrics --image-name=required-but-not-used --skip-rollout-check
 
