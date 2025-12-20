@@ -1,0 +1,19 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: metrics
+
+resources:
+- alchemyst.yaml
+- capacity-planning.yaml
+- cluster-health.yaml
+- cluster-usage-saturation-errors.yaml
+- contact-handler-api.yaml
+- kyverno.yaml
+- nginx-websites.yaml
+- node-usage-saturation-errors.yaml
+- photo-album.yaml
+- resources-by-cluster.yaml
+- velero.yaml
+- vpa.yaml

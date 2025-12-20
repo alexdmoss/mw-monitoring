@@ -366,7 +366,7 @@ spec:
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
-          image: "ghcr.io/grafana/grafana-operator:v5.12.0"
+          image: grafana-operator:SET_BY_CI
           imagePullPolicy: Always
           env:
             - name: WATCH_NAMESPACE
