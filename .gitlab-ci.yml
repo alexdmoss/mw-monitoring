@@ -11,13 +11,16 @@ webhook:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   image: al3xos/ci-tools:latest
+  variables:
+    IMAGE_NAME: europe-docker.pkg.dev/${GCP_PROJECT_ID}/alexos/alertmanager-test-webhook
+    NAMESPACE: metrics
   script:
     - alexos-cli build --image-name=$IMAGE_NAME --gcr-login --dockerfile=webhook.Dockerfile
     - alexos-cli scan code
     - alexos-cli scan secrets
     - alexos-cli scan container --image-name=$IMAGE_NAME
     - alexos-cli scan iac
-    - alexos-cli deploy kubernetes --image-name=$IMAGE_NAME --namespace=$NAMESPACE --envvars=DATA_PROJECT_ID,BUCKET_NAME
+    - alexos-cli deploy kubernetes --image-name=$IMAGE_NAME --namespace=$NAMESPACE
 
 telemetry:
   stage: release
