@@ -20,7 +20,7 @@ webhook:
     - alexos-cli scan secrets
     - alexos-cli scan container --image-name=$IMAGE_NAME
     - alexos-cli scan iac
-    - alexos-cli deploy kubernetes --image-name=$IMAGE_NAME --namespace=$NAMESPACE
+    - alexos-cli deploy kubernetes --image-name=$IMAGE_NAME --namespace=$NAMESPACE --manifests=test-webhook
 
 telemetry:
   stage: release
@@ -41,8 +41,8 @@ grafana:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   image: al3xos/ci-tools:latest
   script:
-    - kubectl apply --server-side=true -f grafana-operator/crds/
     - alexos-cli deploy kubernetes --manifests=grafana-operator --namespace=metrics --image-name=required-but-not-used --skip-rollout-check
+    - kubectl apply --server-side=true -f grafana-operator/crds/
     - sleep 10
     - echo "GF_SECURITY_ADMIN_USER=admin" > ./secret.tmp
     - echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASS}" >> ./secret.tmp
@@ -66,8 +66,7 @@ alerts:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   image: al3xos/ci-tools:latest
   script: |
-    cd alertmanager/
-    
+
     SECRET_CONFIG=$(gcloud secrets versions access latest --secret="alert-manager" --project="${GCP_PROJECT_ID}")
     IAP_CLIENT_ID=$(echo "${SECRET_CONFIG}" | grep IAP_CLIENT_ID | awk -F= '{print $2}')
     SLACK_WEBHOOK_URL=$(echo "${SECRET_CONFIG}" | grep SLACK_WEBHOOK_URL | awk -F= '{print $2}')
