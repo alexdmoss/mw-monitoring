@@ -40,7 +40,7 @@ spec:
                     app: node-exporter
                 topologyKey: kubernetes.io/hostname
       containers:
-        - image: quay.io/prometheus/node-exporter:v1.9.1
+        - image: node-exporter:SET_BY_CI
           imagePullPolicy: Always
           args:
             - --path.procfs=/host/proc
