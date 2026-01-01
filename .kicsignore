@@ -3,6 +3,4 @@ exclude-queries:
 - 302736f4-b16c-41b8-befe-c0baffa0bd9d     # hostPID needed by node-exporter
 - 5308a7a8-06f8-45ac-bf10-791fe21de46e     # hostPath needed by node-exporter
 - 6b6bdfb3-c3ae-44cb-88e4-7405c1ba2c8a     # host namespace needed by node-exporter
-- b7bca5c4-1dab-4c2c-8cbe-3050b9d59b14     # Grafana Operator needs to manage secrets
-- 056ac60e-fe07-4acc-9b34-8e1d51716ab9     # Grafana Operator needs to manage secrets
 - 48471392-d4d0-47c0-b135-cdec95eb3eef     # SA token needed for app to work
