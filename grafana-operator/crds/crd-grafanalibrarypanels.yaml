@@ -3,21 +3,20 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
-  name: grafanadashboards.grafana.integreatly.org
+    controller-gen.kubebuilder.io/version: v0.19.0
+  name: grafanalibrarypanels.grafana.integreatly.org
 spec:
   group: grafana.integreatly.org
   names:
-    kind: GrafanaDashboard
-    listKind: GrafanaDashboardList
-    plural: grafanadashboards
-    singular: grafanadashboard
+    categories:
+    - grafana-operator
+    kind: GrafanaLibraryPanel
+    listKind: GrafanaLibraryPanelList
+    plural: grafanalibrarypanels
+    singular: grafanalibrarypanel
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.NoMatchingInstances
-      name: No matching instances
-      type: boolean
     - format: date-time
       jsonPath: .status.lastResync
       name: Last resync
@@ -28,7 +27,8 @@ spec:
     name: v1beta1
     schema:
       openAPIV3Schema:
-        description: GrafanaDashboard is the Schema for the grafanadashboards API
+        description: GrafanaLibraryPanel is the Schema for the grafanalibrarypanels
+          API
         properties:
           apiVersion:
             description: |-
@@ -48,14 +48,15 @@ spec:
           metadata:
             type: object
           spec:
-            description: GrafanaDashboardSpec defines the desired state of GrafanaDashboard
+            description: GrafanaLibraryPanelSpec defines the desired state of GrafanaLibraryPanel
             properties:
               allowCrossNamespaceImport:
-                description: allow to import this resources from an operator in a
-                  different namespace
+                default: false
+                description: Allow the Operator to match this resource with Grafanas
+                  outside the current namespace
                 type: boolean
               configMapRef:
-                description: dashboard from configmap
+                description: model from configmap
                 properties:
                   key:
                     description: The key to select.
@@ -67,9 +68,7 @@ spec:
                       This field is effectively required, but due to backwards compatibility is
                       allowed to be empty. Instances of this type with an empty value here are
                       almost certainly wrong.
-                      TODO: Add other useful fields. apiVersion, kind, uid?
                       More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                      TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.
                     type: string
                   optional:
                     description: Specify whether the ConfigMap or its key must be
@@ -80,11 +79,14 @@ spec:
                 type: object
                 x-kubernetes-map-type: atomic
               contentCacheDuration:
-                description: Cache duration for dashboards fetched from URLs
+                description: Cache duration for models fetched from URLs
                 type: string
               datasources:
                 description: maps required data sources to existing ones
                 items:
+                  description: |-
+                    GrafanaResourceDatasource is used to set the datasource name of any templated datasources in
+                    content definitions (e.g., dashboard JSON).
                   properties:
                     datasourceName:
                       type: string
@@ -112,9 +114,7 @@ spec:
                             This field is effectively required, but due to backwards compatibility is
                             allowed to be empty. Instances of this type with an empty value here are
                             almost certainly wrong.
-                            TODO: Add other useful fields. apiVersion, kind, uid?
                             More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                            TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.
                           type: string
                         optional:
                           description: Specify whether the ConfigMap or its key must
@@ -138,9 +138,7 @@ spec:
                             This field is effectively required, but due to backwards compatibility is
                             allowed to be empty. Instances of this type with an empty value here are
                             almost certainly wrong.
-                            TODO: Add other useful fields. apiVersion, kind, uid?
                             More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                            TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.
                           type: string
                         optional:
                           description: Specify whether the Secret or its key must
@@ -159,7 +157,7 @@ spec:
                     name:
                       type: string
                     value:
-                      description: Inline evn value
+                      description: Inline env value
                       type: string
                     valueFrom:
                       description: Reference on value source, might be the reference
@@ -178,9 +176,7 @@ spec:
                                 This field is effectively required, but due to backwards compatibility is
                                 allowed to be empty. Instances of this type with an empty value here are
                                 almost certainly wrong.
-                                TODO: Add other useful fields. apiVersion, kind, uid?
                                 More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                                TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.
                               type: string
                             optional:
                               description: Specify whether the ConfigMap or its key
@@ -204,9 +200,7 @@ spec:
                                 This field is effectively required, but due to backwards compatibility is
                                 allowed to be empty. Instances of this type with an empty value here are
                                 almost certainly wrong.
-                                TODO: Add other useful fields. apiVersion, kind, uid?
                                 More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                                TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.
                               type: string
                             optional:
                               description: Specify whether the Secret or its key must
@@ -221,9 +215,6 @@ spec:
                   - name
                   type: object
                 type: array
-              folder:
-                description: folder assignment for dashboard
-                type: string
               folderRef:
                 description: Name of a `GrafanaFolder` resource in the same namespace
                 type: string
@@ -241,12 +232,12 @@ spec:
                 - id
                 type: object
               gzipJson:
-                description: GzipJson the dashboard's JSON compressed with Gzip. Base64-encoded
+                description: GzipJson the model's JSON compressed with Gzip. Base64-encoded
                   when in YAML.
                 format: byte
                 type: string
               instanceSelector:
-                description: selects Grafanas for import
+                description: Selects Grafana instances for import
                 properties:
                   matchExpressions:
                     description: matchExpressions is a list of label selector requirements.
@@ -292,10 +283,10 @@ spec:
                 type: object
                 x-kubernetes-map-type: atomic
                 x-kubernetes-validations:
-                - message: Value is immutable
+                - message: spec.instanceSelector is immutable
                   rule: self == oldSelf
               json:
-                description: dashboard json
+                description: model json
                 type: string
               jsonnet:
                 description: Jsonnet
@@ -321,8 +312,10 @@ spec:
                 items:
                   properties:
                     name:
+                      minLength: 1
                       type: string
                     version:
+                      pattern: ^((0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?|latest)$
                       type: string
                   required:
                   - name
@@ -330,17 +323,29 @@ spec:
                   type: object
                 type: array
               resyncPeriod:
-                default: 5m
-                description: how often the dashboard is refreshed, defaults to 5m
-                  if not set
-                format: duration
+                description: How often the resource is synced, defaults to 10m0s if
+                  not set
                 pattern: ^([0-9]+(\.[0-9]+)?(ns|us|µs|ms|s|m|h))+$
                 type: string
+              suspend:
+                description: Suspend pauses synchronizing attempts and tells the operator
+                  to ignore changes
+                type: boolean
+              uid:
+                description: |-
+                  Manually specify the uid, overwrites uids already present in the json model.
+                  Can be any string consisting of alphanumeric characters, - and _ with a maximum length of 40.
+                maxLength: 40
+                pattern: ^[a-zA-Z0-9-_]+$
+                type: string
+                x-kubernetes-validations:
+                - message: spec.uid is immutable
+                  rule: self == oldSelf
               url:
-                description: dashboard url
+                description: model url
                 type: string
               urlAuthorization:
-                description: authorization options for dashboard from url
+                description: authorization options for model from url
                 properties:
                   basicAuth:
                     properties:
@@ -358,9 +363,7 @@ spec:
                               This field is effectively required, but due to backwards compatibility is
                               allowed to be empty. Instances of this type with an empty value here are
                               almost certainly wrong.
-                              TODO: Add other useful fields. apiVersion, kind, uid?
                               More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                              TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.
                             type: string
                           optional:
                             description: Specify whether the Secret or its key must
@@ -384,9 +387,7 @@ spec:
                               This field is effectively required, but due to backwards compatibility is
                               allowed to be empty. Instances of this type with an empty value here are
                               almost certainly wrong.
-                              TODO: Add other useful fields. apiVersion, kind, uid?
                               More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                              TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.
                             type: string
                           optional:
                             description: Specify whether the Secret or its key must
@@ -406,29 +407,21 @@ spec:
                 time
               rule: (has(self.folderUID) && !(has(self.folderRef))) || (has(self.folderRef)
                 && !(has(self.folderUID))) || !(has(self.folderRef) && (has(self.folderUID)))
-            - message: folder field cannot be set when folderUID or folderRef is already
-                declared
-              rule: (has(self.folder) && !(has(self.folderRef) || has(self.folderUID)))
-                || !(has(self.folder))
+            - message: spec.uid is immutable
+              rule: ((!has(oldSelf.uid) && !has(self.uid)) || (has(oldSelf.uid) &&
+                has(self.uid)))
+            - message: disabling spec.allowCrossNamespaceImport requires a recreate
+                to ensure desired state
+              rule: '!oldSelf.allowCrossNamespaceImport || (oldSelf.allowCrossNamespaceImport
+                && self.allowCrossNamespaceImport)'
           status:
-            description: GrafanaDashboardStatus defines the observed state of GrafanaDashboard
+            description: GrafanaLibraryPanelStatus defines the observed state of GrafanaLibraryPanel
             properties:
-              NoMatchingInstances:
-                description: The dashboard instanceSelector can't find matching grafana
-                  instances
-                type: boolean
               conditions:
+                description: Results when synchronizing resource with Grafana instances
                 items:
-                  description: "Condition contains details for one aspect of the current
-                    state of this API Resource.\n---\nThis struct is intended for
-                    direct use as an array at the field path .status.conditions.  For
-                    example,\n\n\n\ttype FooStatus struct{\n\t    // Represents the
-                    observations of a foo's current state.\n\t    // Known .status.conditions.type
-                    are: \"Available\", \"Progressing\", and \"Degraded\"\n\t    //
-                    +patchMergeKey=type\n\t    // +patchStrategy=merge\n\t    // +listType=map\n\t
-                    \   // +listMapKey=type\n\t    Conditions []metav1.Condition `json:\"conditions,omitempty\"
-                    patchStrategy:\"merge\" patchMergeKey:\"type\" protobuf:\"bytes,1,rep,name=conditions\"`\n\n\n\t
-                    \   // other fields\n\t}"
+                  description: Condition contains details for one aspect of the current
+                    state of this API Resource.
                   properties:
                     lastTransitionTime:
                       description: |-
@@ -469,12 +462,7 @@ spec:
                       - Unknown
                       type: string
                     type:
-                      description: |-
-                        type of condition in CamelCase or in foo.example.com/CamelCase.
-                        ---
-                        Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be
-                        useful (see .node.status.conditions), the ability to deconflict is important.
-                        The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
                       maxLength: 316
                       pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
                       type: string
@@ -497,12 +485,15 @@ spec:
               hash:
                 type: string
               lastResync:
-                description: Last time the dashboard was resynced
+                description: Last time the resource was synchronized with Grafana
+                  instances
                 format: date-time
                 type: string
               uid:
                 type: string
             type: object
+        required:
+        - spec
         type: object
     served: true
     storage: true

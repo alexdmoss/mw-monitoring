@@ -41,8 +41,9 @@ grafana:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   image: al3xos/ci-tools:latest
   script:
-    - alexos-cli deploy kubernetes --manifests=grafana-operator --namespace=metrics --image-name="ghcr.io/grafana/grafana-operator" --image-tag="v5.21.3" --skip-rollout-check
     - kubectl apply --server-side=true -f grafana-operator/crds/
+    - sleep 10
+    - alexos-cli deploy kubernetes --manifests=grafana-operator --namespace=metrics --image-name="ghcr.io/grafana/grafana-operator" --image-tag="v5.21.3" --skip-rollout-check
     - sleep 10
     - echo "GF_SECURITY_ADMIN_USER=admin" > ./grafana/secret.tmp
     - echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASS}" >> ./grafana/secret.tmp
