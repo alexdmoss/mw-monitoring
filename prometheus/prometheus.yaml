@@ -12,6 +12,7 @@ spec:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
   replicas: 1
   retention: 30d
+  retentionSize: 18GB
   scrapeInterval: 10s
   evaluationInterval: 30s
   serviceAccountName: prometheus
