@@ -1,5 +1,4 @@
 # Ignore k8s manifests - covered by kics
-grafana-operator/
 grafana/
 metrics/
 
