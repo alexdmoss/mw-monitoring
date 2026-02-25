@@ -18,7 +18,7 @@ spec:
 apiVersion: networking.gke.io/v1
 kind: HealthCheckPolicy
 metadata:
-  name:alertmanager-lb-healthcheck
+  name: alertmanager-lb-healthcheck
 spec:
   default:
     checkIntervalSec: 15
