@@ -26,10 +26,17 @@ When this is up and running, you should be able to `kubectl port-forward svc/ale
 
 Basic Auth has been replaced with Google's Identity Aware Proxy across my shared `Gateway`. If looking for that config, look at commits before October 2023.
 
-Set up has been done manually for now - may revisit this later. General gist is:
+> Note: The advice to use `BackendConfig` is wrong - this is not GA yet, and we continue to use `GCPBackendPolicy` in the meantime
+
+Set up has been done manually for now - may revisit this later:
 
 - Enable IAP via the Console
-- find the Backend Service for this workload in the IAP panel and toggle IAP to On
+- Find the Backend Service for this workload in the IAP panel and toggle IAP to On
+- Go into the Settings for the now-enabled IAP resource and Configure the OAuth consent screen (External)
+- Go into the Settings for the now-enabled IAP resource again and choose Custom Credentials, and let Google auto-generate them. Download the client ID and secret value
+- Replace the Client ID in the AlertManager secret with the new value: `gcloud secrets versions access latest --secret=alert-manager > secret.txt`, update, then `cat secret.txt | gcloud secrets versions add alert-manager --data-file=-`
+- Create the Kubernetes Secret with `kubectl create secret generic iap-client --from-file=iap-secret.txt`. The file should contain just the client secret with no new line at the end
+- Re-run the pipeline
 
 ### Testing Alerts
 
