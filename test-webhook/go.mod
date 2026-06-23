@@ -1,11 +1,11 @@
 module alertmanager.alexos.dev/alertmanager-test-webhook
 
-go 1.25.0
+go 1.26.4
 
 require (
 	github.com/go-chi/chi/v5 v5.3.0
 	github.com/go-chi/render v1.0.3
-	github.com/prometheus/alertmanager v0.32.1
+	github.com/prometheus/alertmanager v0.33.0
 )
 
 require (
