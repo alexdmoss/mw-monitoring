@@ -13,9 +13,8 @@ tests:
         values: '2+0x60'
       - series: 'kube_job_status_succeeded{job="kube-state-metrics", namespace="metrics", job_name="alertmanager-test-job-1234"}'
         values: '1+0x60'
-      - series: 'kube_job_status_failed{job="kube-state-metrics", namespace="metrics", job_name="alertmanager-test-job-1234"}'
+      - series: 'kube_job_failed{job="kube-state-metrics", namespace="metrics", job_name="alertmanager-test-job-1234", condition="true"}'
         values: '1+0x60'
-
     alert_rule_test:
       - eval_time: 4h     # longer because time() results this
         alertname: long-running-cronjob
@@ -62,6 +61,7 @@ tests:
               namespace: metrics
               job_name: alertmanager-test-job-1234
               job: kube-state-metrics
+              condition: "true"
       - eval_time: 58m
         alertname: cronjob-failed
         exp_alerts: []
