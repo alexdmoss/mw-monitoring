@@ -8,3 +8,5 @@ OLD/**
 secret.tmp
 .vscode/
 .dccache
+*.secret
+*secret.txt

@@ -35,7 +35,7 @@ Set up has been done manually for now - may revisit this later:
 - Go into the Settings for the now-enabled IAP resource and Configure the OAuth consent screen (External)
 - Go into the Settings for the now-enabled IAP resource again and choose Custom Credentials, and let Google auto-generate them. Download the client ID and secret value
 - Replace the Client ID in the AlertManager secret with the new value: `gcloud secrets versions access latest --secret=alert-manager > secret.txt`, update, then `cat secret.txt | gcloud secrets versions add alert-manager --data-file=-`
-- Create the Kubernetes Secret with `kubectl create secret generic iap-client --from-file=iap-secret.txt`. The file should contain just the client secret with no new line at the end
+- Create the Kubernetes Secret with `kubectl create secret generic iap-client --from-file=iap-secret.txt -n=metrics`. The file should contain just the client secret with no new line at the end
 - Re-run the pipeline
 
 ### Testing Alerts
