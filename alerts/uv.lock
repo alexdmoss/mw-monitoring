@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.12"
 
 [options]
@@ -20,10 +20,10 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "pyyaml", specifier = ">=6.0.3" }]
+requires-dist = [{ name = "pyyaml", specifier = "==6.0.3" }]
 
 [package.metadata.requires-dev]
-dev = [{ name = "pylint", specifier = ">=4.0.9" }]
+dev = [{ name = "pylint", specifier = "==4.0.9" }]
 
 [[package]]
 name = "astroid"
