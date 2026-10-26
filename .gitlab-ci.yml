@@ -51,7 +51,7 @@ grafana:
 test-alerts:
   stage: release
   image:
-    name: prom/prometheus
+    name: prom/prometheus@sha256:fa3302279710be2f21a8301ec17a8b4f2301fd829bd113839b3b6b02b6f191a2
     entrypoint: [ "/bin/sh", "-c" ]
   script:
   - cd alerts/ && ./test-alerts.sh
