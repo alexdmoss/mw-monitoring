@@ -1,38 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["local>alexos-platform/renovate:automerge"],
   "constraints": {
     "python": "==3.13.*"
   },
-  "customManagers": [
-    {
-      "customType": "regex",
-      "managerFilePatterns": ["/(^|/)alertmanager\\.ya?ml$/"],
-      "matchStrings": ["image:\\s*(?<depName>[^\\s:]+):(?<currentValue>\\S+)"],
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "docker"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": ["/(^|/)prometheus\\.ya?ml$/"],
-      "matchStringsStrategy": "combination",
-      "matchStrings": [
-        "baseImage:\\s*(?<depName>\\S+)",
-        "version:\\s*(?<currentValue>\\S+)"
-      ],
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "docker"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": ["/(^|/)\\.gitlab-ci\\.yml$/"],
-      "matchStrings": ["--image-name=\"(?<depName>[^\"]+)\"\\s+--image-tag=\"(?<currentValue>[^\"]+)\""],
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "docker"
-    }
-  ],
   "packageRules": [
     {
-      "matchDatasources": ["docker"],
+      "description": "Majors of the stack itself (Prometheus, Alertmanager, Grafana, exporters) are upgraded by hand",
+      "matchFileNames": [".gitlab-ci.yml"],
       "matchUpdateTypes": ["major"],
       "enabled": false
     }
