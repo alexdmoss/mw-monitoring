@@ -21,7 +21,7 @@ variables:
   # renovate: datasource=github-releases depName=prometheus/prometheus
   PROMETHEUS_VERSION: v3.15.1
   # renovate: datasource=github-releases depName=prometheus/alertmanager
-  ALERTMANAGER_VERSION: v0.32.1
+  ALERTMANAGER_VERSION: v0.34.1
   # renovate: datasource=github-releases depName=kubernetes/kube-state-metrics
   KUBE_STATE_METRICS_VERSION: v2.20.0
   # renovate: datasource=github-releases depName=prometheus/node_exporter
