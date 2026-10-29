@@ -25,7 +25,7 @@ variables:
   # renovate: datasource=github-releases depName=kubernetes/kube-state-metrics
   KUBE_STATE_METRICS_VERSION: v2.20.0
   # renovate: datasource=github-releases depName=prometheus/node_exporter
-  NODE_EXPORTER_VERSION: v1.11.1
+  NODE_EXPORTER_VERSION: v1.12.1
   # renovate: datasource=docker depName=grafana/grafana
   GRAFANA_VERSION: 13.1.0
 
