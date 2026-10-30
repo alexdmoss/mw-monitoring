@@ -9,6 +9,10 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
+  # The JSON is the upstream export, which asks for a datasource on import
+  datasources:
+    - inputName: DS_PROMETHEUS_KYVERNO
+      datasourceName: prometheus
   json: >
     {
       "__inputs": [
@@ -2861,5 +2865,5 @@ spec:
       "timezone": "",
       "title": "Kyverno",
       "uid": "kyverno",
-      "version": "1.4.3"
+      "version": 1
     }
