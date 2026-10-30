@@ -6,15 +6,16 @@
 #
 # Usage: ./scripts/validate-manifests.sh <dir|file> [<dir|file> ...]
 #
-# Until kubeconform is in the ci-tools image, the schema check is skipped with
-# a warning; the render still has to succeed.
-#
 # Placeholders that alexos-cli/envsubst fill in at deploy time (SET_BY_CI,
 # ${VAR}) are fine in string fields; anything else fails here, as it should.
+#
+# CustomResourceDefinitions are skipped: the schema repo has no schema for
+# them, and they're vendored upstream manifests. Resources of those kinds are
+# still checked against the CRD catalogue.
 
 set -euo pipefail
 
-KUBERNETES_VERSION="${KUBERNETES_VERSION:-1.35.0}"
+KUBERNETES_VERSION="${KUBERNETES_VERSION:-1.36.0}"
 
 function main() {
 
@@ -23,21 +24,12 @@ function main() {
     exit 1
   fi
 
-  if ! command -v kubeconform >/dev/null; then
-    echo "-> [WARN] kubeconform is not installed: rendering only, no schema check"
-    for dir in "$@"; do
-      echo "-> [INFO] Rendering ${dir} ..."
-      _render "${dir}" >/dev/null
-    done
-    echo "-> [INFO] All manifests render"
-    return
-  fi
-
   for dir in "$@"; do
     echo "-> [INFO] Validating ${dir} ..."
     _render "${dir}" | kubeconform \
       -strict \
       -summary \
+      -skip CustomResourceDefinition \
       -kubernetes-version "${KUBERNETES_VERSION}" \
       -schema-location default \
       -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
