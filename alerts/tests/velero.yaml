@@ -54,3 +54,55 @@ tests:
               severity: high
               receiver: slack
               schedule: pv-backup
+
+  # Velero restarted: no gauge until the next successful backup
+  - interval: 1h
+    input_series:
+      - series: up{job="metrics/velero"}
+        values: 1x30
+
+    alert_rule_test:
+      - eval_time: 25h
+        alertname: velero-volume-backup-missing
+        exp_alerts: []
+      - eval_time: 27h
+        alertname: velero-volume-backup-missing
+        exp_alerts:
+          - exp_annotations:
+              summary: No successful persistent volume backup since velero started
+              dashboard: /d/velero
+            exp_labels:
+              group: velero
+              severity: high
+              receiver: slack
+              schedule: pv-backup
+      - eval_time: 27h
+        alertname: velero-metrics-absent
+        exp_alerts: []
+
+  # Velero down, then gone from discovery
+  - interval: 15m
+    input_series:
+      - series: up{job="metrics/velero"}
+        values: 1 1 0 0 0 0 _ _ _ _
+      - series: velero_backup_last_successful_timestamp{schedule="pv-backup"}
+        values: 0x9
+
+    alert_rule_test:
+      # Rules are evaluated hourly here: pending at 1h, firing at 2h
+      - eval_time: 1h
+        alertname: velero-metrics-absent
+        exp_alerts: []
+      - eval_time: 2h
+        alertname: velero-metrics-absent
+        exp_alerts:
+          - exp_annotations:
+              summary: Velero has disappeared from Prometheus target discovery
+              dashboard: /d/velero
+            exp_labels:
+              group: velero
+              severity: high
+              receiver: slack
+      - eval_time: 2h
+        alertname: velero-volume-backup-missing
+        exp_alerts: []

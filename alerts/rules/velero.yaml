@@ -13,3 +13,26 @@ groups:
           group: velero
           severity: high
           receiver: slack
+      # The rule above goes quiet if the metric disappears. Velero only sets
+      # the gauge after a successful backup, so after a restart it is missing
+      # until the next one: allow the 24h schedule plus the usual 2h.
+      - alert: velero-volume-backup-missing
+        annotations:
+          summary: No successful persistent volume backup since velero started
+          dashboard: /d/velero
+        expr: absent(velero_backup_last_successful_timestamp{schedule="pv-backup"})
+        for: 26h
+        labels:
+          group: velero
+          severity: high
+          receiver: slack
+      - alert: velero-metrics-absent
+        annotations:
+          summary: Velero has disappeared from Prometheus target discovery
+          dashboard: /d/velero
+        expr: absent(up{job="metrics/velero"} == 1)
+        for: 30m
+        labels:
+          group: velero
+          severity: high
+          receiver: slack
