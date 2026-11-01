@@ -5,7 +5,7 @@ go 1.27.3
 require (
 	github.com/go-chi/chi/v5 v5.5.0
 	github.com/go-chi/render v1.0.3
-	github.com/prometheus/alertmanager v0.34.1
+	github.com/prometheus/alertmanager v0.34.2
 )
 
 require (
