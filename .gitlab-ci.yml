@@ -19,7 +19,7 @@ variables:
   # Images outside Docker Hub use github-releases, so the 3-day age gate has a
   # release timestamp to work from.
   # renovate: datasource=github-releases depName=prometheus/prometheus
-  PROMETHEUS_VERSION: v3.15.1
+  PROMETHEUS_VERSION: v3.16.0
   # renovate: datasource=github-releases depName=prometheus/alertmanager
   ALERTMANAGER_VERSION: v0.34.2
   # renovate: datasource=github-releases depName=kubernetes/kube-state-metrics
