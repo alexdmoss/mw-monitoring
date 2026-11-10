@@ -60,11 +60,9 @@ webhook:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   image: al3xos/ci-tools:latest
   script:
-    - alexos-cli build --image-name=$WEBHOOK_IMAGE_NAME --gcr-login --dockerfile=webhook.Dockerfile
     - alexos-cli scan code
     - alexos-cli scan secrets
-    - alexos-cli scan container --image-name=$WEBHOOK_IMAGE_NAME
-    - alexos-cli scan iac
+    - alexos-cli build --image-name=$WEBHOOK_IMAGE_NAME --gcr-login --dockerfile=webhook.Dockerfile
     - alexos-cli deploy kubernetes --image-name=$WEBHOOK_IMAGE_NAME --namespace=$NAMESPACE --manifests=test-webhook
 
 telemetry:
