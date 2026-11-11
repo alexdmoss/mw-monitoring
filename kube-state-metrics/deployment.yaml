@@ -3,6 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kube-state-metrics
+  annotations:
+    checkov.io/skip1: "CKV_K8S_38=needs its token: kube-state-metrics reads cluster state through the Kubernetes API"
   namespace: metrics
 spec:
   replicas: 1

@@ -3,6 +3,10 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: node-exporter
+  annotations:
+    checkov.io/skip1: "CKV_K8S_17=node-exporter needs the host PID namespace to report host processes"
+    checkov.io/skip2: "CKV_K8S_19=node-exporter needs the host network to report host network stats"
+    checkov.io/skip3: "CKV_K8S_26=hostPort 9100 is how Prometheus scrapes each node"
   namespace: metrics
 spec:
   selector:
